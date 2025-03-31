@@ -17,11 +17,11 @@ app.use(helmet());
 
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production'
-    ? process.env.FRONTEND_URL || '*'
-    : '*',
+    ? process.env.FRONTEND_URL // Allow only the Vercel frontend domain set in env var
+    : '*', // Allow all origins in development
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 };
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); // Apply CORS settings
 
 // Rate Limiting
 const limiter = rateLimit({
@@ -279,17 +279,6 @@ app.delete('/api/companies', requireApiKey, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-// Serve static files in production
-if (process.env.NODE_ENV === 'production') {
-  // Serve static files from the React build directory
-  app.use(express.static(path.join(__dirname, '../client/build')));
-
-  // Handle React routing, return all requests to React app
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-  });
-}
 
 // Basic Error Handling Improvement (Add just before app.listen)
 // Catch-all for other errors - improve this with a proper error handling middleware later
