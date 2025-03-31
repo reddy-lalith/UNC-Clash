@@ -1,0 +1,2407 @@
+:root {
+  --background-start: #e0f2fe;
+  --background-end: #bae6fd;
+  --card-bg: #ffffff;
+  --primary: #0369a1;
+  --primary-light: #bae6fd;
+  --secondary: #0ea5e9;
+  --text: #0f172a;
+  --text-secondary: #475569;
+  --error: #ef4444;
+  --success: #10b981;
+  --border: #e2e8f0;
+  --shadow: rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode theme */
+.dark-mode {
+  --background-start: #0f172a;
+  --background-end: #1e293b;
+  --card-bg: #1e293b;
+  --primary: #38bdf8;
+  --primary-light: #0c4a6e;
+  --secondary: #0ea5e9;
+  --text: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --error: #f87171;
+  --success: #34d399;
+  --border: #334155;
+  --shadow: rgba(0, 0, 0, 0.2);
+}
+
+/* Prevent scroll bounce/overscroll behavior */
+html {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  /* Prevent scroll bounce on mobile devices */
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+  /* Safari-specific property for older versions */
+  -webkit-overscroll-behavior: none;
+  background: linear-gradient(135deg, var(--background-start) 0%, var(--background-end) 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  position: relative;
+  transition: background 0.3s ease, color 0.3s ease;
+  z-index: 0;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 2rem;
+}
+
+/* Dark mode toggle and navigation/action buttons styling */
+.dark-mode-toggle,
+.leaderboard-button,
+.history-button,
+.back-button, 
+.tie-button {
+  background-color: transparent;
+  color: var(--primary) !important; /* FORCE primary blue for light mode text */
+  padding: 0.5rem 1rem; 
+  border: none; 
+  border-radius: 50px; 
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  z-index: 1000;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; 
+}
+
+/* Specific padding/font size for Tie button remains */
+.tie-button {
+  padding: 0.75rem 2rem; 
+  font-size: 1.1rem;
+}
+
+/* Hover state for all buttons */
+.dark-mode-toggle:hover,
+.leaderboard-button:hover,
+.history-button:hover,
+.back-button:hover,
+.tie-button:hover {
+  background-color: rgba(0, 0, 0, 0.05); 
+  color: var(--primary) !important; /* Keep primary blue on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow); /* Increased shadow visibility */
+}
+
+/* Dark mode specific styling overrides */
+.dark-mode .dark-mode-toggle,
+.dark-mode .leaderboard-button,
+.dark-mode .history-button,
+.dark-mode .back-button,
+.dark-mode .tie-button {
+  background-color: transparent;
+  color: var(--primary) !important; /* Ensure primary blue for dark mode text */
+  border: none; 
+}
+
+/* Dark mode hover state */
+.dark-mode .dark-mode-toggle:hover,
+.dark-mode .leaderboard-button:hover,
+.dark-mode .history-button:hover,
+.dark-mode .back-button:hover,
+.dark-mode .tie-button:hover {
+  background-color: rgba(255, 255, 255, 0.1); 
+  color: var(--primary) !important; /* Keep primary blue on hover */
+  box-shadow: 0 5px 15px var(--shadow); /* Increased shadow visibility */
+  transform: translateY(-2px); 
+}
+
+/* Ensure the icons in buttons have consistent color (Light Mode) */
+.dark-mode-toggle svg,
+.leaderboard-button svg,
+.history-button svg,
+.back-button svg,
+.tie-button svg {
+  color: var(--primary) !important; /* Base is blue */
+  fill: var(--primary) !important; /* Base is blue */
+  shape-rendering: geometricPrecision;
+}
+
+/* Dark mode icon color override */
+.dark-mode .dark-mode-toggle svg,
+.dark-mode .leaderboard-button svg,
+.dark-mode .history-button svg,
+.dark-mode .back-button svg,
+.dark-mode .tie-button svg {
+  color: var(--primary) !important; /* Dark mode is also blue */
+  fill: var(--primary) !important; /* Dark mode is also blue */
+}
+
+/* Remove old specific tie button styles */
+/* 
+.tie-button {
+  background: var(--primary);
+  color: white;
+  font-weight: 700;
+  padding: 0.75rem 3rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(3, 105, 161, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+*/
+
+/* Update existing styles */
+.connection-clash {
+  background: transparent !important;
+  padding: 1rem 1rem 3rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.connection-clash h1 {
+  color: var(--primary);
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  font-weight: 800;
+  text-shadow: 0 2px 4px rgba(3, 105, 161, 0.1);
+  background: linear-gradient(90deg, #0369a1, #0ea5e9, #38bdf8, #0369a1);
+  background-size: 300% 300%;
+  animation: gradientText 8s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.connection-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  will-change: transform;
+  transition: transform 0.5s ease;
+  margin: 1rem;
+  transform-origin: center center;
+  position: relative;
+  z-index: 1;
+}
+
+.connection-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(3, 105, 161, 0.15);
+}
+
+/* Add depth to inner elements */
+.profile-header, .experiences, .education {
+  transform: translateZ(20px);
+}
+
+/* Fix the white box around company logos */
+.company-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+  transform: translateZ(20px);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Remove background color in dark mode */
+.dark-mode .company-logo {
+  background-color: transparent;
+  border: none;
+}
+
+/* Improve image display within the logo container */
+.company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 6px;
+}
+
+/* Improve hover effect for company logos */
+.experience-item:hover .company-logo {
+  transform: translateZ(25px) scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.profile-image img, .profile-image .image-placeholder {
+  transform: translateZ(40px);
+}
+
+/* Update profile header layout */
+.profile-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--card-bg);
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Adjust profile image container */
+.profile-image {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 86px;
+  height: 86px;
+  flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+/* Update profile info section */
+.profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-info h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: var(--primary);
+}
+
+/* Adjust ELO change positioning */
+.elo-change {
+  margin-top: 0.25rem;
+  font-size: 1.1rem;
+}
+
+.experience-item {
+  background: var(--card-bg);
+  border-left: 4px solid var(--primary);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin: 0.75rem;
+  padding: 1.25rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(10px);
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.experience-item:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.experience-item:first-child::after {
+  content: '';
+  position: absolute;
+  bottom: -1rem;
+  left: -0.75rem;
+  right: -0.75rem;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+}
+
+.experience-item:hover {
+  transform: translateY(-5px) translateZ(15px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+  border-left-width: 6px;
+}
+
+.versus-circle {
+  display: none;
+}
+
+/* Loading animation */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  color: var(--text);
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--primary-light);
+  border-radius: 50%;
+  border-top-color: var(--primary);
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Profile blur effect */
+.profile-image.blurred img,
+.profile-image.blurred .image-placeholder,
+h2.blurred {
+  filter: blur(10px) !important;
+  transition: none !important;
+  user-select: none;
+}
+
+/* Add this for the reveal animation */
+.profile-image.revealing img,
+.profile-image.revealing .image-placeholder,
+h2.revealing {
+  animation: reveal 0.8s ease-out forwards;
+}
+
+@keyframes reveal {
+  0% { filter: blur(10px); }
+  100% { filter: blur(0); }
+}
+
+/* ELO change indicators */
+.elo-change.positive {
+  color: var(--success);
+  font-weight: bold;
+}
+
+.elo-change.negative {
+  color: var(--error);
+  font-weight: bold;
+}
+
+/* Additional styling for profile cards */
+.profile-image img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(3, 105, 161, 0.2);
+  transition: all 0.3s ease;
+}
+
+.connection-card:hover .profile-image img {
+  box-shadow: 0 0 15px rgba(3, 105, 161, 0.4);
+}
+
+.profile-info h2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+  color: var(--primary);
+}
+
+.battle-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+  padding: 2rem 3rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 70vh;
+  padding-bottom: 2rem;
+}
+
+/* Add these cool animations to your app.css file */
+
+/* Pulse animation for the TIE button */
+@keyframes pulse {
+  0% { 
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 4px 8px rgba(3, 105, 161, 0.3);
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 6px 12px rgba(3, 105, 161, 0.4);
+  }
+  100% { 
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 4px 8px rgba(3, 105, 161, 0.3);
+  }
+}
+
+/* Fade-in animation for cards when they appear */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Victory glow for winner */
+@keyframes victoryGlow {
+  0% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.6); }
+  100% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.2); }
+}
+
+/* Floating company logos */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Gradient text animation for the title */
+@keyframes gradientText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Add these animations for seamless transitions between battles */
+
+/* Fade out animation for the current battle */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Fade in animation for the new battle */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Apply these classes when transitioning */
+.battle-container.fade-out {
+  animation: fadeOut 0.5s ease-out forwards;
+}
+
+.battle-container.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Crossfade animation for the battle container */
+.battle-container {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Ensure the battle container has proper positioning for the clip-path */
+.battle-container {
+  position: relative;
+  overflow: hidden;
+  transform-origin: center;
+  will-change: transform, opacity, clip-path;
+}
+
+/* Update the attribution positioning */
+.attribution {
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
+}
+
+/* Make cards a bit smaller to fit better */
+.clickable-card {
+  flex: 1;
+  max-width: 45%;
+  margin: 0 auto;
+}
+
+/* Replace the current shuffle animations with these sleeker ones */
+
+/* Ultra-sleek card transition animations */
+
+/* Optimize transitions for better performance */
+@keyframes instantOutLeft {
+  0% { 
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% { 
+    transform: translateX(-15px);
+    opacity: 0;
+  }
+}
+
+@keyframes instantOutRight {
+  0% { 
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% { 
+    transform: translateX(15px);
+    opacity: 0;
+  }
+}
+
+@keyframes instantIn {
+  0% {
+    transform: translateY(5px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Apply optimized animations */
+.battle-container.shuffle-out .clickable-card:first-child {
+  animation: instantOutLeft 0.3s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+.battle-container.shuffle-out .clickable-card:last-child {
+  animation: instantOutRight 0.3s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+.battle-container.shuffle-in .clickable-card {
+  animation: instantIn 0.3s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+/* Remove delays */
+.battle-container.shuffle-in .clickable-card:first-child {
+  animation-delay: 0s;
+}
+
+.battle-container.shuffle-in .clickable-card:last-child {
+  animation-delay: 0.05s;
+}
+
+/* Remove any extra effects that might cause lag */
+.battle-container.shuffle-out::before {
+  display: none;
+}
+
+/* Add a card dealing sound effect */
+.card-sound {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+/* Add skeleton loading animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-loading {
+  position: relative;
+  background: linear-gradient(90deg, #f0f9ff 0%, #e0f2fe 50%, #f0f9ff 100%);
+  background-size: 200% 100%;
+  animation: skeletonPulse 1.5s infinite;
+}
+
+@keyframes skeletonPulse {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.skeleton-loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+}
+
+/* Hide content in skeleton state */
+.skeleton-loading .profile-header,
+.skeleton-loading .experiences,
+.skeleton-loading .education {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Show content when loaded */
+.connection-card:not(.skeleton-loading) .profile-header,
+.connection-card:not(.skeleton-loading) .experiences,
+.connection-card:not(.skeleton-loading) .education {
+  opacity: 1;
+  animation: contentFadeIn 0.5s ease-out;
+}
+
+@keyframes contentFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.versus-circle.disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.card-loading {
+  pointer-events: none;
+}
+
+/* Remove the fixed action bar */
+.action-bar {
+  position: static;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  z-index: 1;
+  border-top: none;
+  margin-top: 1rem;
+}
+
+/* Update the TIE button styling */
+.tie-button {
+  background: var(--primary);
+  color: white;
+  font-weight: 700;
+  padding: 0.75rem 3rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(3, 105, 161, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Restore the battle container padding */
+.battle-container {
+  padding-bottom: 2rem;
+}
+
+/* Add a subtle pulse animation to draw attention */
+@keyframes subtlePulse {
+  0% { 
+    transform: scale(1);
+  }
+  50% { 
+    transform: scale(1.05);
+  }
+  100% { 
+    transform: scale(1);
+  }
+}
+
+.tie-button:not(.disabled) {
+  animation: subtlePulse 2s infinite ease-in-out;
+}
+
+.tie-button:hover {
+  animation: none;
+}
+
+/* Add smooth fade-in for initial card loading */
+@keyframes smoothFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply to cards when they first load */
+.clickable-card.initial-load {
+  animation: smoothFadeIn 0.6s ease-out forwards;
+}
+
+/* Add clean visibility transitions */
+.clickable-card.hidden {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.clickable-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+/* Remove animations that might cause flickering */
+.battle-container.shuffle-out .clickable-card:first-child,
+.battle-container.shuffle-out .clickable-card:last-child,
+.battle-container.shuffle-in .clickable-card {
+  animation: none;
+}
+
+/* Simplify the skeleton loading */
+.skeleton-loading {
+  background: linear-gradient(90deg, #f0f9ff 0%, #e0f2fe 50%, #f0f9ff 100%);
+  background-size: 200% 100%;
+  animation: skeletonPulse 1.5s infinite;
+}
+
+.skeleton-loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+}
+
+/* Ensure content is completely hidden during loading */
+.skeleton-loading .profile-header,
+.skeleton-loading .experiences,
+.skeleton-loading .education {
+  opacity: 0;
+}
+
+/* Update Particle background styling */
+.particle-background {
+  display: none;
+}
+
+/* Ensure the connection-clash container sits above the particles */
+.connection-clash {
+  position: relative;
+  z-index: 1;
+}
+
+/* Paper Plane Background styling */
+.paper-plane-background {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -1 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+}
+
+/* Example: Match the styling & position of your top-right buttons, but on the left */
+.dark-mode-toggle {
+  /* Positioning */
+  position: fixed;
+  top: 20px;            
+  left: 20px;           
+  z-index: 1000;        
+
+  /* Transparent Style */
+  background-color: transparent;
+  color: var(--text);
+  border: none; /* No border */
+  box-shadow: none; /* No shadow */
+
+  /* Shared Properties */
+  padding: 0.5rem 1rem; 
+  font-weight: 600;
+  border-radius: 8px; /* Keep specific radius if desired, else remove for pill */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Match shared transition */
+}
+
+.dark-mode-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* Match shared hover */
+  transform: translateY(-2px);
+  box-shadow: none; /* Ensure no shadow on hover */
+  color: var(--text);
+}
+
+/* Update background for dark mode */
+body {
+  background: linear-gradient(135deg, var(--background-start) 0%, var(--background-end) 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Update card styles for dark mode */
+.connection-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border 0.3s ease;
+}
+
+/* Update experience items for dark mode */
+.experience-item {
+  background: var(--card-bg);
+  border-left: 4px solid var(--primary);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.15);
+  margin: 0.75rem;
+  padding: 1.25rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(10px);
+}
+
+/* Add more space between the two experience items */
+.experience-item:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+/* Add a stronger visual separator between experiences */
+.experience-item:first-child::after {
+  content: '';
+  position: absolute;
+  bottom: -1rem;
+  left: -0.75rem;
+  right: -0.75rem;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+}
+
+/* Enhance the experience item hover effect */
+.experience-item:hover {
+  transform: translateY(-5px) translateZ(15px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+  border-left-width: 6px;
+}
+
+/* Dark mode experience items */
+.dark-mode .experience-item {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.15);
+  background: rgba(30, 41, 59, 0.9);
+}
+
+.dark-mode .experience-item:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Add a subtle indicator for more experiences if there are more than 2 */
+.experiences {
+  position: relative;
+}
+
+.experiences::before {
+  content: attr(data-count);
+  position: absolute;
+  bottom: -0.5rem;
+  right: 1rem;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
+  opacity: 0.8;
+  z-index: 2;
+  display: none;
+}
+
+.experiences[data-count]:not([data-count="2"]):not([data-count="1"])::before {
+  display: block;
+}
+
+/* Dark mode glow */
+.dark-mode .profile-image img {
+  border: 3px solid var(--card-bg);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+
+.dark-mode .connection-card:hover .profile-image img {
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+}
+
+/* Fix text colors in dark mode */
+.dark-mode .profile-info h2 {
+  color: var(--primary); /* Keep the name in primary color */
+}
+
+.dark-mode .profile-info p,
+.dark-mode .experience-item h3,
+.dark-mode .experience-item p,
+.dark-mode .education-item h3,
+.dark-mode .education-item p,
+.dark-mode .company-name,
+.dark-mode .job-title,
+.dark-mode .date-range,
+.dark-mode .school-name,
+.dark-mode .major-name {
+  color: var(--text); /* Use the text variable which is light in dark mode */
+}
+
+/* Make job titles and company names more visible */
+.dark-mode .job-title {
+  color: white;
+  font-weight: 600;
+}
+
+.dark-mode .company-name {
+  color: var(--primary-light);
+}
+
+/* Ensure section titles are visible */
+.dark-mode .section-title {
+  color: var(--primary);
+  opacity: 0.9;
+}
+
+/* Fix any remaining dark text */
+.dark-mode .connection-card p {
+  color: var(--text-secondary);
+}
+
+/* Enhance visibility for education items in dark mode */
+.dark-mode .school-name {
+  color: white;
+  font-weight: 600;
+}
+
+.dark-mode .major-name {
+  color: var(--primary-light);
+  font-weight: 500;
+}
+
+/* Fix section headers in dark mode */
+.dark-mode .experiences h3,
+.dark-mode .education h3 {
+  color: var(--primary);
+  opacity: 0.9;
+}
+
+/* Improve contrast for dates in dark mode */
+.dark-mode .date-range {
+  color: var(--text-secondary);
+  opacity: 0.9;
+}
+
+/* Fix any remaining contrast issues */
+.dark-mode .attribution a {
+  color: var(--primary-light);
+}
+
+/* Ensure the title gradient works in dark mode */
+.dark-mode .connection-clash h1 {
+  background: linear-gradient(90deg, #38bdf8, #7dd3fc, #bae6fd, #38bdf8);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Add styles for the leaderboard button */
+.leaderboard-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 2px 10px var(--shadow);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboard-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px var(--shadow);
+  background: var(--secondary);
+}
+
+/* Add icon to leaderboard button */
+.leaderboard-button svg {
+  margin-right: 5px;
+}
+
+/* Enhanced glow for dark mode */
+.dark-mode .profile-image img {
+  border: 3px solid var(--card-bg);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+
+.dark-mode .connection-card:hover .profile-image img {
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+}
+
+/* Add a subtle pulse animation to the profile image */
+@keyframes profileGlowPulse {
+  0% {
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+  }
+}
+
+.dark-mode .profile-image img {
+  animation: profileGlowPulse 3s infinite ease-in-out;
+}
+
+/* Fix the winner card animation to only fade in the glow without resetting the card */
+.isWinner.connection-card {
+  position: relative;
+  border: 1px solid var(--border);
+  overflow: visible;
+  z-index: 2;
+}
+
+/* Create a separate element for the glow effect */
+.isWinner.connection-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+  animation: onlyGlowFadeIn 2s ease-in forwards;
+}
+
+/* Dark mode glow */
+.dark-mode .isWinner.connection-card::before {
+  animation: darkModeOnlyGlowFadeIn 2s ease-in forwards;
+}
+
+/* Animation that only affects the glow, not the card itself */
+@keyframes onlyGlowFadeIn {
+  0% {
+    opacity: 0;
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+  }
+  20% {
+    opacity: 0.4;
+    box-shadow: 0 0 8px 4px rgba(14, 165, 233, 0.2);
+  }
+  40% {
+    opacity: 0.6;
+    box-shadow: 0 0 12px 6px rgba(14, 165, 233, 0.3);
+  }
+  60% {
+    opacity: 0.8;
+    box-shadow: 0 0 16px 8px rgba(14, 165, 233, 0.4);
+  }
+  80% {
+    opacity: 0.9;
+    box-shadow: 0 0 20px 10px rgba(14, 165, 233, 0.5);
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 25px 12px rgba(14, 165, 233, 0.6);
+  }
+}
+
+/* Dark mode version */
+@keyframes darkModeOnlyGlowFadeIn {
+  0% {
+    opacity: 0;
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+  }
+  20% {
+    opacity: 0.4;
+    box-shadow: 0 0 8px 4px rgba(56, 189, 248, 0.2);
+  }
+  40% {
+    opacity: 0.6;
+    box-shadow: 0 0 12px 6px rgba(56, 189, 248, 0.3);
+  }
+  60% {
+    opacity: 0.8;
+    box-shadow: 0 0 16px 8px rgba(56, 189, 248, 0.4);
+  }
+  80% {
+    opacity: 0.9;
+    box-shadow: 0 0 20px 10px rgba(56, 189, 248, 0.5);
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 25px 12px rgba(56, 189, 248, 0.6);
+  }
+}
+
+/* Remove all the conflicting animations */
+.isWinner.connection-card {
+  animation: none !important;
+  box-shadow: none !important;
+}
+
+.dark-mode .isWinner.connection-card {
+  animation: none !important;
+  box-shadow: none !important;
+}
+
+/* Keep the hover effect */
+.isWinner.connection-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(3, 105, 161, 0.15) !important;
+}
+
+.dark-mode .isWinner.connection-card:hover {
+  box-shadow: 0 12px 24px rgba(3, 105, 161, 0.25) !important;
+}
+
+/* Add proper loser card animation */
+.isLoser.connection-card {
+  animation: loserFadeOut 2s ease-in forwards;
+}
+
+/* Define the loser fade out animation if it doesn't exist */
+@keyframes loserFadeOut {
+  0% {
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+  50% {
+    opacity: 0.92;
+    filter: grayscale(10%);
+  }
+  100% {
+    opacity: 0.85;
+    filter: grayscale(20%);
+  }
+}
+
+/* Make the winner glow more pronounced */
+@keyframes onlyGlowFadeIn {
+  0% {
+    opacity: 0;
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+  }
+  20% {
+    opacity: 0.4;
+    box-shadow: 0 0 8px 4px rgba(14, 165, 233, 0.2);
+  }
+  40% {
+    opacity: 0.6;
+    box-shadow: 0 0 12px 6px rgba(14, 165, 233, 0.3);
+  }
+  60% {
+    opacity: 0.8;
+    box-shadow: 0 0 16px 8px rgba(14, 165, 233, 0.4);
+  }
+  80% {
+    opacity: 0.9;
+    box-shadow: 0 0 20px 10px rgba(14, 165, 233, 0.5);
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 25px 12px rgba(14, 165, 233, 0.6);
+  }
+}
+
+/* Enhanced dark mode glow */
+@keyframes darkModeOnlyGlowFadeIn {
+  0% {
+    opacity: 0;
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+  }
+  20% {
+    opacity: 0.4;
+    box-shadow: 0 0 8px 4px rgba(56, 189, 248, 0.2);
+  }
+  40% {
+    opacity: 0.6;
+    box-shadow: 0 0 12px 6px rgba(56, 189, 248, 0.3);
+  }
+  60% {
+    opacity: 0.8;
+    box-shadow: 0 0 16px 8px rgba(56, 189, 248, 0.4);
+  }
+  80% {
+    opacity: 0.9;
+    box-shadow: 0 0 20px 10px rgba(56, 189, 248, 0.5);
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 25px 12px rgba(56, 189, 248, 0.6);
+  }
+}
+
+/* Add a subtle pulse after the initial glow */
+.isWinner.connection-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -2;
+  opacity: 0;
+  box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+  animation: delayedPulse 3s 2s infinite ease-in-out;
+}
+
+.dark-mode .isWinner.connection-card::after {
+  animation: darkModeDelayedPulse 3s 2s infinite ease-in-out;
+}
+
+/* Delayed pulse animation */
+@keyframes delayedPulse {
+  0% {
+    opacity: 0.5;
+    box-shadow: 0 0 25px 12px rgba(14, 165, 233, 0.4);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 35px 15px rgba(14, 165, 233, 0.6);
+  }
+  100% {
+    opacity: 0.5;
+    box-shadow: 0 0 25px 12px rgba(14, 165, 233, 0.4);
+  }
+}
+
+@keyframes darkModeDelayedPulse {
+  0% {
+    opacity: 0.5;
+    box-shadow: 0 0 25px 12px rgba(56, 189, 248, 0.4);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 35px 15px rgba(56, 189, 248, 0.6);
+  }
+  100% {
+    opacity: 0.5;
+    box-shadow: 0 0 25px 12px rgba(56, 189, 248, 0.4);
+  }
+}
+
+/* Make the winner card stand out more */
+.isWinner.connection-card {
+  z-index: 3 !important;
+  transform: scale(1.02);
+  transition: all 0.5s ease;
+}
+
+/* Enhance hover effect for winner */
+.isWinner.connection-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(3, 105, 161, 0.2) !important;
+}
+
+.dark-mode .isWinner.connection-card:hover {
+  box-shadow: 0 15px 30px rgba(3, 105, 161, 0.3) !important;
+}
+
+/* Add a subtle divider between experiences */
+.experiences {
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.experiences::after {
+  display: none;
+}
+
+/* Ensure only two experience items are shown per card */
+.experience-item:nth-child(n+3) {
+  display: none;
+}
+
+/* Make the two experience items more distinct */
+.experience-item {
+  background: var(--card-bg);
+  border-left: 4px solid var(--primary);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin: 0.75rem;
+  padding: 1.25rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(10px);
+}
+
+/* Add more space between the two experience items */
+.experience-item:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+/* Add a stronger visual separator between experiences */
+.experience-item:first-child::after {
+  content: '';
+  position: absolute;
+  bottom: -1rem;
+  left: -0.75rem;
+  right: -0.75rem;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+}
+
+/* Enhance the experience item hover effect */
+.experience-item:hover {
+  transform: translateY(-5px) translateZ(15px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+  border-left-width: 6px;
+}
+
+/* Dark mode experience items */
+.dark-mode .experience-item {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.15);
+  background: rgba(30, 41, 59, 0.9);
+}
+
+.dark-mode .experience-item:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Add a subtle indicator for more experiences if there are more than 2 */
+.experiences {
+  position: relative;
+}
+
+.experiences::before {
+  content: attr(data-count);
+  position: absolute;
+  bottom: -0.5rem;
+  right: 1rem;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
+  opacity: 0.8;
+  z-index: 2;
+  display: none;
+}
+
+.experiences[data-count]:not([data-count="2"]):not([data-count="1"])::before {
+  display: block;
+}
+
+/* Enhanced Leaderboard styles with better dark mode support */
+.leaderboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.leaderboard-header {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  color: var(--primary);
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #0369a1, #0ea5e9, #38bdf8, #0369a1);
+  background-size: 300% 300%;
+  animation: gradientText 8s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.leaderboard-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.leaderboard-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  gap: 0.5 rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border-left: 5px solid var(--primary);
+}
+
+.leaderboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.rank-badge {
+  font-size: 1.5rem;
+  font-weight: 800;
+  width: 30px;
+  text-align: center;
+  color: var(--text-secondary);
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.rank-icon {
+  font-size: 1.8rem;
+  margin: 0 0.5rem;
+}
+
+.rank-icon.gold {
+  color: #FFD700;
+}
+
+.rank-icon.silver {
+  color: #C0C0C0;
+}
+
+.rank-icon.bronze {
+  color: #CD7F32;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 0.75rem;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.profile-image-wrapper {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary-light);
+}
+
+.linkedin-icon-wrapper {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  background: #0077B5;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  transition: all 0.3s ease;
+}
+
+.linkedin-icon-wrapper:hover {
+  transform: scale(1.2);
+}
+
+.linkedin-icon {
+  color: white;
+  font-size: 14px;
+}
+
+.profile-name {
+  font-size: 1.2rem;
+  margin: 0;
+  color: var(--primary);
+}
+
+.score-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  padding-left: 0.75rem;
+  min-width: 60px;
+  border-left: 1px solid var(--border);
+}
+
+.score-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.score-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Dark mode adjustments */
+.dark-mode .leaderboard-card {
+  border-left-color: #38bdf8;
+}
+
+.dark-mode .profile-image {
+  border-color: #0c4a6e;
+}
+
+.dark-mode .linkedin-icon-wrapper {
+  border-color: #1e293b;
+}
+
+.dark-mode .score-value {
+  color: #38bdf8;
+}
+
+/* Back to battles button */
+.back-to-battles {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 2rem auto;
+  text-align: center;
+  max-width: 200px;
+  text-decoration: none;
+}
+
+/* Dark mode button */
+.dark-mode .back-to-battles {
+  background: #0284c7 !important;
+  color: white !important;
+}
+
+/* Button hover */
+.back-to-battles:hover {
+  background: #0284c7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(3, 105, 161, 0.3);
+}
+
+/* Dark mode button hover */
+.dark-mode .back-to-battles:hover {
+  background: #0ea5e9 !important;
+  box-shadow: 0 4px 8px rgba(14, 165, 233, 0.4) !important;
+}
+
+/* Fix profile name hover in leaderboard */
+.leaderboard-table td.profile-column {
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  height: 70px; /* Match the image height */
+}
+
+.dark-mode .leaderboard-table td.profile-column {
+  color: #f1f5f9 !important;
+}
+
+/* Fix hover effect for profile name */
+.leaderboard-table tr:hover td.profile-column {
+  color: var(--primary);
+  background: rgba(3, 105, 161, 0.05);
+}
+
+/* Dark mode hover effect for profile name */
+.dark-mode .leaderboard-table tr:hover td.profile-column {
+  color: #38bdf8 !important;
+  background: rgba(56, 189, 248, 0.08) !important;
+}
+
+/* Fix hover effect for entire row */
+.leaderboard-table tr:hover td {
+  background: rgba(3, 105, 161, 0.05);
+}
+
+/* Dark mode hover effect for entire row */
+.dark-mode .leaderboard-table tr:hover td {
+  background-color: rgba(30, 41, 59, 0.9) !important;
+  color: #f1f5f9 !important;
+}
+
+/* Ensure text remains visible on hover in dark mode */
+.dark-mode .leaderboard-table tr:hover * {
+  color: inherit !important;
+}
+
+/* Add a subtle indicator for the hovered row instead of changing background */
+.dark-mode .leaderboard-table tr:hover {
+  box-shadow: inset 0 0 0 1px #38bdf8 !important;
+  position: relative;
+  z-index: 2;
+}
+
+/* Override any background changes on hover */
+.dark-mode .leaderboard-table tr:hover,
+.dark-mode .leaderboard-table tr:hover td {
+  background-color: #0f172a !important;
+  box-shadow: inset 0 0 0 1px #38bdf8 !important;
+  color: #f1f5f9 !important;
+}
+
+/* Add a subtle left border indicator instead */
+.dark-mode .leaderboard-table tr:hover td:first-child {
+  border-left: 3px solid #38bdf8 !important;
+}
+
+/* Complete fix for dark mode leaderboard hover */
+.dark-mode .leaderboard-table tr:hover,
+.dark-mode .leaderboard-table tr:hover td,
+.dark-mode .leaderboard-table tr:hover th {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+  border-color: #38bdf8 !important;
+}
+
+/* Fix for any nested elements */
+.dark-mode .leaderboard-table tr:hover *,
+.dark-mode .leaderboard-table tr:hover td *,
+.dark-mode .leaderboard-table tr:hover th * {
+  color: #f1f5f9 !important;
+}
+
+/* Fix specifically for the profile name */
+.dark-mode .leaderboard-table tr:hover td.profile-column,
+.dark-mode .leaderboard-table tr:hover td.profile-column * {
+  background-color: #0f172a !important;
+  color: #38bdf8 !important;
+}
+
+/* Use a different hover indicator for dark mode */
+.dark-mode .leaderboard-table tr:hover {
+  box-shadow: inset 0 0 0 1px #38bdf8 !important;
+}
+
+/* Ensure the ELO score remains blue */
+.dark-mode .leaderboard-table tr:hover td:last-child {
+  color: #38bdf8 !important;
+}
+
+/* Remove any background transitions that might be causing issues */
+.dark-mode .leaderboard-table tr,
+.dark-mode .leaderboard-table td,
+.dark-mode .leaderboard-table th {
+  transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+  background-color: #0f172a !important;
+}
+
+/* Fix for white background inside leaderboard cells in dark mode */
+.dark-mode .leaderboard-table tbody tr td {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+/* Fix for white background on hover */
+.dark-mode .leaderboard-table tbody tr:hover td {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+/* Fix for the profile name column specifically */
+.dark-mode .leaderboard-table tbody tr td[class*="profile"] {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+/* Fix for the profile name column on hover */
+.dark-mode .leaderboard-table tbody tr:hover td[class*="profile"] {
+  background-color: #0f172a !important;
+  color: #38bdf8 !important;
+}
+
+/* Fix for the ELO column */
+.dark-mode .leaderboard-table tbody tr td:last-child {
+  background-color: #0f172a !important;
+  color: #38bdf8 !important;
+}
+
+/* Ensure all cells in the table have the dark background */
+.dark-mode .leaderboard-table * {
+  background-color: #0f172a !important;
+}
+
+/* Override any inline styles that might be causing the issue */
+.dark-mode .leaderboard-table tr td[style*="background"] {
+  background-color: #0f172a !important;
+}
+
+/* Improved hover effect for dark mode leaderboard */
+.dark-mode .leaderboard-table tr:hover,
+.dark-mode .leaderboard-table tr:hover td {
+  background-color: #0f172a !important;
+  box-shadow: inset 0 0 0 1px #38bdf8 !important;
+  color: #f1f5f9 !important;
+}
+
+/* Ensure the hover effect is visible but not too bright */
+.dark-mode .leaderboard-table tr:hover td {
+  border-color: #38bdf8 !important;
+}
+
+/* Add a subtle left indicator for the hovered row */
+.dark-mode .leaderboard-table tr:hover td:first-child {
+  border-left: 3px solid #38bdf8 !important;
+}
+
+/* Make sure the profile name stands out on hover */
+.dark-mode .leaderboard-table tr:hover td.profile-column,
+.dark-mode .leaderboard-table tr:hover td[class*="profile"] {
+  background-color: #0f172a !important;
+  color: #38bdf8 !important;
+}
+
+/* Ensure the ELO score remains visible */
+.dark-mode .leaderboard-table tr:hover td:last-child {
+  background-color: #0f172a !important;
+  color: #38bdf8 !important;
+}
+
+/* Override any other styles that might interfere */
+.dark-mode .leaderboard-table * {
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* Ensure all cells in the hovered row have the darker background */
+.dark-mode .leaderboard-table tr:hover * {
+  background-color: #0f172a !important;
+}
+
+/* Create a distinct hover effect for leaderboard rows in dark mode */
+.dark-mode .leaderboard-table tbody tr {
+  background-color: #1e293b !important;
+  transition: all 0.3s ease !important;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+}
+
+/* Make hover state clearly visible in dark mode */
+.dark-mode .leaderboard-table tbody tr:hover {
+  background-color: #0f172a !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-left: 3px solid #38bdf8 !important;
+  border-right: 3px solid #38bdf8 !important;
+  z-index: 10;
+  position: relative;
+}
+
+/* Override any conflicting styles */
+.dark-mode .leaderboard-table tbody tr:hover td {
+  background-color: #0f172a !important;
+  border-bottom-color: #38bdf8 !important;
+}
+
+/* Add a glow effect to make hover more obvious */
+.dark-mode .leaderboard-table tbody tr:hover {
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.2), 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Make sure the profile name is highlighted */
+.dark-mode .leaderboard-table tbody tr:hover td:nth-child(2) {
+  color: #38bdf8 !important;
+  font-weight: 600 !important;
+}
+
+/* Ensure the ELO score is visible */
+.dark-mode .leaderboard-table tbody tr:hover td:last-child {
+  color: #38bdf8 !important;
+  font-weight: 600 !important;
+}
+
+/* Reset any universal background color settings */
+.dark-mode .leaderboard-table * {
+  background-color: transparent !important;
+}
+
+/* Set the correct background for all rows */
+.dark-mode .leaderboard-table tbody tr td {
+  background-color: #1e293b !important;
+}
+
+/* Set the correct background for hovered rows */
+.dark-mode .leaderboard-table tbody tr:hover td {
+  background-color: #0f172a !important;
+}
+
+/* Add LinkedIn icon overlay on profile images */
+.profile-image {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 86px; /* Account for the 3px border on each side */
+  height: 86px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: visible;
+}
+
+/* Fix profile image */
+.profile-image img {
+  position: relative;
+  z-index: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(3, 105, 161, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Clean LinkedIn overlay with just the icon */
+.linkedin-hover-overlay {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 80px;
+  height: 80px;
+  background: rgba(10, 102, 194, 0.85);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: scale(0.9);
+  z-index: 2;
+}
+
+/* Dark mode overlay color */
+.dark-mode .linkedin-hover-overlay {
+  background: rgba(56, 189, 248, 0.9);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+/* Larger LinkedIn icon */
+.linkedin-icon {
+  color: white;
+  font-size: 32px;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+/* Scale up icon on hover */
+.profile-image:hover .linkedin-hover-overlay {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.profile-image:hover .linkedin-icon {
+  transform: scale(1);
+}
+
+/* Hide LinkedIn overlay when profile is blurred */
+.profile-image.blurred .linkedin-hover-overlay {
+  display: none;
+}
+
+/* Only show LinkedIn overlay after reveal */
+.profile-image.revealing .linkedin-hover-overlay {
+  display: flex;
+}
+
+/* Battle History Button */
+.history-button {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  background-color: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(3, 105, 161, 0.2);
+  z-index: 100;
+}
+
+.history-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(3, 105, 161, 0.3);
+}
+
+/* Battle History Page */
+.battle-history-page {
+  min-height: 100vh; 
+  width: 100%;
+  padding: 2rem 1.5rem; 
+  box-sizing: border-box;
+  /* LIGHT MODE: Match body background */
+  background: linear-gradient(135deg, var(--background-start, #e0f2fe) 0%, var(--background-end, #bae6fd) 100%);
+  color: var(--text); 
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dark-mode .battle-history-page {
+  /* DARK MODE background */
+  background: linear-gradient(135deg, rgba(13, 17, 23, 0.9), rgba(20, 30, 48, 0.8));
+  color: var(--text);
+}
+
+.battle-history-header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin-bottom: 2.5rem; 
+  padding: 0 1.5rem; 
+  max-width: 1200px; 
+  margin-left: auto;
+  margin-right: auto;
+  /* position: relative; Removed */ 
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.battle-history-header h1 {
+  font-size: 3.5rem; /* Increased font size */
+  font-weight: 800; 
+  margin: 0;
+  margin-top: 1rem; /* Added top margin */
+  text-align: center;
+  flex-grow: 1; 
+  /* Apply gradient from leaderboard */
+  color: var(--primary); /* Fallback color */
+  background: linear-gradient(90deg, #0369a1, #0ea5e9, #38bdf8, #0369a1);
+  background-size: 300% 300%;
+  animation: gradientText 8s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark-mode .battle-history-header h1 {
+  /* Apply dark mode gradient from leaderboard */
+  background: linear-gradient(90deg, #38bdf8, #7dd3fc, #bae6fd, #38bdf8);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* Ensure fallback doesn't show */
+}
+
+/* Back button styling */
+.battle-history-page .back-button {
+  position: fixed; /* Position relative to viewport */
+  top: 20px; /* Match dark mode toggle */
+  right: 20px; /* Position on the right */
+  /* transform: translateY(-50%); Removed */
+  /* left: 1.5rem; Removed */
+  /* Inherited styles: */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  z-index: 1000; /* Match dark mode toggle z-index */
+}
+
+.no-battles {
+  text-align: center;
+  margin-top: 4rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.battle-list {
+  max-width: 900px; /* Narrower list for focus */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Space between cards */
+}
+
+/* Updated Battle Card Styling */
+.battle-card {
+  background: var(--card-bg); /* Use theme variable */
+  border-radius: 16px; /* Softer corners */
+  padding: 1.5rem 2rem; /* Adjust padding */
+  border: 1px solid var(--border); /* Use theme border */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Softer shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.battle-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.dark-mode .battle-card {
+  background: var(--card-bg); /* Use dark theme variable */
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Darker shadow */
+}
+
+.dark-mode .battle-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.battle-participants {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Style Winner/Loser sections */
+.winner, .loser {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-basis: 45%; /* Distribute space */
+  gap: 1rem;
+}
+
+/* Reverse layout for loser */
+.loser {
+  flex-direction: row-reverse;
+}
+
+.participant-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+  flex-grow: 1; /* Allow profile info to take space */
+}
+
+/* Reverse inner elements for loser */
+.loser .participant-profile {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.participant-avatar-container { 
+  position: relative; 
+  flex-shrink: 0;
+}
+
+.participant-avatar {
+  position: relative;
+  width: 48px; /* Keep size or adjust */
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent; /* Base border */
+  transition: border-color 0.3s ease;
+}
+
+.participant-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Add subtle border highlight */
+.winner .participant-avatar {
+  border-color: var(--success);
+}
+
+.loser .participant-avatar {
+  border-color: var(--error);
+}
+
+.dark-mode .winner .participant-avatar {
+  border-color: var(--success);
+}
+
+.dark-mode .loser .participant-avatar {
+  border-color: var(--error);
+}
+
+/* Overlay Styles (reuse existing) */
+.profile-overlay { 
+  /* ... existing styles ... */
+  border-radius: 50%; 
+  box-sizing: border-box; 
+  overflow: hidden; 
+}
+
+.participant-avatar:hover .profile-overlay {
+  opacity: 1;
+}
+
+.linkedin-icon { 
+  /* ... existing styles ... */
+}
+
+/* Participant Info Text */
+.participant-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.participant-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text); /* Use variable */
+  margin-bottom: 0.1rem;
+}
+
+.participant-company {
+  font-size: 0.85rem;
+  color: var(--text-secondary); /* Use variable */
+}
+
+/* ELO Change */
+.elo-change {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+.elo-change.positive {
+  color: var(--success);
+}
+
+.elo-change.negative {
+  color: var(--error);
+}
+
+/* VS Separator */
+.versus {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  padding: 0 1rem;
+}
+
+.dark-mode .versus {
+  color: var(--text-secondary);
+}
+
+
+/* Responsive Adjustments (Example) */
+@media (max-width: 768px) {
+  .battle-history-page { padding: 1.5rem 1rem; }
+  .battle-history-header h1 { font-size: 2rem; }
+  .battle-participants { flex-direction: column; gap: 1rem; }
+  .winner, .loser { flex-basis: auto; width: 100%; justify-content: center; }
+  .versus { display: none; } /* Hide VS on small screens */
+  .winner .participant-profile { order: 1; } /* Avatar first */
+  .winner .elo-change { order: 2; } 
+  .loser .participant-profile { order: 1; flex-direction: row; text-align: left; } /* Avatar first */
+  .loser .elo-change { order: 2; }
+  .battle-card { padding: 1rem 1.5rem; }
+}
+
+/* === ADDING New ConnectionCard Overlay Styles (mirroring Battle History) === */
+
+/* Container around the avatar - similar to battle history */
+.connection-card-avatar-container {
+  position: relative;
+  display: inline-block; /* Or block if needed */
+  width: 86px; /* Match ConnectionCard size */
+  height: 86px;
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* The clickable avatar div holding image and overlay */
+.connection-card-avatar {
+  position: relative; /* Needed for absolute overlay positioning */
+  width: 86px; /* Match parent container */
+  height: 86px;
+  border-radius: 50%;
+  overflow: hidden; /* Clip the overlay */
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d; /* Ensure proper 3D context for children */
+}
+
+.connection-card-avatar:hover {
+  /* transform: scale(1.05); */ /* REMOVED scale from container */
+}
+
+/* Ensure image fills the avatar div */
+.connection-card-avatar .profile-picture,
+.connection-card-avatar .image-placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease; /* Add transition for scaling */
+}
+
+/* Scale only the image on hover */
+.connection-card-avatar:hover .profile-picture {
+  transform: scale(1.05);
+}
+
+/* Reuse existing .profile-overlay styles */
+/* (Styles defined elsewhere for Battle History) */
+
+/* Apply hover effect to avatar div */
+.connection-card-avatar:hover .profile-overlay {
+  opacity: 1;
+}
+
+/* Hide overlay when blurred */
+.connection-card-avatar-container.blurred .profile-overlay {
+  display: none;
+}
+
+/* Ensure overlay displays when revealed - Rule no longer needed */
+/* 
+.connection-card-avatar-container.revealing .profile-overlay {
+  
+}
+*/
+
+/* Reuse existing .linkedin-icon styles */
+/* (Styles defined elsewhere) */
+
+
+/* === Clean up potentially conflicting generic .linkedin-overlay rule === */
+.linkedin-overlay {
+  /* Styles from Battle History overlay take precedence */
+  /* Removing potentially conflicting styles if they exist here */
+  /* background: transparent; */ 
+  /* opacity: 1; */
+}
+
+/* Reuse existing .profile-overlay styles */
+/* (Styles defined elsewhere for Battle History) */
+
+/* Apply hover effect to avatar div ONLY WHEN REVEALED */
+.connection-card-avatar-container.revealing .connection-card-avatar:hover .profile-overlay {
+  opacity: 1;
+}
+
+/* Hide overlay when blurred */
+.connection-card-avatar-container.blurred .profile-overlay {
+  display: none;
+}
+
+/* === LinkedIn Overlay Base Styles === */
+.profile-overlay {
+  /* Positioning & Sizing */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%; /* Match the avatar shape */
+
+  /* Appearance */
+  background: rgba(0, 119, 181, 0.75); /* LinkedIn blue, semi-transparent */
+  color: white; /* For the icon */
+
+  /* Centering Icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Initial State & Transition */
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* Allow hover on parent */
+
+  /* Ensure proper rendering */
+  overflow: hidden;
+  box-sizing: border-box;
+  transform: translateZ(0); /* Helps with stacking/transforms */
+  z-index: 2; /* Ensure it's above the image */
+}
+
+/* === LinkedIn Icon Styling === */
+.linkedin-icon {
+  /* font-size: 2rem; REMOVED generic size */
+  display: block; 
+}
+
+/* Icon size on Clash Page */
+.connection-card-avatar .linkedin-icon {
+  font-size: 2.5rem; /* Larger icon */
+}
+
+/* Icon size on Battle History Page */
+.participant-avatar .linkedin-icon {
+  font-size: 1.5rem; /* Smaller icon */
+}
+
+/* === Visibility Control === */
+
+/* Hide overlay when the avatar container is blurred (Clash Page) */
+.connection-card-avatar-container.blurred .profile-overlay {
+  display: none; /* Or opacity: 0; pointer-events: none; */
+}
+
+/* Show overlay ONLY when the container is revealed AND the avatar is hovered (Clash Page) */
+.connection-card-avatar-container.revealing .connection-card-avatar:hover .profile-overlay {
+  opacity: 1;
+  pointer-events: auto; /* Make it interactive when visible */
+}
+
+/* Show overlay on hover (Battle History Page - simpler logic) */
+.participant-avatar:hover .profile-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+  

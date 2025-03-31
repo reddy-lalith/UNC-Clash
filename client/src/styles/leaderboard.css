@@ -1,0 +1,497 @@
+:root {
+  overscroll-behavior: none;
+}
+/* Ultra-modern, sleek leaderboard design with glassmorphism */
+.leaderboard {
+  max-width: 100%; /* Make it span the full width */
+  width: 100%;
+  height: 100vh; /* Make it take up the full viewport height */
+  margin: 0;
+  padding: 2rem;
+  /* LIGHT MODE: Match body background */
+  background: linear-gradient(135deg, var(--background-start, #e0f2fe) 0%, var(--background-end, #bae6fd) 100%);
+  color: var(--text, #0f172a); /* Use theme text color */
+  /* backdrop-filter: blur(10px); Removed for light mode */
+  border-radius: 0; /* Remove border radius for full-page effect */
+  box-shadow: none; /* Remove shadow for full-page effect */
+  border: none; /* Remove border for full-page effect */
+  overflow-y: auto; /* Add scrolling for content */
+  display: flex;
+  flex-direction: column;
+  position: relative; /* Ensure the absolute positioning works correctly */
+  box-sizing: border-box; /* Ensure padding doesn't increase total width */
+  transition: background 0.3s ease, color 0.3s ease; /* Add transition */
+}
+
+/* DARK MODE: Apply dark gradient and styles */
+.dark-mode .leaderboard {
+  background: linear-gradient(135deg, rgba(13, 17, 23, 0.8), rgba(20, 30, 48, 0.7));
+  backdrop-filter: blur(10px);
+  color: var(--text, #fff); /* Use theme text color */
+}
+
+/* Center the content within the full page */
+.leaderboard-table {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  flex: 1;
+}
+
+/* Leaderboard title with gradient - make it bigger for full page */
+.leaderboard h1 {
+  font-size: 4rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  margin-top: 1rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #56CCF2, #2F80ED, #56CCF2);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientText 5s ease infinite;
+}
+
+@keyframes gradientText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Position and Style the Leaderboard back button */
+.leaderboard .nav-button {
+  /* Positioning */
+  position: fixed; 
+  top: 20px; 
+  right: 20px; 
+  z-index: 1000; 
+  margin: 0; 
+
+  /* Core Visual Styles (corrected) */
+  background-color: transparent;
+  color: var(--primary) !important; /* CORRECTED: Use primary blue */
+  padding: 0.6rem 1.2rem; 
+  border: none; 
+  border-radius: 50px; 
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; 
+}
+
+/* Hover state (corrected) */
+.leaderboard .nav-button:hover {
+  background-color: rgba(0, 0, 0, 0.05); 
+  transform: translateY(-2px);
+  color: var(--primary) !important; /* Keep primary blue */
+  box-shadow: 0 5px 15px var(--shadow); /* Keep hover shadow */
+}
+
+/* Dark mode overrides (corrected) */
+.dark-mode .leaderboard .nav-button {
+  background-color: transparent;
+  color: var(--primary) !important; /* Use primary blue (light blue in dark mode) */
+  border: none;
+}
+
+.dark-mode .leaderboard .nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.1); 
+  color: var(--primary) !important; /* Keep primary blue */
+  box-shadow: 0 5px 15px var(--shadow); /* Keep hover shadow */
+}
+
+/* Icon color (corrected) */
+.leaderboard .nav-button svg {
+  color: var(--primary) !important; /* Use primary blue */
+  fill: var(--primary) !important; /* Use primary blue */
+}
+
+.dark-mode .leaderboard .nav-button svg {
+  color: var(--primary) !important; /* Use primary blue */
+  fill: var(--primary) !important; /* Use primary blue */
+}
+
+/* Column headers */
+.leaderboard-header, .leaderboard-table .leaderboard-header {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 0.8fr;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(86, 204, 242, 0.2);
+}
+
+.leaderboard-header div, .leaderboard-table .leaderboard-header div {
+  color: #56CCF2;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Leaderboard rows - LIGHT MODE */
+.leaderboard-row {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 0.8fr;
+  padding: 1.2rem 0;
+  margin-bottom: 0.5rem;
+  align-items: center;
+  background-color: #ffffff; /* Explicit background-color */
+  border-radius: 12px;
+  /* Explicit transition properties */
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #bdecf6; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); 
+  /* Ensure base transform state is defined (optional but good practice) */
+  transform: translateX(0);
+}
+
+.leaderboard-row:hover {
+  transform: translateX(5px);
+  background-color: #f8feff; /* Explicit background-color */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* DARK MODE specific styles for rows */
+.dark-mode .leaderboard-row {
+  background-color: rgba(255, 255, 255, 0.03); /* Explicit background-color */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  box-shadow: none; 
+  /* Explicit transition properties */
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  transform: translateX(0); /* Add base transform state for dark mode */
+}
+
+.dark-mode .leaderboard-row:hover {
+  background-color: rgba(255, 255, 255, 0.07); /* Explicit background-color */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: translateX(5px); 
+}
+
+/* Rank styling with glow effect - Adjust colors for light mode */
+.rank {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #555; /* Darker color for light mode */
+  text-align: center;
+  /* text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); Removed for light mode */
+}
+
+/* Dark mode Rank */
+.dark-mode .rank {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Profile styling - specifically for leaderboard */
+.leaderboard .profile, 
+.leaderboard .profile-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start !important;
+  gap: 1.2rem;
+  padding-left: 1.5rem !important;
+  margin-left: 0 !important;
+  width: 100% !important;
+  text-align: left !important;
+}
+
+.leaderboard .profile-image, 
+.leaderboard .profile-avatar-container {
+  position: relative;
+  margin-right: 1rem !important;
+  margin-left: 0 !important;
+}
+
+/* Fix outline issue by targeting all possible outline sources */
+.leaderboard .profile-image img, 
+.leaderboard .profile-avatar,
+.leaderboard .profile-image,
+.leaderboard .profile-avatar-container,
+.leaderboard .avatar-container,
+.leaderboard .avatar-wrapper {
+  width: 85px !important; /* Match the size of the outline */
+  height: 85px !important; /* Match the size of the outline */
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: none !important; /* Remove any borders */
+  outline: none !important; /* Remove any outlines */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important; /* Consistent shadow */
+  transition: all 0.3s ease !important;
+}
+
+/* Target any container elements that might have the outline */
+.leaderboard .profile-image,
+.leaderboard .profile-avatar-container,
+.leaderboard .avatar-container,
+.leaderboard .avatar-wrapper {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Target any pseudo-elements that might be creating the outline */
+.leaderboard .profile-image::before,
+.leaderboard .profile-image::after,
+.leaderboard .profile-avatar-container::before,
+.leaderboard .profile-avatar-container::after,
+.leaderboard .avatar-container::before,
+.leaderboard .avatar-container::after,
+.leaderboard .avatar-wrapper::before,
+.leaderboard .avatar-wrapper::after {
+  display: none !important; /* Hide any pseudo-elements */
+}
+
+.leaderboard .profile:hover .profile-image img, 
+.leaderboard .profile-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  outline: none;
+}
+
+/* Adjust profile text color for light mode */
+.leaderboard .profile-name, 
+.leaderboard .profile-details .profile-name {
+  text-align: left !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #1a202c; /* Dark color for light mode */
+  margin-bottom: 0.25rem;
+}
+
+.leaderboard .profile-company, .leaderboard .profile-details .profile-company {
+  font-size: 0.9rem;
+  color: #4a5568; /* Medium dark color for light mode */
+  font-weight: 400;
+}
+
+/* Dark mode profile text */
+.dark-mode .leaderboard .profile-name, 
+.dark-mode .leaderboard .profile-details .profile-name {
+  color: #fff;
+}
+
+.dark-mode .leaderboard .profile-company, 
+.dark-mode .leaderboard .profile-details .profile-company {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ELO score styling - Adjust colors for light mode */
+.elo, .elo-score {
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #0369a1; /* Primary blue color for light mode */
+  text-align: center;
+  background: none; /* Remove gradient for light mode */
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
+  background-clip: initial;
+}
+
+/* Dark mode ELO */
+.dark-mode .elo, .dark-mode .elo-score {
+  color: #fff;
+  background: linear-gradient(90deg, #56CCF2, #2F80ED);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Top 3 indicators - Adjust for light mode */
+.leaderboard-row:nth-child(1) {
+  background: #fffadf; /* Light gold */
+  border-color: #f7eab6;
+}
+
+.leaderboard-row:nth-child(2) {
+  background: #f1f5f9; /* Light silver/grey */
+  border-color: #e2e8f0;
+}
+
+.leaderboard-row:nth-child(3) {
+  background: #fff4eb; /* Light bronze */
+  border-color: #ffe4cc;
+}
+
+/* Dark mode Top 3 */
+.dark-mode .leaderboard-row:nth-child(1) {
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.03));
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.dark-mode .leaderboard-row:nth-child(2) {
+  background: linear-gradient(90deg, rgba(192, 192, 192, 0.1), rgba(192, 192, 192, 0.03));
+  border: 1px solid rgba(192, 192, 192, 0.2);
+}
+
+.dark-mode .leaderboard-row:nth-child(3) {
+  background: linear-gradient(90deg, rgba(205, 127, 50, 0.1), rgba(205, 127, 50, 0.03));
+  border: 1px solid rgba(205, 127, 50, 0.2);
+}
+
+/* Adjust Rank colors for light mode top 3 */
+.leaderboard-row:nth-child(1) .rank {
+  color: #b77e10; /* Darker gold */
+  text-shadow: none;
+}
+
+.leaderboard-row:nth-child(2) .rank {
+  color: #6c757d; /* Darker silver/grey */
+  text-shadow: none;
+}
+
+.leaderboard-row:nth-child(3) .rank {
+  color: #a4611a; /* Darker bronze */
+  text-shadow: none;
+}
+
+/* Dark mode Rank colors top 3 */
+.dark-mode .leaderboard-row:nth-child(1) .rank {
+  color: #FFD700; /* Gold */
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.dark-mode .leaderboard-row:nth-child(2) .rank {
+  color: #C0C0C0; /* Silver */
+  text-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
+}
+
+.dark-mode .leaderboard-row:nth-child(3) .rank {
+  color: #CD7F32; /* Bronze */
+  text-shadow: 0 0 10px rgba(205, 127, 50, 0.5);
+}
+
+/* Empty state styling */
+.leaderboard-row.empty {
+  justify-content: center;
+  padding: 3rem 0;
+}
+
+.no-profiles {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
+/* Attribution footer */
+.attribution {
+  margin-top: auto; /* Push to bottom */
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.attribution a {
+  color: #56CCF2;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.attribution a:hover {
+  color: #2F80ED;
+  text-decoration: underline;
+}
+
+/* Responsive adjustments for full page */
+@media (max-width: 768px) {
+  .leaderboard {
+    padding: 1.5rem;
+  }
+  
+  .leaderboard h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .leaderboard-header, .leaderboard-row {
+    grid-template-columns: 0.5fr 1.5fr 0.8fr;
+  }
+  
+  .leaderboard .profile-image img, .leaderboard .profile-avatar {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .leaderboard .profile-name, .leaderboard .profile-details .profile-name {
+    font-size: 1rem;
+  }
+  
+  .elo-score, .rank {
+    font-size: 1.4rem;
+  }
+  
+  /* Adjust container positioning for medium screens */
+  .leaderboard-nav {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+  
+  .leaderboard-back, .nav-button, .back-button {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+    /* Removed position and width from button itself */
+  }
+}
+
+@media (max-width: 480px) {
+  .leaderboard h1 {
+    font-size: 2rem;
+    margin-top: 3.5rem; /* Keep space for the button */
+  }
+  
+  /* Adjust container positioning for small screens */
+  .leaderboard-nav {
+    top: 1rem;
+    right: 1rem;
+  }
+  
+  .leaderboard-back, .nav-button, .back-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+    /* Removed position from button itself */
+  }
+  
+  .leaderboard .profile-company, .leaderboard .profile-details .profile-company {
+    display: none;
+  }
+}
+
+/* Ensure the middle column (profile) aligns left */
+.leaderboard-row > div:nth-child(2) {
+  text-align: left !important;
+  justify-content: flex-start !important;
+  padding-left: 0 !important;
+}
+
+/* Override default avatar size for leaderboard */
+.leaderboard .participant-avatar {
+  width: 85px !important; /* Match previous leaderboard size */
+  height: 85px !important;
+}
+
+/* Adjust icon size within leaderboard avatar */
+.leaderboard .participant-avatar .linkedin-icon {
+  font-size: 2.5rem !important; /* Make icon larger for bigger avatar */
+}
+
+/* Force overlay background color and add transition */
+.leaderboard .participant-avatar .profile-overlay {
+  background: rgba(0, 119, 181, 0.75) !important; /* LinkedIn blue */
+  transition: opacity 0.3s ease !important; /* Ensure smooth fade-in overrides */
+}

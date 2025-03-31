@@ -1,0 +1,846 @@
+/* Add this at the top to test if styles are loading */
+body {
+  margin: 0;
+  padding: 0;
+  /* Prevent scroll bounce/overscroll behavior specifically for profiles page */
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+  overscroll-behavior-x: none;
+  /* Safari-specific property for older versions */
+  -webkit-overscroll-behavior: none;
+  /* Prevent all scrolling on this page */
+  overflow: hidden;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+}
+
+.profiles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.profile-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.profile-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.experience {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.connection-clash {
+  background: linear-gradient(135deg, #4a7396, #2c5282);
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.connection-clash h1 {
+  color: white;
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 3rem;
+  font-weight: bold;
+}
+
+.battle-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.connection-card {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 2rem;
+  width: 400px;
+  box-shadow: 0 0 25px 10px rgba(66, 153, 225, 0.3);
+  position: relative;
+  overflow: visible;
+  z-index: 1;
+}
+
+.connection-card.isWinner {
+  box-shadow: 0 0 30px 15px rgba(66, 153, 225, 0.4);
+  position: relative;
+  overflow: visible;
+  z-index: 1;
+}
+
+.connection-card.isLoser {
+  box-shadow: 0 0 20px 8px rgba(66, 153, 225, 0.3);
+}
+
+.connection-card .profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.connection-card .profile-image {
+  width: 80px !important;
+  height: 80px !important;
+  position: relative;
+  flex-shrink: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #4a7396 !important;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(66, 153, 225, 0.4);
+}
+
+.connection-card .profile-picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  box-sizing: border-box;
+}
+
+.connection-card .profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.connection-card .profile-info h2 {
+  margin: 0 0 0.5rem 0;
+  padding: 0;
+  line-height: 1.2;
+}
+
+.connection-card .image-placeholder {
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 50%;
+  background: #eee;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 3px solid #4a7396 !important;
+  box-sizing: border-box;
+}
+
+.company-logo-placeholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  background: #eee;
+  margin-right: 1rem;
+}
+
+.experience-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #f8f9fa;
+  transition: transform 0.2s;
+}
+
+.experience-item:hover {
+  transform: translateX(4px);
+}
+
+.versus-circle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.graduation-year {
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.experience-details h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.experience-details p {
+  margin: 0.5rem 0 0;
+  color: #666;
+}
+
+.education {
+  margin-top: 2rem;
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.majors {
+  margin-bottom: 1rem;
+}
+
+.major {
+  margin: 0.5rem 0;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.school {
+  margin: 0.25rem 0;
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+/* When there are multiple majors/schools */
+.majors h3:not(:last-child),
+.schools p:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+.education h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.degree-type {
+  margin: 0.5rem 0 0;
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: normal;
+  display: block;
+}
+
+.add-profile-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-profile-form h2 {
+  margin-top: 0;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.add-profile-form input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.add-profile-form button {
+  background: #4a7396;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.add-profile-form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #dc3545;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  background-color: #ffe6e6;
+}
+
+/* Add to your existing styles */
+.experience-inputs {
+  background: #f8f9fa;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.add-profile-form input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.5rem;
+}
+
+.add-profile-form label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.add-profile-form button.secondary {
+  background: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.add-profile-form h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Add these styles to your existing CSS */
+.profile-picture {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.profile-image {
+  flex-shrink: 0;
+}
+
+/* Add these to your existing styles */
+.clickable-card {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.clickable-card:hover {
+  transform: translateY(-5px);
+}
+
+.clickable-card:active {
+  transform: translateY(-2px);
+  transition: transform 0.1s ease;
+  box-shadow: none !important;
+}
+
+.clickable-card.selected,
+.clickable-card.has-result {
+  transform: none !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+.versus-circle.clickable {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.versus-circle.clickable:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.elo-score {
+  font-size: 1rem;
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+.elo-change {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0.25rem 0;
+}
+
+.elo-change.positive {
+  color: #28a745;
+}
+
+.elo-change.negative {
+  color: #dc3545;
+}
+
+/* Update company logo styles */
+.company-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 0 !important;
+  overflow: hidden;
+  margin-right: 1rem;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0;
+  background: white;
+}
+
+/* Add these styles */
+.loading {
+  color: white;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+}
+
+.error-message {
+  color: #ff6b6b;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.attribution {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+.attribution a {
+  color: white;
+  opacity: 0.7;
+  text-decoration: none;
+}
+
+.attribution a:hover {
+  opacity: 1;
+}
+
+.profile-info.anonymous h2 {
+  color: #6c757d;
+  font-style: italic;
+}
+
+.profile-image.hidden {
+  width: 80px;
+  height: 80px;
+  background-color: #e9ecef;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-image.hidden::after {
+  content: '?';
+  font-size: 2rem;
+  color: #adb5bd;
+}
+
+/* Update blur effect for hidden identities */
+.connection-card-avatar-container.blurred .profile-picture,
+.connection-card-avatar-container.blurred .image-placeholder,
+h2.blurred {
+  filter: blur(8px);
+  user-select: none;
+}
+
+.profile-info h2.blurred::after {
+  content: "Vote to reveal identity";
+  display: block;
+  filter: blur(0);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #6c757d;
+  margin-top: 0.5rem;
+}
+
+/* Fix the LinkedIn hover overlay */
+.connection-card .linkedin-hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 119, 181, 0.8); /* LinkedIn blue with opacity */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+  border: 3px solid #4a7396; /* Match the profile image border */
+  box-sizing: border-box; /* Include border in size calculation */
+}
+
+.connection-card .profile-image:hover .linkedin-hover-overlay {
+  opacity: 1;
+}
+
+.connection-card .linkedin-icon {
+  color: white;
+  font-size: 24px; /* Larger icon */
+}
+
+/* Improve the hover effect on cards */
+.clickable-card:hover .connection-card {
+  box-shadow: 0 0 35px 15px rgba(66, 153, 225, 0.5);
+}
+
+.clickable-card:hover .connection-card.isWinner {
+  box-shadow: 0 0 40px 20px rgba(66, 153, 225, 0.6);
+}
+
+.clickable-card:hover .connection-card.isLoser {
+  box-shadow: 0 0 30px 12px rgba(66, 153, 225, 0.4);
+}
+
+/* Create a gradient glow effect for the winner card */
+.connection-card.isWinner {
+  box-shadow: 0 0 30px 15px rgba(66, 153, 225, 0.4);
+  position: relative;
+  overflow: visible;
+  z-index: 1;
+}
+
+/* Add a gradient glow animation for the winner */
+.connection-card.isWinner::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 28px; /* Slightly larger than the card's border-radius */
+  background: linear-gradient(
+    45deg,
+    rgba(66, 153, 225, 0.6),
+    rgba(129, 230, 217, 0.6),
+    rgba(79, 209, 197, 0.6),
+    rgba(16, 185, 129, 0.6),
+    rgba(66, 153, 225, 0.6)
+  );
+  z-index: -1;
+  filter: blur(10px); /* Reduced blur from 15px */
+  animation: gradientGlow 3s ease infinite;
+  opacity: 0.6; /* Reduced opacity from 0.8 */
+}
+
+/* Animation for the gradient glow */
+@keyframes gradientGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Enhance the hover effect for the winner card */
+.clickable-card:hover .connection-card.isWinner::before {
+  filter: blur(15px); /* Reduced hover blur from 20px */
+  opacity: 0.7; /* Reduced hover opacity from 1 */
+}
+
+/* Make card elements transparent to let the glow shine through */
+.connection-card.isWinner .profile-header,
+.connection-card.isWinner .experience-item,
+.connection-card.isWinner .education {
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease;
+}
+
+/* Add a subtle glass effect to elements inside the winner card */
+.connection-card.isWinner .experience-item {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
+}
+
+/* Make text more visible against transparent backgrounds */
+.connection-card.isWinner .experience-details h3,
+.connection-card.isWinner .experience-details p,
+.connection-card.isWinner .education h3,
+.connection-card.isWinner .major,
+.connection-card.isWinner .school {
+  color: #1a365d !important; /* Darker blue for better contrast */
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Add a subtle inner glow to the winner card */
+.connection-card.isWinner {
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.9),
+    rgba(240, 249, 255, 0.9)
+  ) !important;
+}
+
+/* Enhance the profile image in the winner card */
+.connection-card.isWinner .profile-image {
+  box-shadow: 0 0 15px rgba(66, 153, 225, 0.6);
+}
+
+/* Add a subtle pulsing effect to the winner card */
+@keyframes winnerPulse {
+  0% {
+    box-shadow: 0 0 25px 10px rgba(66, 153, 225, 0.3); /* Reduced shadow */
+  }
+  50% {
+    box-shadow: 0 0 30px 15px rgba(66, 153, 225, 0.4); /* Reduced shadow */
+  }
+  100% {
+    box-shadow: 0 0 25px 10px rgba(66, 153, 225, 0.3); /* Reduced shadow */
+  }
+}
+
+.connection-card.isWinner {
+  /* Existing box-shadow might need reduction too if pulse is not enough */
+  box-shadow: 0 0 25px 10px rgba(66, 153, 225, 0.3); /* Match base pulse shadow */
+  animation: winnerPulse 3s infinite ease-in-out;
+}
+
+/* Make all card elements transparent */
+.connection-card .profile-header,
+.connection-card .education {
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease;
+}
+
+/* Add glass effect to experience items */
+.connection-card .experience-item {
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.1);
+  transition: all 0.3s ease;
+}
+
+.connection-card .experience-item:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  transform: translateX(4px);
+}
+
+/* Improve text contrast */
+.connection-card .experience-details h3,
+.connection-card .experience-details p,
+.connection-card .education h3,
+.connection-card .major,
+.connection-card .school {
+  color: #1a365d !important;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+/* Enhance profile images */
+.connection-card .profile-image {
+  box-shadow: 0 0 10px rgba(66, 153, 225, 0.4);
+}
+
+/* Add dark mode support for the connection clash background */
+.dark-mode .connection-clash {
+  background: linear-gradient(135deg, #1a202c, #0f172a);
+}
+
+/* Dark mode support for connection cards */
+.dark-mode .connection-card {
+  background: rgba(30, 41, 59, 0.8) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 25px 10px rgba(56, 178, 255, 0.2);
+}
+
+/* Dark mode text colors */
+.dark-mode .connection-card .profile-info h2 {
+  color: #e2e8f0;
+}
+
+.dark-mode .connection-card .experience-details h3,
+.dark-mode .connection-card .experience-details p,
+.dark-mode .connection-card .education h3,
+.dark-mode .connection-card .major,
+.dark-mode .connection-card .school {
+  color: #e2e8f0 !important;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+/* Dark mode experience items */
+.dark-mode .connection-card .experience-item {
+  background: rgba(30, 41, 59, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .connection-card .experience-item:hover {
+  background: rgba(30, 41, 59, 0.6) !important;
+}
+
+/* Dark mode winner card */
+.dark-mode .connection-card.isWinner {
+  background: linear-gradient(
+    to bottom right,
+    rgba(30, 41, 59, 0.9),
+    rgba(15, 23, 42, 0.9)
+  ) !important;
+  box-shadow: 0 0 30px 15px rgba(56, 178, 255, 0.3);
+}
+
+/* Dark mode winner glow */
+.dark-mode .connection-card.isWinner::before {
+  background: linear-gradient(
+    45deg,
+    rgba(56, 178, 255, 0.6),
+    rgba(14, 165, 233, 0.6),
+    rgba(2, 132, 199, 0.6),
+    rgba(3, 105, 161, 0.6),
+    rgba(56, 178, 255, 0.6)
+  );
+}
+
+/* Dark mode profile image border */
+.dark-mode .connection-card .profile-picture {
+  border-color: #0c4a6e !important;
+}
+
+/* Dark mode versus circle */
+.dark-mode .versus-circle {
+  background: #1e293b;
+  color: #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Update the UNC logo styles in profiles.css */
+.unc-logo {
+  vertical-align: middle;
+  margin-right: 10px;
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+
+.connection-clash h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #4B9CD3; /* UNC Carolina Blue */
+}
+
+/* Add styles for the navigation buttons container */
+.navigation-buttons {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  gap: 10px;
+}
+
+/* Explicit overrides for clash page buttons */
+.history-button, 
+.leaderboard-button {
+  border-radius: 50px !important; 
+  box-shadow: none !important; 
+  background: transparent !important; 
+  color: var(--text) !important; 
+}
+
+/* Stronger hover shadow for clash page buttons */
+.history-button:hover,
+.leaderboard-button:hover {
+  /* Override app.css hover shadow */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15) !important; /* More visible shadow */
+  /* Re-apply other hover effects if needed */
+  background-color: rgba(0, 0, 0, 0.05); 
+  transform: translateY(-2px);
+}
+
+.dark-mode .history-button:hover,
+.dark-mode .leaderboard-button:hover {
+  /* Override app.css dark mode hover shadow */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3) !important; /* More visible dark shadow */
+  background-color: rgba(255, 255, 255, 0.1); 
+  transform: translateY(-2px);
+}
+
+/* COMMENTING OUT conflicting button styles in profiles.css */
+/* Let app.css handle the main button styling */
+/*
+.leaderboard-button,
+.history-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--primary);
+  color: white;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.leaderboard-button:hover,
+.history-button:hover {
+  background-color: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .leaderboard-button,
+.dark-mode .history-button {
+  background-color: var(--card-bg);
+  color: var(--text);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode .leaderboard-button:hover,
+.dark-mode .history-button:hover {
+  background-color: var(--primary-dark);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .leaderboard-button svg,
+.dark-mode .history-button svg {
+  color: var(--text);
+} 
+*/ 
