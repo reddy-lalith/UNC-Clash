@@ -187,7 +187,7 @@ body {
   color: var(--primary);
   text-align: center;
   font-size: 3rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem !important; /* Reduced bottom margin and added !important */
   margin-top: 1rem;
   font-weight: 800;
   text-shadow: 0 2px 4px rgba(3, 105, 161, 0.1);
