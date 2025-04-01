@@ -24,7 +24,10 @@ const CUSTOM_LOGOS = {
   'Hyannis Harbor Hawks' : 'https://media.licdn.com/dms/image/v2/D560BAQGK0rlX4GuIyw/company-logo_100_100/company-logo_100_100/0/1707862341147/hyannis_harbor_hawks_logo?e=1749081600&v=beta&t=ruwKqXF2reGg40MQ3sZUIG6Je0r-ZYzNvlzqp5efxl0',
   'Bank of America Merrill Lynch' : 'https://media.licdn.com/dms/image/v2/C560BAQEwSq6HbLmEdQ/company-logo_200_200/company-logo_200_200/0/1631390069758?e=1749081600&v=beta&t=KIWJU_u8oSW0mVEVioTQKONpkVuuLqvascbEwA4xj04',
   'UNC Department of Psychology & Neuroscience' : 'https://media.licdn.com/dms/image/v2/C4D0BAQEjNLREcUcetg/company-logo_100_100/company-logo_100_100/0/1630532748907?e=1749081600&v=beta&t=Sk8UJwB72TdrsEX6nF_JAZmBLaSs48vQWmIow6AZvDY',
-  'Boeing' : "https://media.licdn.com/dms/image/v2/D560BAQG8NhuAoYdTgw/company-logo_100_100/company-logo_100_100/0/1708109812925/boeing_logo?e=1749081600&v=beta&t=T_CVr8ycQujBypRmnofgU-ymg7TIuWA7VBt8gEE-V_Q"
+  'Boeing' : "https://media.licdn.com/dms/image/v2/D560BAQG8NhuAoYdTgw/company-logo_100_100/company-logo_100_100/0/1708109812925/boeing_logo?e=1749081600&v=beta&t=T_CVr8ycQujBypRmnofgU-ymg7TIuWA7VBt8gEE-V_Q",
+  'Sciome LLC' : 'https://media.licdn.com/dms/image/v2/C4D0BAQFnvmrw4iLmHw/company-logo_200_200/company-logo_200_200/0/1630559525491?e=2147483647&v=beta&t=DTW_L72VR6d1bMFnJPH9tSNg7ZjultIL1GGu0CYvAjc',
+  'U.S. Department of Commerce' : 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Seal_of_the_United_States_Department_of_Commerce.svg/1200px-Seal_of_the_United_States_Department_of_Commerce.svg.png',
+  'UNC Kenan-Flagler Private Equity Fund' : 'https://media.licdn.com/dms/image/v2/C4E0BAQEwCMa57y7wVQ/company-logo_200_200/company-logo_200_200/0/1631368642817/unc_kenan_flagler_private_equity_fund_logo?e=1749081600&v=beta&t=ewnjcOXtE4xIrDk8T36r3M0gHHgPKVoaGcJNTBRIK0c'
   
   
   
@@ -61,7 +64,6 @@ const COMPANY_DOMAINS = {
   'Truist Wealth' : 'truist.com',
   'Amazon Web Services (AWS)' : 'aws.amazon.com', 
   'Voicera' : 'voicera.io',
-  'Sciome LLC' : 'sciome.com'
 
 
 
