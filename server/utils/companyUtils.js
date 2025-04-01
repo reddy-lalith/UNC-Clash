@@ -15,8 +15,8 @@ const CUSTOM_LOGOS = {
   'The Forge Initiative' : 'https://media.licdn.com/dms/image/v2/C4D0BAQHGllQ-vMS1ng/company-logo_200_200/company-logo_200_200/0/1631344860164?e=2147483647&v=beta&t=EyPGNx4c_GOVuUl4hkPVTkK0T6kSoAXVMeTYvZgLpug',
   'Carolina Financial Group LLC' : 'https://media.licdn.com/dms/image/v2/C510BAQE76IxfHFjaSA/company-logo_200_200/company-logo_200_200/0/1631390737487?e=2147483647&v=beta&t=rD_SO4TawETPyyGxu2Qi0rZ0O3JDVcy8eOpJOBLA6ZA',
   'Carolina Women in Business (Undergraduate)' : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6sVHrp7RJTDzx55wtQc6asVbJchfrg0dX3A&s',
-  'Covey Captital Advisors, LLC' : 'https://images.crunchbase.com/image/upload/c_pad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_2/v1478495467/eegcjwloznrdax40fb5i.png'
-  // Add more custom logo URLs here
+  'Covey Capital Advisors, LLC' : 'https://images.crunchbase.com/image/upload/c_pad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_2/v1478495467/eegcjwloznrdax40fb5i.png'
+
 };
 
 // Only add companies that need custom domain mapping
