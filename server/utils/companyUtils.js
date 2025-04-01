@@ -27,7 +27,8 @@ const CUSTOM_LOGOS = {
   'Boeing' : "https://media.licdn.com/dms/image/v2/D560BAQG8NhuAoYdTgw/company-logo_100_100/company-logo_100_100/0/1708109812925/boeing_logo?e=1749081600&v=beta&t=T_CVr8ycQujBypRmnofgU-ymg7TIuWA7VBt8gEE-V_Q",
   'Sciome LLC' : 'https://media.licdn.com/dms/image/v2/C4D0BAQFnvmrw4iLmHw/company-logo_200_200/company-logo_200_200/0/1630559525491?e=2147483647&v=beta&t=DTW_L72VR6d1bMFnJPH9tSNg7ZjultIL1GGu0CYvAjc',
   'U.S. Department of Commerce' : 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Seal_of_the_United_States_Department_of_Commerce.svg/1200px-Seal_of_the_United_States_Department_of_Commerce.svg.png',
-  'UNC Kenan-Flagler Private Equity Fund' : 'https://media.licdn.com/dms/image/v2/C4E0BAQEwCMa57y7wVQ/company-logo_200_200/company-logo_200_200/0/1631368642817/unc_kenan_flagler_private_equity_fund_logo?e=1749081600&v=beta&t=ewnjcOXtE4xIrDk8T36r3M0gHHgPKVoaGcJNTBRIK0c'
+  'UNC Kenan-Flagler Private Equity Fund' : 'https://media.licdn.com/dms/image/v2/C4E0BAQEwCMa57y7wVQ/company-logo_200_200/company-logo_200_200/0/1631368642817/unc_kenan_flagler_private_equity_fund_logo?e=1749081600&v=beta&t=ewnjcOXtE4xIrDk8T36r3M0gHHgPKVoaGcJNTBRIK0c',
+  'Prince Henry Group Charitable Foundation' : 'https://scontent-ord5-2.xx.fbcdn.net/v/t39.30808-6/456331834_820520993605150_1901763761332649260_n.png?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=hKCacIzZRPsQ7kNvgFq1Ta9&_nc_oc=AdkwkDJrOPMwmCws1W7g3-hNtOck06YkBrNsILIxfdcW4CwQgFZSJv81qwwg-_d3aheMIh7-Pi71-2xMNv3kD90m&_nc_zt=23&_nc_ht=scontent-ord5-2.xx&_nc_gid=SOtluDb5KZFzQRgmH7LDDA&oh=00_AYG_H7atSd-CgvYgiW9c3JR6q0yRUXd-EYgyizhQRhTNKw&oe=67F233CC'
   
   
   
