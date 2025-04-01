@@ -8,7 +8,14 @@ const CUSTOM_LOGOS = {
   'QuiVive Global Advisory LLC' : "https://media.licdn.com/dms/image/v2/C4D0BAQGTTz2oeliVFg/company-logo_200_200/company-logo_200_200/0/1630562081752?e=1749081600&v=beta&t=Qoq0b_360kw5bg99u-6v6e3MRyTmT1fq2OQSAr4_2Jc",
   'J.P. Morgan' : "https://cdn.brandfetch.io/jpmorgan.com/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed",
   'Q-munity (acquired by The Quantum Insider)' : "https://media.licdn.com/dms/image/v2/D4E0BAQGzamMbTy6f_g/company-logo_200_200/company-logo_200_200/0/1714762029807/q_munity_logo?e=1749081600&v=beta&t=8umpsbSzrbiiUQbomhocrOUmgO_-aBJ7CEN8kH1UDVg",
-  'Night Owl Capital Management LLC' : 'https://media.licdn.com/dms/image/v2/D560BAQGKpRWQd9es6g/company-logo_100_100/company-logo_100_100/0/1725385476870/night_owl_capital_management_llc_logo?e=1749081600&v=beta&t=jmk3kpKlrWn0I8tljZW7B_SGWjv4gWddW_VR0Zky7Z0'
+  'Night Owl Capital Management LLC' : 'https://media.licdn.com/dms/image/v2/D560BAQGKpRWQd9es6g/company-logo_100_100/company-logo_100_100/0/1725385476870/night_owl_capital_management_llc_logo?e=1749081600&v=beta&t=jmk3kpKlrWn0I8tljZW7B_SGWjv4gWddW_VR0Zky7Z0',
+  'White Oak Partners LLC' : 'https://media.licdn.com/dms/image/v2/D4E0BAQElfS-ckttahQ/company-logo_200_200/company-logo_200_200/0/1725545874154/white_oak_partners_logo?e=2147483647&v=beta&t=XUb24-6Pv-_Y8DIaL8WE_UMyKJuGKMTMDZpiZYeoueM',
+  'Wrap Golf' : 'https://media.licdn.com/dms/image/v2/D4E0BAQHTYVpqd4QnOw/company-logo_200_200/company-logo_200_200/0/1711328992189?e=1749081600&v=beta&t=SthbXrFGhMCCD6aicLtAcNKg7IwFWIO3PlHgXp0GcVU',
+  'UNC Management Company' : 'https://media.licdn.com/dms/image/v2/C560BAQGjN979lbcubw/company-logo_200_200/company-logo_200_200/0/1631343737562?e=1749081600&v=beta&t=wFgLjxeqX2ECfKm5X_PQcQ0tP3MivKyTWMJhzqOyMhc',
+  'The Forge Initiative' : 'https://media.licdn.com/dms/image/v2/C4D0BAQHGllQ-vMS1ng/company-logo_200_200/company-logo_200_200/0/1631344860164?e=2147483647&v=beta&t=EyPGNx4c_GOVuUl4hkPVTkK0T6kSoAXVMeTYvZgLpug',
+  'Carolina Financial Group LLC' : 'https://media.licdn.com/dms/image/v2/C510BAQE76IxfHFjaSA/company-logo_200_200/company-logo_200_200/0/1631390737487?e=2147483647&v=beta&t=rD_SO4TawETPyyGxu2Qi0rZ0O3JDVcy8eOpJOBLA6ZA',
+  'Carolina Women in Business (Undergraduate)' : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6sVHrp7RJTDzx55wtQc6asVbJchfrg0dX3A&s',
+  'Covey Captital Advisors, LLC' : 'https://images.crunchbase.com/image/upload/c_pad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_2/v1478495467/eegcjwloznrdax40fb5i.png'
   // Add more custom logo URLs here
 };
 
@@ -31,6 +38,14 @@ const COMPANY_DOMAINS = {
   '37th & Moss' : '37thandmoss.com',
   'Warren Equity Partners' : 'warrenequity.com',
   'Khazanah Nasional Berhad' : 'khazanah.com',
+  'Ares Management Corporation' : 'aresmgmt.com',
+  'Horizon Development Properties, Inc.' : 'hdpclt.com',
+  'Meritage Partners' : 'meritage-partners.com',
+  'Draper Asset Management' : 'draperasset.com',
+  'RBC Capital Markets' : 'rbc.com',
+
+
+
 
 
  
