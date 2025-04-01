@@ -863,126 +863,83 @@ h2.blurred {
   }
   
   .battle-container {
-    flex-direction: row; /* Keep horizontal layout */
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem;
-    gap: 0.5rem;
+    flex-direction: column;
+    padding: 1rem;
   }
   
   .connection-card {
-    width: 45%; /* Make cards smaller but keep side by side */
-    max-width: 45%;
-    padding: 0.75rem;
-    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
+    margin-bottom: 2rem;
   }
   
   .versus-circle {
-    width: 40px;
-    height: 40px;
-    font-size: 0.7rem;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    z-index: 10;
+    position: relative;
+    margin: 1rem 0;
+    transform: none;
+    left: auto;
   }
   
   .connection-card .profile-header {
-    margin-bottom: 0.5rem;
-    gap: 0.5rem;
-  }
-  
-  .connection-card .profile-image {
-    width: 40px !important;
-    height: 40px !important;
-  }
-  
-  .connection-card .profile-info h2 {
-    font-size: 0.9rem;
-    margin-bottom: 0.2rem;
+    margin-bottom: 1rem;
   }
   
   .education {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     padding-top: 0.5rem;
   }
   
   .connection-clash {
-    padding: 0.75rem;
+    padding: 1rem;
   }
   
   .connection-clash h1 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
   }
   
   .experience-item {
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .experience-details h3 {
-    font-size: 0.8rem;
-  }
-  
-  .experience-details p {
-    font-size: 0.7rem;
-  }
-  
-  .company-logo, 
-  .company-logo-placeholder {
-    width: 25px;
-    height: 25px;
-    margin-right: 0.5rem;
+    padding: 0.75rem;
   }
   
   .navigation-buttons {
     flex-wrap: wrap;
-    gap: 0.25rem;
-    justify-content: flex-end;
-    top: 10px;
-    right: 10px;
-  }
-  
-  /* Hide all but first experience to save space */
-  .experience-item:not(:first-child) {
-    display: none;
-  }
-  
-  .education h3, .major, .school, .degree-type {
-    font-size: 0.8rem;
+    gap: 0.5rem;
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
   .connection-card .profile-header {
-    flex-direction: row;
-    text-align: left;
+    flex-direction: column;
+    text-align: center;
     align-items: center;
   }
   
   .connection-card .profile-info {
-    text-align: left;
-    margin-top: 0;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  
+  .experience-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .company-logo, 
+  .company-logo-placeholder {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
   }
   
   .connection-clash h1 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
   
   .versus-circle {
-    width: 32px;
-    height: 32px;
-    font-size: 0.6rem;
-  }
-  
-  .connection-card .profile-image {
-    width: 35px !important;
-    height: 35px !important;
-  }
-  
-  .connection-card .profile-info h2 {
-    font-size: 0.8rem;
+    width: 80px;
+    height: 80px;
+    font-size: 1rem;
   }
 } 
