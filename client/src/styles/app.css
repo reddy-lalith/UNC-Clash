@@ -2404,4 +2404,165 @@ body {
   opacity: 1;
   pointer-events: auto;
 }
+
+/* Mobile Responsiveness - General */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    position: relative;
+    height: auto;
+    width: 100%;
+  }
+  
+  html {
+    position: static;
+  }
+  
+  body {
+    position: static;
+    overflow-y: auto;
+  }
+  
+  .connection-clash h1 {
+    font-size: 2rem;
+    margin-top: 0.5rem;
+  }
+  
+  .battle-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+  }
+  
+  .connection-card {
+    width: 100%;
+    max-width: 100%;
+    margin: 0.5rem 0;
+    transform: none !important;
+  }
+  
+  .connection-card:hover {
+    transform: translateY(-4px) !important;
+  }
+  
+  .versus-circle {
+    margin: 0.5rem 0;
+  }
+  
+  .profile-header {
+    padding: 1rem;
+  }
+  
+  .profile-image {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .profile-info {
+    padding-left: 0.5rem;
+  }
+  
+  .profile-info h2 {
+    font-size: 1.2rem;
+  }
+  
+  .experience-item {
+    padding: 0.75rem;
+  }
+  
+  .company-logo {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .action-bar {
+    padding: 1rem 0;
+  }
+  
+  .tie-button {
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .nav-container {
+    padding: 0.5rem 1rem;
+  }
+  
+  .dark-mode-toggle, 
+  .leaderboard-button,
+  .history-button, 
+  .back-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .connection-clash h1 {
+    font-size: 1.8rem;
+  }
+  
+  .profile-image {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .profile-info h2 {
+    font-size: 1.1rem;
+  }
+  
+  .experiences {
+    padding: 0.5rem;
+  }
+  
+  .experience-item {
+    padding: 0.5rem;
+  }
+  
+  .company-logo {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .dark-mode-toggle, 
+  .leaderboard-button, 
+  .history-button, 
+  .back-button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+  }
+  
+  /* Remove fancy effects that might slow down mobile devices */
+  .connection-card::before,
+  .connection-card::after,
+  .isWinner.connection-card::before,
+  .isWinner.connection-card::after {
+    display: none;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 360px) {
+  .connection-clash h1 {
+    font-size: 1.5rem;
+  }
+  
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .profile-image {
+    margin-bottom: 0.5rem;
+  }
+  
+  .profile-info {
+    padding-left: 0;
+  }
+}
+
+/* Fix the meta viewport tag */
+/* Note: This is a comment reminder to also check the HTML head */
   

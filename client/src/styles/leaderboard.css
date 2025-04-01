@@ -411,21 +411,30 @@
 /* Responsive adjustments for full page */
 @media (max-width: 768px) {
   .leaderboard {
-    padding: 1.5rem;
+    padding: 1rem;
+    height: auto;
+    min-height: 100vh;
   }
   
   .leaderboard h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin-bottom: 1.5rem;
+    margin-top: 0.5rem;
   }
   
   .leaderboard-header, .leaderboard-row {
-    grid-template-columns: 0.5fr 1.5fr 0.8fr;
+    grid-template-columns: 0.4fr 2fr 0.7fr;
+    padding: 0.8rem 0.5rem;
   }
   
-  .leaderboard .profile-image img, .leaderboard .profile-avatar {
-    width: 45px;
-    height: 45px;
+  .leaderboard .profile-image img, 
+  .leaderboard .profile-avatar,
+  .leaderboard .profile-image,
+  .leaderboard .profile-avatar-container,
+  .leaderboard .avatar-container,
+  .leaderboard .avatar-wrapper {
+    width: 60px !important;
+    height: 60px !important;
   }
   
   .leaderboard .profile-name, .leaderboard .profile-details .profile-name {
@@ -433,42 +442,69 @@
   }
   
   .elo-score, .rank {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
   }
   
-  /* Adjust container positioning for medium screens */
   .leaderboard-nav {
-    top: 1.5rem;
-    right: 1.5rem;
+    margin-top: 2rem;
   }
   
   .leaderboard-back, .nav-button, .back-button {
-    padding: 0.7rem 1.5rem;
     font-size: 0.9rem;
-    /* Removed position and width from button itself */
+    padding: 0.5rem 1rem;
+    position: static;
+    margin-bottom: 1rem;
+  }
+
+  .leaderboard .profile, 
+  .leaderboard .profile-info {
+    padding-left: 0.5rem !important;
+    gap: 0.8rem;
   }
 }
 
 @media (max-width: 480px) {
   .leaderboard h1 {
-    font-size: 2rem;
-    margin-top: 3.5rem; /* Keep space for the button */
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
   }
   
-  /* Adjust container positioning for small screens */
   .leaderboard-nav {
-    top: 1rem;
-    right: 1rem;
+    padding: 0.5rem;
   }
   
   .leaderboard-back, .nav-button, .back-button {
-    padding: 0.6rem 1.2rem;
     font-size: 0.8rem;
-    /* Removed position from button itself */
+    padding: 0.4rem 0.8rem;
   }
   
   .leaderboard .profile-company, .leaderboard .profile-details .profile-company {
-    display: none;
+    font-size: 0.7rem;
+  }
+
+  .leaderboard-header, .leaderboard-row {
+    grid-template-columns: 0.4fr 1.7fr 0.8fr;
+    padding: 0.6rem 0.3rem;
+  }
+
+  .leaderboard .profile-image img, 
+  .leaderboard .profile-avatar,
+  .leaderboard .profile-image,
+  .leaderboard .profile-avatar-container,
+  .leaderboard .avatar-container,
+  .leaderboard .avatar-wrapper {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .rank {
+    font-size: 1.2rem;
+  }
+
+  .elo, .elo-score {
+    font-size: 1rem;
   }
 }
 
