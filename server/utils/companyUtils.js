@@ -16,7 +16,7 @@ const CUSTOM_LOGOS = {
   'Carolina Financial Group LLC' : 'https://media.licdn.com/dms/image/v2/C510BAQE76IxfHFjaSA/company-logo_200_200/company-logo_200_200/0/1631390737487?e=2147483647&v=beta&t=rD_SO4TawETPyyGxu2Qi0rZ0O3JDVcy8eOpJOBLA6ZA',
   'Carolina Women in Business (Undergraduate)' : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6sVHrp7RJTDzx55wtQc6asVbJchfrg0dX3A&s',
   'Covey Capital Advisors, LLC' : 'https://images.crunchbase.com/image/upload/c_pad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_2/v1478495467/eegcjwloznrdax40fb5i.png', 
-  'Undergradute Teaching Assistant' : 'https://media.licdn.com/dms/image/v2/D560BAQF12FyuHiwRCw/company-logo_100_100/company-logo_100_100/0/1692226029527/unc_department_of_computer_science_logo?e=1749081600&v=beta&t=_TRQR9T6V4EYgvH-qRHxXzlgykzhyJ7YNc0qCkTpshw',
+  'UNC Department Of Computer Science' : 'https://media.licdn.com/dms/image/v2/D560BAQF12FyuHiwRCw/company-logo_100_100/company-logo_100_100/0/1692226029527/unc_department_of_computer_science_logo?e=1749081600&v=beta&t=_TRQR9T6V4EYgvH-qRHxXzlgykzhyJ7YNc0qCkTpshw',
   'UNC Reynolds Investment Fund' : 'https://media.licdn.com/dms/image/v2/C4D0BAQH1BbavaqZIhA/company-logo_200_200/company-logo_200_200/0/1630532182903?e=1749081600&v=beta&t=HVx3OqcPa2m1KR0c4m60Xk9jV8QIvMMeOntE8bGQj8c',
   'University of North Carolina at Chapel Hill' : 'https://media.licdn.com/dms/image/v2/D560BAQF12FyuHiwRCw/company-logo_100_100/company-logo_100_100/0/1692226029527/unc_department_of_computer_science_logo?e=1749081600&v=beta&t=_TRQR9T6V4EYgvH-qRHxXzlgykzhyJ7YNc0qCkTpshw',
   'AstraCell, LCC.' : 'https://media.licdn.com/dms/image/v2/C560BAQEZk_JO2dqfTw/company-logo_200_200/company-logo_200_200/0/1659322441077/astra_cell_inc_logo?e=1749081600&v=beta&t=PoFtO9INT6jFVn_pGmTe3YnwmyzOnVnTDBjCqkMM6x4',
@@ -51,7 +51,7 @@ const COMPANY_DOMAINS = {
   'RBC Capital Markets' : 'rbc.com',
   'Davidson Capital Advisors' : 'davcapadvisors.com',
   'The Bloom Organization' : 'bloomllc.com',
-  'Nuveen, a TIAA Company' : 'nuveen.com',
+  'Nuveen, a TIAA company' : 'nuveen.com',
   'Renovo Capital, LCC' : 'renovocapital.com',
   'Truist Wealth' : 'truist.com',
 
