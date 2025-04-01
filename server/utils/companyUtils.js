@@ -21,7 +21,12 @@ const CUSTOM_LOGOS = {
   'University of North Carolina at Chapel Hill' : 'https://media.licdn.com/dms/image/v2/D560BAQF12FyuHiwRCw/company-logo_100_100/company-logo_100_100/0/1692226029527/unc_department_of_computer_science_logo?e=1749081600&v=beta&t=_TRQR9T6V4EYgvH-qRHxXzlgykzhyJ7YNc0qCkTpshw',
   'AstraCell, LLC.' : 'https://media.licdn.com/dms/image/v2/C560BAQEZk_JO2dqfTw/company-logo_200_200/company-logo_200_200/0/1659322441077/astra_cell_inc_logo?e=1749081600&v=beta&t=PoFtO9INT6jFVn_pGmTe3YnwmyzOnVnTDBjCqkMM6x4',
   'Trackhawk Advisors' : 'https://media.licdn.com/dms/image/v2/D560BAQH42qUTShjwuQ/company-logo_200_200/company-logo_200_200/0/1701953243109?e=1749081600&v=beta&t=PhpMqBsVs7_27addi2dK5B4FFdTEz3QTvkz6BrP31gw',
-  'Hyannis Harbor Hawks' : 'https://media.licdn.com/dms/image/v2/D560BAQGK0rlX4GuIyw/company-logo_100_100/company-logo_100_100/0/1707862341147/hyannis_harbor_hawks_logo?e=1749081600&v=beta&t=ruwKqXF2reGg40MQ3sZUIG6Je0r-ZYzNvlzqp5efxl0'
+  'Hyannis Harbor Hawks' : 'https://media.licdn.com/dms/image/v2/D560BAQGK0rlX4GuIyw/company-logo_100_100/company-logo_100_100/0/1707862341147/hyannis_harbor_hawks_logo?e=1749081600&v=beta&t=ruwKqXF2reGg40MQ3sZUIG6Je0r-ZYzNvlzqp5efxl0',
+  'Bank of America Merrill Lynch' : 'https://media.licdn.com/dms/image/v2/C560BAQEwSq6HbLmEdQ/company-logo_200_200/company-logo_200_200/0/1631390069758?e=1749081600&v=beta&t=KIWJU_u8oSW0mVEVioTQKONpkVuuLqvascbEwA4xj04',
+  'UNC Department of Psychology & Neuroscience' : 'https://media.licdn.com/dms/image/v2/C4D0BAQEjNLREcUcetg/company-logo_100_100/company-logo_100_100/0/1630532748907?e=1749081600&v=beta&t=Sk8UJwB72TdrsEX6nF_JAZmBLaSs48vQWmIow6AZvDY',
+  'Boeing' : "https://media.licdn.com/dms/image/v2/D560BAQG8NhuAoYdTgw/company-logo_100_100/company-logo_100_100/0/1708109812925/boeing_logo?e=1749081600&v=beta&t=T_CVr8ycQujBypRmnofgU-ymg7TIuWA7VBt8gEE-V_Q"
+  
+  
   
 
 };
@@ -29,7 +34,6 @@ const CUSTOM_LOGOS = {
 // Only add companies that need custom domain mapping
 const COMPANY_DOMAINS = {
   'Alphabet': 'google.com',
-  'Meta': 'facebook.com',
   'X': 'twitter.com',
   'Bank of America': 'bankofamerica.com',
   'Jane Street': 'janestreet.com',
@@ -55,7 +59,9 @@ const COMPANY_DOMAINS = {
   'Nuveen, a TIAA company' : 'nuveen.com',
   'Renovo Capital, LLC' : 'renovocapital.com',
   'Truist Wealth' : 'truist.com',
-
+  'Amazon Web Services (AWS)' : 'aws.amazon.com', 
+  'Voicera' : 'voicera.io',
+  'Sciome LLC' : 'sciome.com'
 
 
 
