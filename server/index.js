@@ -280,6 +280,23 @@ app.delete('/api/companies', requireApiKey, async (req, res) => {
   }
 });
 
+// NEW ROUTE: Reset ELO for all profiles
+app.post('/api/profiles/reset-all-elo', requireApiKey, async (req, res) => {
+  try {
+    const result = await Profile.updateMany({}, { $set: { elo: 1000 } });
+    console.log(`ELO Reset Result: Matched ${result.matchedCount}, Modified ${result.modifiedCount}`);
+    res.json({ 
+      success: true, 
+      message: `Successfully reset ELO to 1000 for profiles.`, 
+      matchedCount: result.matchedCount, 
+      modifiedCount: result.modifiedCount 
+    });
+  } catch (error) {
+    console.error('Error resetting ELO scores:', error);
+    res.status(500).json({ success: false, error: 'Failed to reset ELO scores' });
+  }
+});
+
 // Basic Error Handling Improvement (Add just before app.listen)
 // Catch-all for other errors - improve this with a proper error handling middleware later
 app.use((err, req, res, next) => {
