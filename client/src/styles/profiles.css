@@ -864,51 +864,25 @@ h2.blurred {
   
   .battle-container {
     flex-direction: column;
-    padding: 0.5rem;
-    max-width: 100%;
-    width: 100%;
-    margin: 0 auto;
+    padding: 1rem;
   }
   
   .connection-card {
-    width: 90%;
-    max-width: 350px;
+    width: 100%;
+    max-width: 100%;
     padding: 1rem;
-    margin: 0.5rem auto;
-    box-sizing: border-box;
-  }
-  
-  .connection-card.isWinner,
-  .connection-card.isLoser {
-    width: 90%;
-    max-width: 350px;
+    margin-bottom: 2rem;
   }
   
   .versus-circle {
     position: relative;
-    margin: 0.5rem auto;
+    margin: 1rem 0;
     transform: none;
     left: auto;
-    width: 60px;
-    height: 60px;
-    font-size: 1rem;
   }
   
   .connection-card .profile-header {
     margin-bottom: 1rem;
-  }
-  
-  .connection-card .profile-image {
-    width: 70px !important;
-    height: 70px !important;
-  }
-  
-  .connection-card .profile-info {
-    width: calc(100% - 80px);
-  }
-  
-  .connection-card .profile-info h2 {
-    font-size: 1.1rem;
   }
   
   .education {
@@ -917,13 +891,12 @@ h2.blurred {
   }
   
   .connection-clash {
-    padding: 1rem 0.5rem;
+    padding: 1rem;
   }
   
   .connection-clash h1 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    margin-top: 0.5rem;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
   }
   
   .experience-item {
@@ -934,27 +907,19 @@ h2.blurred {
     flex-wrap: wrap;
     gap: 0.5rem;
     justify-content: center;
-    position: static;
-    margin-bottom: 1rem;
-  }
-  
-  .company-logo {
-    width: 40px;
-    height: 40px;
   }
 }
 
 @media (max-width: 480px) {
   .connection-card .profile-header {
-    flex-direction: row;
-    text-align: left;
+    flex-direction: column;
+    text-align: center;
     align-items: center;
   }
   
   .connection-card .profile-info {
-    text-align: left;
-    margin-top: 0;
-    padding-left: 0.5rem;
+    text-align: center;
+    margin-top: 0.5rem;
   }
   
   .experience-item {
@@ -973,40 +938,8 @@ h2.blurred {
   }
   
   .versus-circle {
-    width: 50px;
-    height: 50px;
-    font-size: 0.9rem;
-  }
-  
-  /* Make experiences more compact */
-  .experiences {
-    padding: 0.5rem 0;
-  }
-  
-  .experience-item {
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-  }
-  
-  /* Make education more compact */
-  .education {
-    margin-top: 0.5rem;
-  }
-  
-  .major {
+    width: 80px;
+    height: 80px;
     font-size: 1rem;
-  }
-  
-  .school {
-    font-size: 0.8rem;
-  }
-  
-  /* Fix the winner effect on mobile */
-  .connection-card.isWinner::before {
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    filter: blur(5px);
   }
 } 
