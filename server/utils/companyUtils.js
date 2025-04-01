@@ -52,7 +52,7 @@ const COMPANY_DOMAINS = {
   'Davidson Capital Advisors' : 'davcapadvisors.com',
   'The Bloom Organization' : 'bloomllc.com',
   'Nuveen, a TIAA company' : 'nuveen.com',
-  'Renovo Capital, LCC' : 'renovocapital.com',
+  'Renovo Capital, LLC' : 'renovocapital.com',
   'Truist Wealth' : 'truist.com',
 
 
