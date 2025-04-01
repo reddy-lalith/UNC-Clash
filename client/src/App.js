@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import DarkModeToggle from './components/DarkModeToggle';
 import Profiles from './pages/Profiles';
 import Leaderboard from './pages/Leaderboard';
 import BattleHistory from './components/BattleHistory';
-import VercelTracking from './components/VercelTracking';
 import './styles/app.css';
 import './styles/profiles.css';
 import './styles/leaderboard.css';
@@ -20,7 +21,10 @@ function App() {
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/battle-history" element={<BattleHistory />} />
         </Routes>
-        <VercelTracking />
+        
+        {/* Custom basePath to bypass AdBlock */}
+        <Analytics basePath="/monitor" />
+        <SpeedInsights basePath="/monitor" />
       </Router>
     </ThemeProvider>
   );

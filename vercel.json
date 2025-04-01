@@ -1,12 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/aura-stats/:match*",
-      "destination": "https://linkedinavercel.app/_vercel/insights/:match*"
-    },
-    {
-      "source": "/aura-speed/:match*",
-      "destination": "https://linkedinavercel.app/_vercel/speed-insights/:match*"
+      "source": "/monitor/:match*",
+      "destination": "https://yourdomain.vercel.app/_vercel/:match*"
     }
   ]
 } 

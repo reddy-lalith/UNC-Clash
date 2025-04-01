@@ -1,12 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/aura-stats/:match*",
-      "destination": "https://www.uncclash.com/_vercel/insights/:match*"
-    },
-    {
-      "source": "/aura-speed/:match*",
-      "destination": "https://www.uncclash.com/_vercel/speed-insights/:match*"
+      "source": "/monitor/:match*",
+      "destination": "https://www.uncclash.com/_vercel/:match*"
     }
   ]
 } 
