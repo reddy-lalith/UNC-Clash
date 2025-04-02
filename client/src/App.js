@@ -55,17 +55,23 @@ function App() {
       color: 'white',
       height: '100vh',
       display: 'flex',
+      flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
       fontSize: '2rem',
       textAlign: 'center',
       fontFamily: 'sans-serif'
     }}>
-      {timeLeft.isTimeUp ? (
-        'completely cooked'
-      ) : (
-        `completely cooked brb in ${String(timeLeft.hours).padStart(2, '0')}:${String(timeLeft.minutes).padStart(2, '0')}:${String(timeLeft.seconds).padStart(2, '0')}`
-      )}
+      <div>
+        {timeLeft.isTimeUp ? (
+          'completely cooked'
+        ) : (
+          `completely cooked brb in ${String(timeLeft.hours).padStart(2, '0')}:${String(timeLeft.minutes).padStart(2, '0')}:${String(timeLeft.seconds).padStart(2, '0')}`
+        )}
+      </div>
+      <p style={{ marginTop: '20px', fontSize: '1rem' }}>
+        email me at lalith@unc.edu to get added at the next wave
+      </p>
     </div>
   );
 }
