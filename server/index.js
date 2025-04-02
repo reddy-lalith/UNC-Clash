@@ -53,13 +53,18 @@ const mongoURI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/linkedinAur
 console.log(`Using MongoDB URI: ${mongoURI.replace(/\/\/[^:]+:[^@]+@/, '//***:***@')}`);
 
 mongoose.connect(mongoURI)
-  .then(() => console.log('📦 Connected to MongoDB'))
+  .then(() => {
+    console.log('📦 Connected to MongoDB');
+    // Start the server ONLY after DB connection is successful
+    app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+  })
   .catch(err => {
     console.error('❌ MongoDB connection error:', err.message);
     console.error('Please check if:');
     console.error('1. Your connection string is correct');
     console.error('2. Network allows the connection');
     console.error('3. Username and password are correct (if using Atlas)');
+    process.exit(1); // Exit if DB connection fails - crucial for Heroku
   });
 
 // Near the top of the file, after loading env variables
@@ -274,6 +279,50 @@ app.post('/api/profiles/refresh-all-logos', requireApiKey, async (req, res) => {
 
     res.json({ success: true, message: `Updated logos for ${updatedCount} profiles` });
   } catch (error) {
+    console.error('Error refreshing logos:', error);
+    res.status(500).json({ success: false, error: 'Failed to refresh logos' });
+  }
+});
+
+// Restore potentially deleted routes and logic
+app.delete('/api/companies', requireApiKey, async (req, res) => {
+  try {
+    await Company.deleteMany({});
+    res.json({ message: 'All companies deleted successfully' });
+  } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/profiles/reset-all-elo', requireApiKey, async (req, res) => {
+  try {
+    const result = await Profile.updateMany({}, { $set: { elo: 1000 } });
+    console.log(`ELO Reset Result: Matched ${result.matchedCount}, Modified ${result.modifiedCount}`);
+    res.json({ 
+      success: true, 
+      message: `Successfully reset ELO to 1000 for profiles.`, 
+      matchedCount: result.matchedCount, 
+      modifiedCount: result.modifiedCount 
+    });
+  } catch (error) {
+    console.error('Error resetting ELO scores:', error);
+    res.status(500).json({ success: false, error: 'Failed to reset ELO scores' });
+  }
+});
+
+// Basic Error Handling Improvement
+app.use((err, req, res, next) => {
+  console.error("Unhandled Error:", err.stack);
+  if (!res.headersSent) {
+    if (process.env.NODE_ENV === 'production') {
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(500).json({
+        error: 'Internal Server Error',
+        message: err.message,
+      });
+    }
+  } else {
+    next(err);
   }
 });
