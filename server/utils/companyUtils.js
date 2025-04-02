@@ -75,6 +75,7 @@ const COMPANY_DOMAINS = {
   'Amazon Web Services (AWS)' : 'aws.amazon.com', 
   'Hale Partnership Capital Management, LLC.' : "halepartnership.com",
   'McKinsey & Company' : 'https://www.mckinsey.com/',
+  'Dragonfly Capital Partners, LLC' : "dragonflycapital.com",
 
   
 

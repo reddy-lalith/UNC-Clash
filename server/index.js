@@ -71,7 +71,13 @@ console.log('Logo API Key available:', !!process.env.LOGO_API_KEY);
 app.get('/', (_req, res) => res.send('🚀 LinkedInAura API is live'));
 app.get('/api/profiles', async (req, res) => {
   try {
-    const profiles = await Profile.find().sort({ updatedAt: -1 });
+    // Get a random sample of all profiles instead of sorting by updatedAt
+    const randomCount = parseInt(req.query.count) || 20; // Default to 20 random profiles
+    
+    const profiles = await Profile.aggregate([
+      { $sample: { size: randomCount } }
+    ]);
+    
     res.json(profiles);
   } catch (error) {
     res.status(500).json({ error: error.message });
