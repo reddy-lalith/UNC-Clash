@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { Analytics } from '@vercel/analytics/react';
@@ -12,67 +12,38 @@ import './styles/profiles.css';
 import './styles/leaderboard.css';
 
 function App() {
-  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
-
-  useEffect(() => {
-    const calculateTimeLeft = () => {
-      const now = new Date();
-      const target = new Date(now);
-
-      // Set target time to 10 PM (22:00:00) today
-      target.setHours(22, 0, 0, 0);
-
-      // If it's already past 10 PM today, don't count down
-      if (now > target) {
-        return { hours: 0, minutes: 0, seconds: 0, isTimeUp: true };
-      }
-
-      const difference = target.getTime() - now.getTime();
-
-      let hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-      let minutes = Math.floor((difference / 1000 / 60) % 60);
-      let seconds = Math.floor((difference / 1000) % 60);
-
-      return { hours, minutes, seconds, isTimeUp: false };
-    };
-
-    // Initial calculation
-    setTimeLeft(calculateTimeLeft());
-
-    // Update timer every second
-    const timerInterval = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(timerInterval);
-
-  }, []); // Empty dependency array ensures this runs only once on mount
+  const [showOptMessage, setShowOptMessage] = useState(false);
 
   return (
-    <div style={{
-      backgroundColor: 'black',
-      color: 'white',
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      fontSize: '2rem',
-      textAlign: 'center',
-      fontFamily: 'sans-serif'
-    }}>
-      <div>
-        {timeLeft.isTimeUp ? (
-          'completely cooked'
-        ) : (
-          `completely cooked brb in ${String(timeLeft.hours).padStart(2, '0')}:${String(timeLeft.minutes).padStart(2, '0')}:${String(timeLeft.seconds).padStart(2, '0')}`
+    <ThemeProvider>
+      <Router>
+        <DarkModeToggle />
+        <Routes>
+          <Route path="/" element={<Profiles />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/battle-history" element={<BattleHistory />} />
+        </Routes>
+        
+        {/* Custom basePath to bypass AdBlock */}
+        <Analytics basePath="/monitor" />
+        <SpeedInsights basePath="/monitor" />
+        
+        {/* Opt-in/Opt-out Button */}
+        <div className="opt-button" onClick={() => setShowOptMessage(!showOptMessage)}>
+          Opt In/Out
+        </div>
+        
+        {/* Opt-in/Opt-out Message Overlay */}
+        {showOptMessage && (
+          <div className="opt-message-overlay" onClick={() => setShowOptMessage(false)}>
+            <div className="opt-message" onClick={(e) => e.stopPropagation()}>
+              <p>Email me at lalith@unc.edu with your unc.edu email and I will remove or add you without any questions.</p>
+              <button onClick={() => setShowOptMessage(false)}>Close</button>
+            </div>
+          </div>
         )}
-      </div>
-      <p style={{ marginTop: '20px', fontSize: '1rem' }}>
-        email me at lalith@unc.edu to get added at the next wave
-      </p>
-    </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 
