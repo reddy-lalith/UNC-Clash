@@ -1,0 +1,15 @@
+/* client/src/styles/constructionBanner.css */
+.construction-banner {
+  background-color: #ffcc00; /* Yellow background */
+  color: #333; /* Dark text */
+  text-align: center;
+  padding: 10px 0;
+  font-weight: bold;
+  font-size: 1rem;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it's above other content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+} 
