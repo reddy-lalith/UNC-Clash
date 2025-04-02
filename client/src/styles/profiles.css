@@ -101,6 +101,14 @@ body {
   box-shadow: 0 0 20px 8px rgba(66, 153, 225, 0.3);
 }
 
+/* Ensure content stacks above potential ::before/::after pseudo-elements */
+.connection-card > .profile-header,
+.connection-card > .experiences,
+.connection-card > .education {
+  position: relative; /* Needed to apply z-index */
+  z-index: 1; /* Stack above elements with z-index: -1 (like the glow) */
+}
+
 .connection-card .profile-header {
   display: flex;
   align-items: center;
@@ -944,4 +952,24 @@ h2.blurred {
     height: 80px;
     font-size: 1rem;
   }
+} 
+
+/* Ensure content stacks above potential ::before/::after pseudo-elements */
+.connection-card > .profile-header,
+.connection-card > .experiences,
+.connection-card > .education {
+  position: relative; /* Needed to apply z-index */
+  z-index: 1; /* Stack above elements with z-index: -1 (like the glow) */
+}
+
+.connection-card.isWinner {
+  /* Keep existing box-shadow and add position/overflow/z-index */
+  box-shadow: 0 0 30px 15px rgba(66, 153, 225, 0.4);
+  position: relative;
+  overflow: visible;
+  z-index: 1;
+}
+
+.connection-card.isLoser {
+  box-shadow: 0 0 20px 8px rgba(66, 153, 225, 0.3);
 } 
