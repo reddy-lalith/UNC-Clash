@@ -177,9 +177,6 @@ export default function Profiles() {
     setLoading(true);
 
     try {
-      // Immediately show identities
-      setShowIdentities(true);
-
       // Call the new backend endpoint to record the battle and get updated profiles
       const result = await api.recordBattleResult(winnerId, loserId);
       const updatedWinner = result.winner;
@@ -189,6 +186,8 @@ export default function Profiles() {
       const originalWinner = selectedPair.find(p => p._id === winnerId);
       const eloChange = updatedWinner.elo - (originalWinner.elo || 1000);
 
+      // Set identity visibility *with* the battle result
+      setShowIdentities(true);
       // Set the battle result for UI updates
       setBattleResult({
         winner: updatedWinner,
