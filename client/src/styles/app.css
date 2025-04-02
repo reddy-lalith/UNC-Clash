@@ -2266,24 +2266,32 @@ body {
   .battle-container {
     flex-direction: column;
     align-items: center;
-    padding: 0.5rem;
+    padding: 0;
     gap: 1rem;
     width: 100%;
     max-width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
   }
   
   .clickable-card {
-    max-width: 95% !important; /* Override the 45% max-width to fill more screen space */
-    width: 95% !important;
+    max-width: 92% !important; /* Slightly reduced from 95% to ensure padding on both sides */
+    width: 92% !important;
     margin: 0 auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    position: relative;
+    transform: none !important;
   }
   
   .connection-card {
     width: 100%;
     max-width: 100%;
-    margin: 0 !important;
+    margin: 0 auto !important;
     transform: none !important;
     border-radius: 10px;
+    left: 0 !important;
+    right: 0 !important;
   }
   
   .connection-card:hover {
@@ -2387,13 +2395,20 @@ body {
   }
   
   .battle-container {
-    padding: 0.25rem;
+    padding: 0;
     gap: 1rem;
+    width: 100%;
+    overflow: hidden;
   }
   
   .clickable-card {
-    max-width: 98% !important;
-    width: 98% !important;
+    max-width: 92% !important;
+    width: 92% !important;
+    margin: 0 auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    position: relative;
+    box-sizing: border-box;
   }
   
   .connection-card {
@@ -2511,6 +2526,19 @@ body {
   .company-logo {
     width: 32px;
     height: 32px;
+  }
+  
+  .battle-container {
+    padding: 0;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  
+  .clickable-card {
+    max-width: 92% !important;
+    width: 92% !important;
+    margin: 0 auto !important;
+    box-sizing: border-box;
   }
 }
 
