@@ -61,8 +61,8 @@ const ConnectionCard = ({
       style={tiltStyle}
     >
       <div className="profile-header">
-        <div className="profile-image">
-          {showIdentity && profile.profilePictureUrl ? (
+        <div className={`profile-image ${!showIdentity ? 'blurred' : ''}`}>
+          {profile.profilePictureUrl ? (
             <img 
               src={profile.profilePictureUrl} 
               alt={profile.name} 
@@ -77,7 +77,7 @@ const ConnectionCard = ({
           )}
         </div>
         <div className="profile-info">
-          <h2>{profile.name}</h2>
+          <h2 className={!showIdentity ? 'blurred-text' : ''}>{profile.name}</h2>
           {eloChange !== null && (
             <div className={`elo-change ${eloChange > 0 ? 'positive' : 'negative'}`}>
               {eloChange > 0 ? '+' : ''}{eloChange} ELO
@@ -95,7 +95,7 @@ const ConnectionCard = ({
         {profile.experiences && profile.experiences.length > 0 ? (
           profile.experiences.map((exp, index) => (
             <div className="experience-item" key={index}>
-              <div className="company-logo">
+              <div className={`company-logo ${!showIdentity ? 'blurred' : ''}`}>
                 {exp.companyLogo ? (
                   <img 
                     src={exp.companyLogo} 
@@ -110,8 +110,8 @@ const ConnectionCard = ({
                 )}
               </div>
               <div className="experience-details">
-                <h3>{exp.title}</h3>
-                <p>{exp.company}</p>
+                <h3 className={!showIdentity ? 'blurred-text' : ''}>{exp.title}</h3>
+                <p className={!showIdentity ? 'blurred-text' : ''}>{exp.company}</p>
                 {showIdentity && exp.startDate && (
                   <p className="experience-date">
                     {exp.startDate} - {exp.current ? "Present" : exp.endDate || ""}
@@ -128,7 +128,7 @@ const ConnectionCard = ({
       <div className="education">
         <div className="majors">
           {profile.education && profile.education.majors && profile.education.majors.map((major, index) => (
-            <h3 key={index} className="major">
+            <h3 key={index} className={`major ${!showIdentity ? 'blurred-text' : ''}`}>
               {major}
               {showIdentity && index === 0 && formattedGradYear && ` ${formattedGradYear}`}
             </h3>
@@ -136,7 +136,7 @@ const ConnectionCard = ({
         </div>
         <div className="schools">
           {profile.education && profile.education.schools && profile.education.schools.map((school, index) => (
-            <p key={index} className="school">{school}</p>
+            <p key={index} className={`school ${!showIdentity ? 'blurred-text' : ''}`}>{school}</p>
           ))}
         </div>
       </div>
