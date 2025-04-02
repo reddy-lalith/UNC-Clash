@@ -128,7 +128,10 @@ app.get('/api/companies/search', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.post('/api/profiles', async (req, res) => {
+
+// Protected Routes (Require API Key)
+// Profile creation is now protected
+app.post('/api/profiles', requireApiKey, async (req, res) => {
   try {
     const profileData = req.body;
 
@@ -149,7 +152,7 @@ app.post('/api/profiles', async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-app.put('/api/profiles/:id', async (req, res) => {
+app.put('/api/profiles/:id', requireApiKey, async (req, res) => {
   try {
     const profileData = req.body;
 
@@ -176,8 +179,6 @@ app.put('/api/profiles/:id', async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
-// Protected Routes (Apply requireApiKey middleware)
 app.post('/api/companies', requireApiKey, async (req, res) => {
   try {
     const { name, logoUrl, aliases = [] } = req.body;
