@@ -317,23 +317,6 @@ export default function Profiles() {
           CONNECTION <div className="logo-container"><img src="/clash_logo.png" alt="Clash Logo" className="clash-logo" /></div> CLASH
         </h1>
         
-        {/* Temporary Notice */}
-        <div 
-          className="temporary-notice" 
-          style={{
-            backgroundColor: '#fff3cd', // Light yellow background
-            color: '#856404', // Dark yellow text
-            padding: '1rem',
-            margin: '1rem 0',
-            borderRadius: '8px',
-            textAlign: 'center',
-            border: '1px solid #ffeeba' // Light yellow border
-          }}
-        >
-          ppl are lowkey hacking me. leaderboard frozen till 4pm eastern
-        </div>
-        {/* End Temporary Notice */}
-        
         <div className="battle-container">
           {selectedPair.map((profile, index) => (
             <div 
