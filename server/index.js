@@ -12,6 +12,19 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+// --- Elo Calculation Utility ---
+const K_FACTOR = 32;
+
+function calculateNewElo(winnerRating, loserRating) {
+  const expectedWinnerScore = 1 / (1 + Math.pow(10, (loserRating - winnerRating) / 400));
+  const expectedLoserScore = 1 / (1 + Math.pow(10, (winnerRating - loserRating) / 400));
+
+  const newWinnerRating = Math.round(winnerRating + K_FACTOR * (1 - expectedWinnerScore));
+  const newLoserRating = Math.round(loserRating + K_FACTOR * (0 - expectedLoserScore));
+
+  return { newWinnerRating, newLoserRating };
+}
+
 // --- Security Middleware ---
 app.use(helmet());
 
@@ -133,6 +146,53 @@ app.get('/api/companies/search', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+app.post('/api/battles', async (req, res) => {
+  const { winnerId, loserId } = req.body;
+
+  if (!winnerId || !loserId) {
+    return res.status(400).json({ error: 'winnerId and loserId are required' });
+  }
+
+  if (winnerId === loserId) {
+    return res.status(400).json({ error: 'Winner and loser cannot be the same profile' });
+  }
+
+  try {
+    const [winnerProfile, loserProfile] = await Promise.all([
+      Profile.findById(winnerId),
+      Profile.findById(loserId)
+    ]);
+
+    if (!winnerProfile) {
+      return res.status(404).json({ error: `Winner profile not found: ${winnerId}` });
+    }
+    if (!loserProfile) {
+      return res.status(404).json({ error: `Loser profile not found: ${loserId}` });
+    }
+
+    const { newWinnerRating, newLoserRating } = calculateNewElo(winnerProfile.elo, loserProfile.elo);
+
+    const [updatedWinner, updatedLoser] = await Promise.all([
+      Profile.findByIdAndUpdate(winnerId, { elo: newWinnerRating }, { new: true }),
+      Profile.findByIdAndUpdate(loserId, { elo: newLoserRating }, { new: true })
+    ]);
+
+    console.log(`Battle recorded: Winner ${winnerId} (${winnerProfile.elo} -> ${newWinnerRating}), Loser ${loserId} (${loserProfile.elo} -> ${newLoserRating})`);
+
+    res.json({ winner: updatedWinner, loser: updatedLoser });
+
+  } catch (error) {
+    console.error('Error recording battle:', error);
+    if (error.name === 'CastError') {
+         return res.status(400).json({ error: 'Invalid profile ID format provided.' });
+    }
+    res.status(500).json({ error: 'Failed to record battle' });
+  }
+});
+
+// Protected Routes (Apply requireApiKey middleware)
+
+// Restore POST /api/profiles (protected)
 app.post('/api/profiles', requireApiKey, async (req, res) => {
   try {
     const profileData = req.body;
@@ -154,6 +214,8 @@ app.post('/api/profiles', requireApiKey, async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+// Restore PUT /api/profiles/:id (protected)
 app.put('/api/profiles/:id', requireApiKey, async (req, res) => {
   try {
     const profileData = req.body;
@@ -170,20 +232,25 @@ app.put('/api/profiles/:id', requireApiKey, async (req, res) => {
 
     const profile = await Profile.findByIdAndUpdate(
       req.params.id,
-      profileData,
-      { new: true }
+      profileData, 
+      { new: true } 
     );
     if (!profile) {
       return res.status(404).json({ error: 'Profile not found' });
     }
-    await profile.save();
+    // Note: .findByIdAndUpdate saves automatically, no need for profile.save() unless using middleware hooks
     res.json(profile);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    // Use 400 for bad request data, 500 for server errors
+    if (error.name === 'ValidationError' || error.name === 'CastError') {
+      res.status(400).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: error.message });
+    }
   }
 });
 
-// Protected Routes (Apply requireApiKey middleware)
+// Existing protected routes follow
 app.post('/api/companies', requireApiKey, async (req, res) => {
   try {
     const { name, logoUrl, aliases = [] } = req.body;
