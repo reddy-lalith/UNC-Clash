@@ -113,13 +113,14 @@ export default function Profiles() {
           } else {
             // Fallback if fetching next pair failed or was slow
             fetchAndSetRandomPair(); 
-            return;
+            return; // Exit early as fetchAndSet handles loading state
           }
           
           // Reset states for the new pair
           setBattleResult(null);
           setShowIdentities(false);
           setReadyToEndClash(false); // Reset the ready flag
+          setLoading(false); // <<< SET LOADING FALSE HERE, before fade-in
           
           // Fade-in the new cards
           setTimeout(() => {
