@@ -2717,4 +2717,25 @@ body {
     height: 35px;
   }
 }
+
+.copyright-footer {
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 0.5rem 0 1rem;
+  margin-top: 0.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.dark-mode .copyright-footer {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  .copyright-footer {
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem 1rem;
+  }
+}
   

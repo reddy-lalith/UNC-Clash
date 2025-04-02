@@ -373,6 +373,10 @@ export default function Profiles() {
         <div className="attribution">
           <a href="https://logo.dev" alt="Logo API">Logos provided by Logo.dev</a>
         </div>
+        
+        <div className="copyright-footer">
+          © 2025 Connection Clash | Not affiliated with the University of North Carolina at Chapel Hill
+        </div>
       </div>
     </>
   );
