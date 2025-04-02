@@ -2654,4 +2654,39 @@ body {
     padding: 15px;
   }
 }
+
+/* Clash Logo in Title */
+.clash-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.clash-logo {
+  height: 50px;
+  width: auto;
+  vertical-align: middle;
+  margin: 0 5px;
+  filter: drop-shadow(0 2px 4px rgba(3, 105, 161, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.clash-title:hover .clash-logo {
+  transform: rotate(10deg);
+}
+
+/* Mobile responsiveness for the logo */
+@media (max-width: 768px) {
+  .clash-logo {
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .clash-logo {
+    height: 30px;
+  }
+}
   

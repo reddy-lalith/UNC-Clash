@@ -353,13 +353,8 @@ export default function Profiles() {
       </div>
       
       <div className="connection-clash">
-        <h1>
-          <img 
-            src="/clash_logo.png" 
-            alt="clash" 
-            className="clash_logo" 
-          />
-          CLASH
+        <h1 className="clash-title">
+          CONNECTION <img src="/clash_logo.png" alt="Clash Logo" className="clash-logo" /> CLASH
         </h1>
         
         <div className="battle-container">
