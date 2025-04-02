@@ -330,7 +330,7 @@ export default function Profiles() {
             border: '1px solid #ffeeba' // Light yellow border
           }}
         >
-          ppl are lowkey hacking me. leaderboard frozen till 5pm eastern
+          ppl are lowkey hacking me. leaderboard frozen till 4pm eastern
         </div>
         {/* End Temporary Notice */}
         
