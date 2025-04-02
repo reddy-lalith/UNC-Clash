@@ -2738,4 +2738,31 @@ body {
     padding: 0.5rem 1rem 1rem;
   }
 }
+
+.linkedin-button {
+  background-color: #0a66c2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.linkedin-button:hover {
+  background-color: #004182;
+}
+
+.dark-mode .linkedin-button {
+  background-color: #0a66c2;
+}
+
+.dark-mode .linkedin-button:hover {
+  background-color: #004182;
+}
   

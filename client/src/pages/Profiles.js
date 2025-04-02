@@ -87,9 +87,9 @@ export default function Profiles() {
     
     // Only condition now is if the clash is ready to end
     if (readyToEndClash) {
-      console.log("Starting transition with 2-second timer...");
+      console.log("Starting transition with 1-second timer...");
       
-      // Set a fixed timeout of 2 seconds
+      // Set a fixed timeout of 1 second (changed from 2 seconds)
       transitionTimeoutRef.current = setTimeout(() => {
         console.log("Transition timeout fired. Fetching next pair...");
         
@@ -127,7 +127,7 @@ export default function Profiles() {
           }, 100); // Short delay for fade-in start
         }, 300); // Wait for fade-out (match CSS transition duration)
         
-      }, 2000); // Fixed 2-second delay after winner is selected
+      }, 1000); // Fixed 1-second delay after winner is selected (changed from 2000)
       
       // Cleanup function for the effect
       return () => {
