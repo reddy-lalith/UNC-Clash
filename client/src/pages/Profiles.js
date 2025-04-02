@@ -31,7 +31,6 @@ export default function Profiles() {
   
   const [cardsVisible, setCardsVisible] = useState(false);
   
-  const [hoveredCardId, setHoveredCardId] = useState(null);
   const [readyToEndClash, setReadyToEndClash] = useState(false);
   
   const nextPairRef = useRef(null);
@@ -78,7 +77,7 @@ export default function Profiles() {
     }
   }, [initialDataLoaded]);
 
-  // NEW Effect to handle the end-of-clash transition
+  // Simplified effect to handle the clash transition with a fixed timer
   useEffect(() => {
     // Clear any existing timeout if conditions change before it fires
     if (transitionTimeoutRef.current) {
@@ -86,11 +85,11 @@ export default function Profiles() {
       transitionTimeoutRef.current = null;
     }
     
-    // Conditions to transition: result processed AND cursor not hovering
-    if (readyToEndClash && hoveredCardId === null) {
-      console.log("Conditions met: Ready to end, not hovering. Starting transition...");
+    // Only condition now is if the clash is ready to end
+    if (readyToEndClash) {
+      console.log("Starting transition with 2-second timer...");
       
-      // Set a timeout to allow animations/visual feedback to complete
+      // Set a fixed timeout of 2 seconds
       transitionTimeoutRef.current = setTimeout(() => {
         console.log("Transition timeout fired. Fetching next pair...");
         
@@ -128,7 +127,7 @@ export default function Profiles() {
           }, 100); // Short delay for fade-in start
         }, 300); // Wait for fade-out (match CSS transition duration)
         
-      }, 1000); // Delay after non-hover condition met (e.g., 1 second)
+      }, 2000); // Fixed 2-second delay after winner is selected
       
       // Cleanup function for the effect
       return () => {
@@ -136,10 +135,8 @@ export default function Profiles() {
           clearTimeout(transitionTimeoutRef.current);
         }
       };
-    } else {
-      console.log(`Transition conditions not met: readyToEndClash=${readyToEndClash}, hoveredCardId=${hoveredCardId}`);
     }
-  }, [readyToEndClash, hoveredCardId]); // Re-run when ready state or hover state changes
+  }, [readyToEndClash]); // Only depend on readyToEndClash
 
   const fetchAndSetRandomPair = async () => {
     try {
@@ -250,30 +247,14 @@ export default function Profiles() {
       localStorage.setItem('battleHistory', JSON.stringify(updatedBattles));
       console.log('Battle saved to history:', battleRecord);
 
-      // ** CHANGE HERE: Instead of setTimeout for transition, set ready flag **
+      // Set ready flag to trigger the timer to next clash
       console.log("Battle processed, setting readyToEndClash = true");
       setReadyToEndClash(true);
 
     } catch (err) {
       console.error('Error updating battle results:', err);
       setError(err.message || 'Failed to update battle results');
-      // Maybe reset ready flag on error?
       setReadyToEndClash(false);
-    }
-  };
-
-  // Handler for hover start on a card
-  const handleCardHoverStart = (profileId) => {
-    console.log("Hover Start:", profileId);
-    setHoveredCardId(profileId);
-  };
-  
-  // Handler for hover end on a card
-  const handleCardHoverEnd = (profileId) => {
-    console.log("Hover End:", profileId);
-    // Ensure we only clear hover if the mouse is leaving the *currently* hovered card
-    if (hoveredCardId === profileId) {
-      setHoveredCardId(null);
     }
   };
 
@@ -356,8 +337,6 @@ export default function Profiles() {
                 }
                 isWinner={battleResult?.winner?._id === profile._id}
                 isLoading={loading || initialLoading}
-                onHoverStart={handleCardHoverStart}
-                onHoverEnd={handleCardHoverEnd}
               />
             </div>
           ))}

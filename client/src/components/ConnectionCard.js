@@ -1,51 +1,15 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { FaLinkedin } from 'react-icons/fa';
 
-export default function ConnectionCard({ profile, eloChange, showIdentity = true, isWinner = false, isLoading = false, onHoverStart, onHoverEnd }) {
+const ConnectionCard = ({ 
+  profile, 
+  showIdentity, 
+  eloChange,
+  isWinner,
+  isLoading
+}) => {
   const cardRef = useRef(null);
   const [tiltStyle, setTiltStyle] = useState({});
-
-  // Log events for debugging hover behavior
-  const handleMouseEnter = (e) => {
-    console.log('[ConnectionCard] Mouse Enter:', profile.name);
-    if (onHoverStart) {
-      onHoverStart(profile._id);
-    }
-  };
-
-  const handleMouseMove = (e) => {
-    console.log('[ConnectionCard] Mouse Move:', profile.name, 'X:', e.clientX, 'Y:', e.clientY);
-    if (!cardRef.current) return;
-
-    const card = cardRef.current;
-    const cardRect = card.getBoundingClientRect();
-
-    // Calculate mouse position relative to the card's center
-    const cardCenterX = cardRect.left + cardRect.width / 2;
-    const cardCenterY = cardRect.top + cardRect.height / 2;
-    const mouseX = e.clientX - cardCenterX;
-    const mouseY = e.clientY - cardCenterY;
-
-    // Calculate rotation (max 5 degrees) and apply a slight scale effect
-    const rotateY = (mouseX / (cardRect.width / 2)) * 5;
-    const rotateX = -(mouseY / (cardRect.height / 2)) * 5;
-
-    setTiltStyle({
-      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`,
-      transition: 'transform 0.1s ease'
-    });
-  };
-
-  const handleMouseLeave = (e) => {
-    console.log('[ConnectionCard] Mouse Leave:', profile.name);
-    setTiltStyle({
-      transform: 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)',
-      transition: 'transform 0.5s ease'
-    });
-    if (onHoverEnd) {
-      onHoverEnd(profile._id);
-    }
-  };
 
   // Helper to open LinkedIn URL - ONLY IF identity is shown
   const openLinkedIn = (e, url) => {
@@ -69,9 +33,6 @@ export default function ConnectionCard({ profile, eloChange, showIdentity = true
     <div 
       ref={cardRef}
       className={`connection-card ${isLoading ? 'skeleton-loading' : ''} ${isWinner ? 'isWinner' : ''} ${isWinner === false ? 'isLoser' : ''}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       style={tiltStyle}
     >
       <div className="profile-header">
@@ -150,3 +111,5 @@ export default function ConnectionCard({ profile, eloChange, showIdentity = true
     </div>
   );
 }
+
+export default ConnectionCard;
