@@ -88,6 +88,7 @@ body {
   position: relative;
   overflow: visible;
   z-index: 1;
+  transition: transform 0.5s ease, box-shadow 0.3s ease;
 }
 
 .connection-card.isWinner {
@@ -132,6 +133,7 @@ body {
   padding: 0 !important;
   border: none !important;
   box-sizing: border-box;
+  transition: filter 0.3s ease;
 }
 
 .connection-card .profile-info {
@@ -144,6 +146,7 @@ body {
   margin: 0 0 0.5rem 0;
   padding: 0;
   line-height: 1.2;
+  transition: filter 0.3s ease, color 0.3s ease;
 }
 
 .connection-card .image-placeholder {
@@ -392,6 +395,13 @@ body {
   font-size: 1.1rem;
   font-weight: bold;
   margin: 0.25rem 0;
+  padding: 0.2em 0.6em;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-top: 0.5rem;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 .elo-change.positive {
@@ -399,7 +409,8 @@ body {
 }
 
 .elo-change.negative {
-  color: #dc3545;
+  color: #c53030;
+  background-color: rgba(239, 68, 68, 0.1);
 }
 
 /* Update company logo styles */
@@ -944,4 +955,38 @@ h2.blurred {
     height: 80px;
     font-size: 1rem;
   }
-} 
+}
+
+/* Add transition to LinkedIn button */
+.linkedin-button {
+  /* Add other styles if needed: background, color, padding etc. */
+  /* Example: */
+  /* background: #0077b5; */
+  /* color: white; */
+  /* padding: 0.3em 0.8em; */
+  /* border-radius: 4px; */
+  /* border: none; */
+  /* cursor: pointer; */
+  opacity: 1;
+  transition: opacity 0.3s ease; 
+}
+
+/* Add transition to elements appearing with showIdentity */
+.experience-date, 
+.major > span /* Assuming grad year might be in a span within the major */
+{
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+
+/* Make sure elements that appear start invisible if not conditionally rendered */
+/* Example (IF NEEDED - only if elements are *always* in DOM but hidden with CSS initially) */
+/*
+.connection-card:not(.identity-shown) .linkedin-button,
+.connection-card:not(.identity-shown) .experience-date,
+.connection-card:not(.identity-shown) .major > span {
+  opacity: 0;
+  pointer-events: none; 
+}
+*/ 
