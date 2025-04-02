@@ -355,9 +355,9 @@ export default function Profiles() {
       <div className="connection-clash">
         <h1>
           <img 
-            src="/unc-logo.png" 
-            alt="UNC" 
-            className="unc-logo" 
+            src="/clash_logo.png" 
+            alt="clash" 
+            className="clash_logo" 
           />
           CLASH
         </h1>
