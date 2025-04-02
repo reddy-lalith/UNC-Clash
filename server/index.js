@@ -8,7 +8,6 @@ const rateLimit = require('express-rate-limit');
 const Profile = require('./models/Profile');
 const Company = require('./models/Company');
 const { getOrCreateCompany } = require('./utils/companyUtils');
-const { calculateEloChange } = require('./utils/eloUtils');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -22,7 +21,7 @@ const corsOptions = {
     : '*', // Allow all origins in development
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 };
-app.use(cors(corsOptions)); // Apply CORS settings
+app.use(cors(corsOptions));
 
 // Rate Limiting
 const limiter = rateLimit({
@@ -72,13 +71,10 @@ console.log('Logo API Key available:', !!process.env.LOGO_API_KEY);
 app.get('/', (_req, res) => res.send('🚀 LinkedInAura API is live'));
 app.get('/api/profiles', async (req, res) => {
   try {
-    // Get a random sample of all profiles instead of sorting by updatedAt
     const randomCount = parseInt(req.query.count) || 20; // Default to 20 random profiles
-    
     const profiles = await Profile.aggregate([
       { $sample: { size: randomCount } }
     ]);
-    
     res.json(profiles);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -129,7 +125,10 @@ app.get('/api/companies/search', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.post('/api/profiles', async (req, res) => {
+
+// Protected Routes (Require API Key)
+// Profile creation is now protected
+app.post('/api/profiles', requireApiKey, async (req, res) => {
   try {
     const profileData = req.body;
 
@@ -150,7 +149,7 @@ app.post('/api/profiles', async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-app.put('/api/profiles/:id', async (req, res) => {
+app.put('/api/profiles/:id', requireApiKey, async (req, res) => {
   try {
     const profileData = req.body;
 
@@ -177,59 +176,6 @@ app.put('/api/profiles/:id', async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
-// NEW ROUTE: Record Battle Result
-app.post('/api/battles/record', async (req, res) => {
-  const { winnerId, loserId } = req.body;
-
-  if (!winnerId || !loserId) {
-    return res.status(400).json({ error: 'Missing winnerId or loserId' });
-  }
-
-  if (winnerId === loserId) {
-    return res.status(400).json({ error: 'Winner and loser cannot be the same' });
-  }
-
-  try {
-    // Use Promises for concurrency
-    const [winnerProfile, loserProfile] = await Promise.all([
-      Profile.findById(winnerId),
-      Profile.findById(loserId)
-    ]);
-
-    if (!winnerProfile || !loserProfile) {
-      return res.status(404).json({ error: 'One or both profiles not found' });
-    }
-
-    // Calculate new Elo scores
-    const { newWinnerElo, newLoserElo } = calculateEloChange(winnerProfile.elo, loserProfile.elo);
-
-    // Atomically update both profiles (if possible, otherwise sequential)
-    // Using Promise.all for better performance
-    const [updatedWinner, updatedLoser] = await Promise.all([
-      Profile.findByIdAndUpdate(winnerId, { $set: { elo: newWinnerElo } }, { new: true }),
-      Profile.findByIdAndUpdate(loserId, { $set: { elo: newLoserElo } }, { new: true })
-    ]);
-
-    if (!updatedWinner || !updatedLoser) {
-      // Handle potential update failure (though less likely after finding them)
-      console.error(`Failed to update ELO after battle: winner ${winnerId}, loser ${loserId}`);
-      return res.status(500).json({ error: 'Failed to update profiles after battle' });
-    }
-
-    // Return the updated profiles
-    res.json({ winner: updatedWinner, loser: updatedLoser });
-
-  } catch (error) {
-    console.error('Error recording battle result:', error);
-    if (error.kind === 'ObjectId') {
-      return res.status(400).json({ error: 'Invalid profile ID format' });
-    }
-    res.status(500).json({ error: 'Internal server error recording battle result' });
-  }
-});
-
-// Protected Routes (Apply requireApiKey middleware)
 app.post('/api/companies', requireApiKey, async (req, res) => {
   try {
     const { name, logoUrl, aliases = [] } = req.body;
@@ -325,49 +271,10 @@ app.post('/api/profiles/refresh-all-logos', requireApiKey, async (req, res) => {
 
     res.json({ success: true, message: `Updated logos for ${updatedCount} profiles` });
   } catch (error) {
-    console.error('Error refreshing logos:', error);
-    res.status(500).json({ success: false, error: 'Failed to refresh logos' });
-  }
-});
-app.delete('/api/companies', requireApiKey, async (req, res) => {
-  try {
-    await Company.deleteMany({});
-    res.json({ message: 'All companies deleted successfully' });
-  } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// NEW ROUTE: Reset ELO for all profiles
-app.post('/api/profiles/reset-all-elo', requireApiKey, async (req, res) => {
-  try {
-    const result = await Profile.updateMany({}, { $set: { elo: 1000 } });
-    console.log(`ELO Reset Result: Matched ${result.matchedCount}, Modified ${result.modifiedCount}`);
-    res.json({ 
-      success: true, 
-      message: `Successfully reset ELO to 1000 for profiles.`, 
-      matchedCount: result.matchedCount, 
-      modifiedCount: result.modifiedCount 
-    });
-  } catch (error) {
-    console.error('Error resetting ELO scores:', error);
-    res.status(500).json({ success: false, error: 'Failed to reset ELO scores' });
-  }
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
-
-// Basic Error Handling Improvement (Add just before app.listen)
-// Catch-all for other errors - improve this with a proper error handling middleware later
-app.use((err, req, res, next) => {
-  console.error("Unhandled Error:", err.stack);
-
-  if (process.env.NODE_ENV === 'production') {
-    res.status(500).json({ error: 'Internal Server Error' });
-  } else {
-    res.status(500).json({
-      error: 'Internal Server Error',
-      message: err.message,
-    });
-  }
-});
-
-app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
