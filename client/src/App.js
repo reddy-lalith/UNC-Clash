@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import { FaLinkedin } from 'react-icons/fa';
 import DarkModeToggle from './components/DarkModeToggle';
 import Profiles from './pages/Profiles';
 import Leaderboard from './pages/Leaderboard';
@@ -33,18 +32,6 @@ function App() {
         <div className="opt-button" onClick={() => setShowOptMessage(!showOptMessage)}>
           Opt In/Out
         </div>
-
-        {/* Creator Link Button */}
-        <a 
-          href="https://www.linkedin.com/in/lalithreddy" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="creator-link-button"
-          style={{ textDecoration: 'none' }}
-        >
-          <FaLinkedin style={{ marginRight: '5px', verticalAlign: 'middle' }} />
-          <span style={{ verticalAlign: 'middle' }}>Created by Lalith Reddy</span>
-        </a>
         
         {/* Opt-in/Opt-out Message Overlay */}
         {showOptMessage && (
