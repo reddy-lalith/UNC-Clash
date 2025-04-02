@@ -354,7 +354,7 @@ export default function Profiles() {
       
       <div className="connection-clash">
         <h1 className="clash-title">
-          CONNECTION <img src="/clash_logo.png" alt="Clash Logo" className="clash-logo" /> CLASH
+          CONNECTION <div className="logo-container"><img src="/clash_logo.png" alt="Clash Logo" className="clash-logo" /></div> CLASH
         </h1>
         
         <div className="battle-container">

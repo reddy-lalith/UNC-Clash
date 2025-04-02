@@ -2660,33 +2660,60 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
   text-align: center;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.logo-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 60px;
+  width: 60px;
+  overflow: visible;
 }
 
 .clash-logo {
-  height: 50px;
+  position: absolute;
+  height: 60px;
   width: auto;
-  vertical-align: middle;
-  margin: 0 5px;
+  max-width: none;
+  margin: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   filter: drop-shadow(0 2px 4px rgba(3, 105, 161, 0.2));
   transition: transform 0.3s ease;
+  z-index: 2;
 }
 
 .clash-title:hover .clash-logo {
-  transform: rotate(10deg);
+  transform: translate(-50%, -50%) rotate(10deg);
 }
 
 /* Mobile responsiveness for the logo */
 @media (max-width: 768px) {
+  .logo-container {
+    height: 45px;
+    width: 45px;
+  }
+  
   .clash-logo {
-    height: 40px;
+    height: 45px;
   }
 }
 
 @media (max-width: 480px) {
+  .logo-container {
+    height: 35px;
+    width: 35px;
+  }
+  
   .clash-logo {
-    height: 30px;
+    height: 35px;
   }
 }
   
