@@ -21,7 +21,7 @@ const corsOptions = {
     : '*', // Allow all origins in development
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 };
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); // Apply CORS settings
 
 // Rate Limiting
 const limiter = rateLimit({
@@ -62,7 +62,7 @@ mongoose.connect(mongoURI)
     console.error('3. Username and password are correct (if using Atlas)');
   });
 
-// Log whether the Logo API key is available
+// Near the top of the file, after loading env variables
 console.log('Logo API Key available:', !!process.env.LOGO_API_KEY);
 
 // --- Routes ---
@@ -71,10 +71,13 @@ console.log('Logo API Key available:', !!process.env.LOGO_API_KEY);
 app.get('/', (_req, res) => res.send('🚀 LinkedInAura API is live'));
 app.get('/api/profiles', async (req, res) => {
   try {
+    // Get a random sample of all profiles instead of sorting by updatedAt
     const randomCount = parseInt(req.query.count) || 20; // Default to 20 random profiles
+    
     const profiles = await Profile.aggregate([
       { $sample: { size: randomCount } }
     ]);
+    
     res.json(profiles);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -125,11 +128,7 @@ app.get('/api/companies/search', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-// Protected Routes (Require API Key)
-
-// Profile creation is now protected
-app.post('/api/profiles', requireApiKey, async (req, res) => {
+app.post('/api/profiles', async (req, res) => {
   try {
     const profileData = req.body;
 
@@ -150,10 +149,7 @@ app.post('/api/profiles', requireApiKey, async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
-// Profile update (including elo changes) is now protected. 
-// Ensure your client includes the header: 'x-admin-api-key' with the correct API key.
-app.put('/api/profiles/:id', requireApiKey, async (req, res) => {
+app.put('/api/profiles/:id', async (req, res) => {
   try {
     const profileData = req.body;
 
@@ -181,6 +177,7 @@ app.put('/api/profiles/:id', requireApiKey, async (req, res) => {
   }
 });
 
+// Protected Routes (Apply requireApiKey middleware)
 app.post('/api/companies', requireApiKey, async (req, res) => {
   try {
     const { name, logoUrl, aliases = [] } = req.body;
@@ -276,10 +273,49 @@ app.post('/api/profiles/refresh-all-logos', requireApiKey, async (req, res) => {
 
     res.json({ success: true, message: `Updated logos for ${updatedCount} profiles` });
   } catch (error) {
+    console.error('Error refreshing logos:', error);
+    res.status(500).json({ success: false, error: 'Failed to refresh logos' });
+  }
+});
+app.delete('/api/companies', requireApiKey, async (req, res) => {
+  try {
+    await Company.deleteMany({});
+    res.json({ message: 'All companies deleted successfully' });
+  } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+// NEW ROUTE: Reset ELO for all profiles
+app.post('/api/profiles/reset-all-elo', requireApiKey, async (req, res) => {
+  try {
+    const result = await Profile.updateMany({}, { $set: { elo: 1000 } });
+    console.log(`ELO Reset Result: Matched ${result.matchedCount}, Modified ${result.modifiedCount}`);
+    res.json({ 
+      success: true, 
+      message: `Successfully reset ELO to 1000 for profiles.`, 
+      matchedCount: result.matchedCount, 
+      modifiedCount: result.modifiedCount 
+    });
+  } catch (error) {
+    console.error('Error resetting ELO scores:', error);
+    res.status(500).json({ success: false, error: 'Failed to reset ELO scores' });
+  }
 });
+
+// Basic Error Handling Improvement (Add just before app.listen)
+// Catch-all for other errors - improve this with a proper error handling middleware later
+app.use((err, req, res, next) => {
+  console.error("Unhandled Error:", err.stack);
+
+  if (process.env.NODE_ENV === 'production') {
+    res.status(500).json({ error: 'Internal Server Error' });
+  } else {
+    res.status(500).json({
+      error: 'Internal Server Error',
+      message: err.message,
+    });
+  }
+});
+
+app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
