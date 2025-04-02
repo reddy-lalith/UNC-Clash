@@ -2,16 +2,18 @@
 body {
   margin: 0;
   padding: 0;
-  /* Prevent scroll bounce/overscroll behavior specifically for profiles page */
-  overscroll-behavior: none;
-  overscroll-behavior-y: none;
-  overscroll-behavior-x: none;
+  /* Remove overscroll-behavior restrictions to enable scroll bounce */
+  /* overscroll-behavior: none; */
+  /* overscroll-behavior-y: none; */
+  /* overscroll-behavior-x: none; */
   /* Safari-specific property for older versions */
-  -webkit-overscroll-behavior: none;
-  /* Prevent all scrolling on this page */
-  overflow: hidden;
-  height: 100vh;
-  position: fixed;
+  /* -webkit-overscroll-behavior: none; */
+  /* Remove scrolling restrictions */
+  /* overflow: hidden; */
+  overflow: auto;
+  height: 100%;
+  /* Remove position: fixed to allow normal scrolling */
+  position: relative;
   width: 100%;
 }
 

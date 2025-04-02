@@ -33,8 +33,10 @@
 html {
   height: 100%;
   width: 100%;
-  position: fixed;
-  overflow: hidden;
+  /* Remove position: fixed to allow normal scrolling */
+  position: relative;
+  /* Remove overflow: hidden to allow scrolling */
+  overflow: auto;
 }
 
 body {
@@ -43,11 +45,10 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  /* Prevent scroll bounce on mobile devices */
-  overscroll-behavior: none;
-  overscroll-behavior-y: none;
-  /* Safari-specific property for older versions */
-  -webkit-overscroll-behavior: none;
+  /* Remove overscroll-behavior restrictions */
+  /* overscroll-behavior: none; */
+  /* overscroll-behavior-y: none; */
+  /* -webkit-overscroll-behavior: none; */
   background: linear-gradient(135deg, var(--background-start) 0%, var(--background-end) 100%);
   background-attachment: fixed;
   color: var(--text);

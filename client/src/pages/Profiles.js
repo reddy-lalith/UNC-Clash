@@ -37,34 +37,13 @@ export default function Profiles() {
   const nextPairRef = useRef(null);
   const transitionTimeoutRef = useRef(null);
   
-  // Disable scrolling when component mounts
+  // Modified: Don't disable scrolling when component mounts
   useEffect(() => {
-    // Save the original overflow style
-    const originalStyle = window.getComputedStyle(document.body).overflow;
-    const originalHeight = window.getComputedStyle(document.body).height;
-    const originalPosition = window.getComputedStyle(document.body).position;
+    // No need to disable scrolling anymore - removed code that was setting
+    // body styles to prevent scrolling
     
-    // Disable scrolling on component mount
-    document.body.style.overflow = 'hidden';
-    document.body.style.height = '100vh';
-    document.body.style.position = 'fixed';
-    document.body.style.width = '100%';
-    
-    // Prevent touchmove events
-    const preventDefault = (e) => {
-      e.preventDefault();
-    };
-    
-    document.body.addEventListener('touchmove', preventDefault, { passive: false });
-    
-    // Re-enable scrolling on component unmount
-    return () => {
-      document.body.style.overflow = originalStyle;
-      document.body.style.height = originalHeight;
-      document.body.style.position = originalPosition;
-      document.body.style.width = '';
-      document.body.removeEventListener('touchmove', preventDefault);
-    };
+    // Not needed anymore - just return an empty cleanup function
+    return () => {};
   }, []);
   
   useEffect(() => {

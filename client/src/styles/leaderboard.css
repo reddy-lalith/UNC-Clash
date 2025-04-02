@@ -1,5 +1,6 @@
 :root {
-  overscroll-behavior: none;
+  /* Remove overscroll-behavior to enable scroll bounce */
+  /* overscroll-behavior: none; */
 }
 /* Ultra-modern, sleek leaderboard design with glassmorphism */
 .leaderboard {
