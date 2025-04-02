@@ -55,7 +55,7 @@ const ConnectionCard = ({
   return (
     <div 
       ref={cardRef}
-      className={`connection-card ${showIdentity ? 'identity-shown' : ''} ${isLoading ? 'skeleton-loading' : ''} ${isWinner ? 'isWinner' : ''} ${isWinner === false ? 'isLoser' : ''}`}
+      className={`connection-card ${isLoading ? 'skeleton-loading' : ''} ${isWinner ? 'isWinner' : ''} ${isWinner === false ? 'isLoser' : ''}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={tiltStyle}
@@ -78,11 +78,13 @@ const ConnectionCard = ({
         </div>
         <div className="profile-info">
           <h2 className={!showIdentity ? 'blurred-text' : ''}>{profile.name}</h2>
-          <div className={`elo-change ${eloChange === null ? 'hidden' : ''} ${eloChange > 0 ? 'positive' : 'negative'}`}>
-            {eloChange !== null ? `${eloChange > 0 ? '+' : ''}${eloChange} ELO` : ''}
-          </div>
-          {profile.linkedinUrl && (
-            <button onClick={handleLinkedInClick} className={`linkedin-button ${!showIdentity ? 'hidden' : ''}`}>
+          {eloChange !== null && (
+            <div className={`elo-change ${eloChange > 0 ? 'positive' : 'negative'}`}>
+              {eloChange > 0 ? '+' : ''}{eloChange} ELO
+            </div>
+          )}
+          {showIdentity && profile.linkedinUrl && (
+            <button onClick={handleLinkedInClick} className="linkedin-button">
               <FaLinkedin /> View LinkedIn
             </button>
           )}
@@ -110,8 +112,8 @@ const ConnectionCard = ({
               <div className="experience-details">
                 <h3>{exp.title}</h3>
                 <p>{exp.company}</p>
-                {exp.startDate && (
-                  <p className={`experience-date ${!showIdentity ? 'hidden' : ''}`}>
+                {showIdentity && exp.startDate && (
+                  <p className="experience-date">
                     {exp.startDate} - {exp.current ? "Present" : exp.endDate || ""}
                   </p>
                 )}
@@ -128,9 +130,7 @@ const ConnectionCard = ({
           {profile.education && profile.education.majors && profile.education.majors.map((major, index) => (
             <h3 key={index} className="major">
               {major}
-              {formattedGradYear && index === 0 && (
-                <span className={`grad-year ${!showIdentity ? 'hidden' : ''}`}> {formattedGradYear}</span>
-              )}
+              {showIdentity && index === 0 && formattedGradYear && ` ${formattedGradYear}`}
             </h3>
           ))}
         </div>

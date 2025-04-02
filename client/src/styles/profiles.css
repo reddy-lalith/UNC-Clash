@@ -88,8 +88,6 @@ body {
   position: relative;
   overflow: visible;
   z-index: 1;
-  transition: transform 0.5s ease, box-shadow 0.3s ease, opacity 0.4s ease;
-  opacity: 1;
 }
 
 .connection-card.isWinner {
@@ -97,13 +95,10 @@ body {
   position: relative;
   overflow: visible;
   z-index: 1;
-  transform: scale(1.03);
 }
 
 .connection-card.isLoser {
   box-shadow: 0 0 20px 8px rgba(66, 153, 225, 0.3);
-  opacity: 0.75;
-  transform: scale(0.97);
 }
 
 .connection-card .profile-header {
@@ -137,7 +132,6 @@ body {
   padding: 0 !important;
   border: none !important;
   box-sizing: border-box;
-  transition: filter 0.4s ease;
 }
 
 .connection-card .profile-info {
@@ -150,7 +144,6 @@ body {
   margin: 0 0 0.5rem 0;
   padding: 0;
   line-height: 1.2;
-  transition: filter 0.4s ease, color 0.3s ease;
 }
 
 .connection-card .image-placeholder {
@@ -399,13 +392,6 @@ body {
   font-size: 1.1rem;
   font-weight: bold;
   margin: 0.25rem 0;
-  padding: 0.2em 0.6em;
-  border-radius: 12px;
-  font-size: 0.8rem;
-  display: inline-block;
-  margin-top: 0.5rem;
-  opacity: 1;
-  transition: opacity 0.4s ease 0.1s;
 }
 
 .elo-change.positive {
@@ -413,8 +399,7 @@ body {
 }
 
 .elo-change.negative {
-  color: #c53030;
-  background-color: rgba(239, 68, 68, 0.1);
+  color: #dc3545;
 }
 
 /* Update company logo styles */
@@ -502,10 +487,14 @@ h2.blurred {
   user-select: none;
 }
 
-.profile-info h2.blurred-text {
-  filter: blur(8px);
-  color: transparent;
-  user-select: none;
+.profile-info h2.blurred::after {
+  content: "Vote to reveal identity";
+  display: block;
+  filter: blur(0);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #6c757d;
+  margin-top: 0.5rem;
 }
 
 /* Fix the LinkedIn hover overlay */
@@ -543,19 +532,229 @@ h2.blurred {
 
 .clickable-card:hover .connection-card.isWinner {
   box-shadow: 0 0 40px 20px rgba(66, 153, 225, 0.6);
-  transform: scale(1.03);
-  opacity: 1;
 }
 
 .clickable-card:hover .connection-card.isLoser {
   box-shadow: 0 0 30px 12px rgba(66, 153, 225, 0.4);
-  transform: scale(0.97);
-  opacity: 0.75;
 }
 
-/* Dark Mode Adjustments */
-.dark-mode .connection-card.isLoser {
-  opacity: 0.7;
+/* Create a gradient glow effect for the winner card */
+.connection-card.isWinner {
+  box-shadow: 0 0 30px 15px rgba(66, 153, 225, 0.4);
+  position: relative;
+  overflow: visible;
+  z-index: 1;
+}
+
+/* Add a gradient glow animation for the winner */
+.connection-card.isWinner::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 28px; /* Slightly larger than the card's border-radius */
+  background: linear-gradient(
+    45deg,
+    rgba(66, 153, 225, 0.6),
+    rgba(129, 230, 217, 0.6),
+    rgba(79, 209, 197, 0.6),
+    rgba(16, 185, 129, 0.6),
+    rgba(66, 153, 225, 0.6)
+  );
+  z-index: -1;
+  filter: blur(10px); /* Reduced blur from 15px */
+  animation: gradientGlow 3s ease infinite;
+  opacity: 0.6; /* Reduced opacity from 0.8 */
+}
+
+/* Animation for the gradient glow */
+@keyframes gradientGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Enhance the hover effect for the winner card */
+.clickable-card:hover .connection-card.isWinner::before {
+  filter: blur(15px); /* Reduced hover blur from 20px */
+  opacity: 0.7; /* Reduced hover opacity from 1 */
+}
+
+/* Make card elements transparent to let the glow shine through */
+.connection-card.isWinner .profile-header,
+.connection-card.isWinner .experience-item,
+.connection-card.isWinner .education {
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease;
+}
+
+/* Add a subtle glass effect to elements inside the winner card */
+.connection-card.isWinner .experience-item {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
+}
+
+/* Make text more visible against transparent backgrounds */
+.connection-card.isWinner .experience-details h3,
+.connection-card.isWinner .experience-details p,
+.connection-card.isWinner .education h3,
+.connection-card.isWinner .major,
+.connection-card.isWinner .school {
+  color: #1a365d !important; /* Darker blue for better contrast */
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Add a subtle inner glow to the winner card */
+.connection-card.isWinner {
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.9),
+    rgba(240, 249, 255, 0.9)
+  ) !important;
+}
+
+/* Enhance the profile image in the winner card */
+.connection-card.isWinner .profile-image {
+  box-shadow: 0 0 15px rgba(66, 153, 225, 0.6);
+}
+
+/* Add a subtle pulsing effect to the winner card */
+@keyframes winnerPulse {
+  0% {
+    box-shadow: 0 0 25px 10px rgba(66, 153, 225, 0.3); /* Reduced shadow */
+  }
+  50% {
+    box-shadow: 0 0 30px 15px rgba(66, 153, 225, 0.4); /* Reduced shadow */
+  }
+  100% {
+    box-shadow: 0 0 25px 10px rgba(66, 153, 225, 0.3); /* Reduced shadow */
+  }
+}
+
+.connection-card.isWinner {
+  /* Existing box-shadow might need reduction too if pulse is not enough */
+  box-shadow: 0 0 25px 10px rgba(66, 153, 225, 0.3); /* Match base pulse shadow */
+  animation: winnerPulse 3s infinite ease-in-out;
+}
+
+/* Make all card elements transparent */
+.connection-card .profile-header,
+.connection-card .education {
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease;
+}
+
+/* Add glass effect to experience items */
+.connection-card .experience-item {
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.1);
+  transition: all 0.3s ease;
+}
+
+.connection-card .experience-item:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  transform: translateX(4px);
+}
+
+/* Improve text contrast */
+.connection-card .experience-details h3,
+.connection-card .experience-details p,
+.connection-card .education h3,
+.connection-card .major,
+.connection-card .school {
+  color: #1a365d !important;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+/* Enhance profile images */
+.connection-card .profile-image {
+  box-shadow: 0 0 10px rgba(66, 153, 225, 0.4);
+}
+
+/* Add dark mode support for the connection clash background */
+.dark-mode .connection-clash {
+  background: linear-gradient(135deg, #1a202c, #0f172a);
+}
+
+/* Dark mode support for connection cards */
+.dark-mode .connection-card {
+  background: rgba(30, 41, 59, 0.8) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 25px 10px rgba(56, 178, 255, 0.2);
+}
+
+/* Dark mode text colors */
+.dark-mode .connection-card .profile-info h2 {
+  color: #e2e8f0;
+}
+
+.dark-mode .connection-card .experience-details h3,
+.dark-mode .connection-card .experience-details p,
+.dark-mode .connection-card .education h3,
+.dark-mode .connection-card .major,
+.dark-mode .connection-card .school {
+  color: #e2e8f0 !important;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+/* Dark mode experience items */
+.dark-mode .connection-card .experience-item {
+  background: rgba(30, 41, 59, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .connection-card .experience-item:hover {
+  background: rgba(30, 41, 59, 0.6) !important;
+}
+
+/* Dark mode winner card */
+.dark-mode .connection-card.isWinner {
+  background: linear-gradient(
+    to bottom right,
+    rgba(30, 41, 59, 0.9),
+    rgba(15, 23, 42, 0.9)
+  ) !important;
+  box-shadow: 0 0 30px 15px rgba(56, 178, 255, 0.3);
+}
+
+/* Dark mode winner glow */
+.dark-mode .connection-card.isWinner::before {
+  background: linear-gradient(
+    45deg,
+    rgba(56, 178, 255, 0.6),
+    rgba(14, 165, 233, 0.6),
+    rgba(2, 132, 199, 0.6),
+    rgba(3, 105, 161, 0.6),
+    rgba(56, 178, 255, 0.6)
+  );
+}
+
+/* Dark mode profile image border */
+.dark-mode .connection-card .profile-picture {
+  border-color: #0c4a6e !important;
+}
+
+/* Dark mode versus circle */
+.dark-mode .versus-circle {
+  background: #1e293b;
+  color: #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 /* Update the UNC logo styles in profiles.css */
@@ -745,50 +944,4 @@ h2.blurred {
     height: 80px;
     font-size: 1rem;
   }
-}
-
-/* Add transition to LinkedIn button */
-.linkedin-button {
-  /* Add other styles if needed: background, color, padding etc. */
-  /* Example: */
-  /* background: #0077b5; */
-  /* color: white; */
-  /* padding: 0.3em 0.8em; */
-  /* border-radius: 4px; */
-  /* border: none; */
-  /* cursor: pointer; */
-  opacity: 1;
-  transition: opacity 0.4s ease; 
-}
-
-/* Add transition to elements appearing with showIdentity */
-.experience-date, 
-.major > span /* Assuming grad year span */
-{
-  opacity: 1;
-  transition: opacity 0.4s ease;
-}
-
-/* Base styles for elements that fade in */
-.elo-change, 
-.linkedin-button, 
-.experience-date, 
-.grad-year /* Updated class name from span */
-{
-  opacity: 1; /* Start visible (when not hidden) */
-  /* Apply transition WITH a slight delay */
-  transition: opacity 0.4s ease 0.1s; /* 0.1s delay */
-}
-
-/* Define the .hidden state */
-.hidden {
-  opacity: 0 !important; /* Force hidden */
-  pointer-events: none !important; /* Prevent interaction when hidden */
-  /* No transition needed here, base element handles it */
-}
-
-/* Remove the duplicate rules added at the end previously */
-/*
-.linkedin-button { ... }
-.experience-date, .major > span { ... }
-*/ 
+} 
