@@ -133,7 +133,7 @@ body {
   padding: 0 !important;
   border: none !important;
   box-sizing: border-box;
-  transition: filter 0.3s ease;
+  transition: filter 0.4s ease;
 }
 
 .connection-card .profile-info {
@@ -146,7 +146,7 @@ body {
   margin: 0 0 0.5rem 0;
   padding: 0;
   line-height: 1.2;
-  transition: filter 0.3s ease, color 0.3s ease;
+  transition: filter 0.4s ease, color 0.3s ease;
 }
 
 .connection-card .image-placeholder {
@@ -401,7 +401,7 @@ body {
   display: inline-block;
   margin-top: 0.5rem;
   opacity: 1;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
 .elo-change.positive {
@@ -498,14 +498,10 @@ h2.blurred {
   user-select: none;
 }
 
-.profile-info h2.blurred::after {
-  content: "Vote to reveal identity";
-  display: block;
-  filter: blur(0);
-  font-size: 0.9rem;
-  font-style: italic;
-  color: #6c757d;
-  margin-top: 0.5rem;
+.profile-info h2.blurred-text {
+  filter: blur(8px);
+  color: transparent;
+  user-select: none;
 }
 
 /* Fix the LinkedIn hover overlay */
@@ -968,25 +964,34 @@ h2.blurred {
   /* border: none; */
   /* cursor: pointer; */
   opacity: 1;
-  transition: opacity 0.3s ease; 
+  transition: opacity 0.4s ease; 
 }
 
 /* Add transition to elements appearing with showIdentity */
 .experience-date, 
-.major > span /* Assuming grad year might be in a span within the major */
+.major > span /* Assuming grad year span */
 {
   opacity: 1;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
-
-/* Make sure elements that appear start invisible if not conditionally rendered */
-/* Example (IF NEEDED - only if elements are *always* in DOM but hidden with CSS initially) */
-/*
+/* Define HIDDEN state for elements that appear */
+/* Use a parent class like .identity-hidden perhaps? Or target directly based on lack of showIdentity? */
+/* Let's assume conditional rendering in React handles their presence/absence */
+/* BUT, if they are always rendered and hidden via CSS initially, we need: */
+.connection-card:not(.identity-shown) .elo-change, /* If parent gets class */
 .connection-card:not(.identity-shown) .linkedin-button,
 .connection-card:not(.identity-shown) .experience-date,
 .connection-card:not(.identity-shown) .major > span {
   opacity: 0;
-  pointer-events: none; 
+  pointer-events: none;
+  /* No transition needed here, transition is on the base element */
 }
+
+/* --- End BLURRED / HIDDEN states --- */
+
+/* Remove the duplicate rules added at the end previously */
+/*
+.linkedin-button { ... }
+.experience-date, .major > span { ... }
 */ 
