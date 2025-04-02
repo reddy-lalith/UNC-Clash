@@ -28,7 +28,16 @@ const CUSTOM_LOGOS = {
   'Sciome LLC' : 'https://media.licdn.com/dms/image/v2/C4D0BAQFnvmrw4iLmHw/company-logo_200_200/company-logo_200_200/0/1630559525491?e=2147483647&v=beta&t=DTW_L72VR6d1bMFnJPH9tSNg7ZjultIL1GGu0CYvAjc',
   'U.S. Department of Commerce' : 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Seal_of_the_United_States_Department_of_Commerce.svg/1200px-Seal_of_the_United_States_Department_of_Commerce.svg.png',
   'UNC Kenan-Flagler Private Equity Fund' : 'https://media.licdn.com/dms/image/v2/C4E0BAQEwCMa57y7wVQ/company-logo_200_200/company-logo_200_200/0/1631368642817/unc_kenan_flagler_private_equity_fund_logo?e=1749081600&v=beta&t=ewnjcOXtE4xIrDk8T36r3M0gHHgPKVoaGcJNTBRIK0c',
-  'Prince Henry Group Charitable Foundation' : 'https://scontent-ord5-2.xx.fbcdn.net/v/t39.30808-6/456331834_820520993605150_1901763761332649260_n.png?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=hKCacIzZRPsQ7kNvgFq1Ta9&_nc_oc=AdkwkDJrOPMwmCws1W7g3-hNtOck06YkBrNsILIxfdcW4CwQgFZSJv81qwwg-_d3aheMIh7-Pi71-2xMNv3kD90m&_nc_zt=23&_nc_ht=scontent-ord5-2.xx&_nc_gid=SOtluDb5KZFzQRgmH7LDDA&oh=00_AYG_H7atSd-CgvYgiW9c3JR6q0yRUXd-EYgyizhQRhTNKw&oe=67F233CC'
+  'Prince Henry Group Charitable Foundation' : 'https://scontent-ord5-2.xx.fbcdn.net/v/t39.30808-6/456331834_820520993605150_1901763761332649260_n.png?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=hKCacIzZRPsQ7kNvgFq1Ta9&_nc_oc=AdkwkDJrOPMwmCws1W7g3-hNtOck06YkBrNsILIxfdcW4CwQgFZSJv81qwwg-_d3aheMIh7-Pi71-2xMNv3kD90m&_nc_zt=23&_nc_ht=scontent-ord5-2.xx&_nc_gid=SOtluDb5KZFzQRgmH7LDDA&oh=00_AYG_H7atSd-CgvYgiW9c3JR6q0yRUXd-EYgyizhQRhTNKw&oe=67F233CC',
+  'SPARKS Consulting Group' : 'https://media.licdn.com/dms/image/v2/C4E0BAQGRKhVx8pQvWw/company-logo_200_200/company-logo_200_200/0/1630569025949/sparks_consulting_group_logo?e=1749081600&v=beta&t=762GkDn8HuF1IloUwa4HuVIzaCvLug17xEpIT-qcogo',
+  'Alpha Delta Pi Sorority' : 'https://media.licdn.com/dms/image/v2/C4E0BAQFCKD0CPafYTg/company-logo_100_100/company-logo_100_100/0/1630585302292/alpha_delta_pi_sorority_logo?e=1749081600&v=beta&t=6N7Eh9z4M2H3Sh9CamSoO4qk0eizVz9OeCB-NqZDAJI',
+  'JPMorgan Chase & Co.' : "https://cdn.brandfetch.io/jpmorgan.com/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed",
+  'BlueBridge Partners' : 'https://media.licdn.com/dms/image/v2/D4E0BAQEWMppTT5apog/company-logo_200_200/company-logo_200_200/0/1718815256921/blue_bridge_partners_logo?e=2147483647&v=beta&t=el-lpI6AE6wX5wkhD6GhTA1Uhnfgrl8ttBsRlSbSaBw',
+  'Bain & Company' : 'https://media.licdn.com/dms/image/v2/D560BAQHJWWQNCmnqKg/company-logo_200_200/company-logo_200_200/0/1719929153717/bain_and_company_logo?e=2147483647&v=beta&t=SsRnq02_o84L596o2Zfe__HMztOci3WjNflOTvm0Ewo',
+  'Mckinsey & Company' : 'https://www.mckinsey.org/~/media/images/global/seoimageplaceholder.jpg',
+
+
+
   
   
   
@@ -64,8 +73,8 @@ const COMPANY_DOMAINS = {
   'Renovo Capital, LLC' : 'renovocapital.com',
   'Truist Wealth' : 'truist.com',
   'Amazon Web Services (AWS)' : 'aws.amazon.com', 
-  'Voicera' : 'voicera.io',
-
+  'Voicera AI' : 'voicera.io',
+  
 
 
 
