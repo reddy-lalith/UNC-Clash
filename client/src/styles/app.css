@@ -2826,4 +2826,109 @@ h2:not(.blurred-text) {
     opacity: 1;
   }
 }
+
+/* Battle History LinkedIn Overlay */
+.battle-history-page .participant-avatar {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.battle-history-page .profile-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 102, 194, 0.85);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.battle-history-page .participant-avatar:hover .profile-overlay {
+  opacity: 1;
+}
+
+.battle-history-page .linkedin-icon {
+  color: white;
+  font-size: 1.5rem;
+}
+
+/* Leaderboard LinkedIn Overlay */
+.leaderboard-container .profile-image-wrapper {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.leaderboard-container .profile-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 102, 194, 0.85);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.leaderboard-container .profile-image-wrapper:hover .profile-overlay {
+  opacity: 1;
+}
+
+.leaderboard-container .linkedin-icon {
+  color: white;
+  font-size: 1.5rem;
+}
+
+/* Dark mode styles */
+.dark-mode .battle-history-page .profile-overlay,
+.dark-mode .leaderboard-container .profile-overlay {
+  background: rgba(56, 189, 248, 0.9);
+}
+
+/* Fix for the leaderboard table avatars */
+.leaderboard-table .profile-image-small {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.leaderboard-table .profile-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 102, 194, 0.85);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.leaderboard-table .profile-image-small:hover .profile-overlay {
+  opacity: 1;
+}
+
+.leaderboard-table .linkedin-icon {
+  color: white;
+  font-size: 1.2rem;
+}
   
