@@ -62,7 +62,7 @@ mongoose.connect(mongoURI)
     console.error('3. Username and password are correct (if using Atlas)');
   });
 
-// Near the top of the file, after loading env variables
+// Log whether the Logo API key is available
 console.log('Logo API Key available:', !!process.env.LOGO_API_KEY);
 
 // --- Routes ---
@@ -127,6 +127,7 @@ app.get('/api/companies/search', async (req, res) => {
 });
 
 // Protected Routes (Require API Key)
+
 // Profile creation is now protected
 app.post('/api/profiles', requireApiKey, async (req, res) => {
   try {
@@ -149,6 +150,9 @@ app.post('/api/profiles', requireApiKey, async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+// Profile update (including elo changes) is now protected. 
+// Ensure your client includes the header: 'x-admin-api-key' with the correct API key.
 app.put('/api/profiles/:id', requireApiKey, async (req, res) => {
   try {
     const profileData = req.body;
@@ -176,6 +180,7 @@ app.put('/api/profiles/:id', requireApiKey, async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
 app.post('/api/companies', requireApiKey, async (req, res) => {
   try {
     const { name, logoUrl, aliases = [] } = req.body;
