@@ -125,10 +125,11 @@ export default function Profiles() {
           // Fade-in the new cards
           setTimeout(() => {
             setCardsVisible(true);
-          }, 100); // Short delay for fade-in start
-        }, 300); // Wait for fade-out (match CSS transition duration)
-        
-      }, 1000); // Fixed 1-second delay after winner is selected (changed from 2000)
+          }, 100); // Fade-in delay
+
+        }, 300); // Delay before updating state (keep this short)
+
+      }, 3000); // <<< INCREASED DELAY HERE (from 1000ms to 3000ms)
       
       // Cleanup function for the effect
       return () => {
