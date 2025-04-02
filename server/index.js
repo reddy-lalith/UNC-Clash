@@ -8,6 +8,7 @@ const rateLimit = require('express-rate-limit');
 const Profile = require('./models/Profile');
 const Company = require('./models/Company');
 const { getOrCreateCompany } = require('./utils/companyUtils');
+const { calculateEloChange } = require('./utils/eloUtils');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -174,6 +175,57 @@ app.put('/api/profiles/:id', async (req, res) => {
     res.json(profile);
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+});
+
+// NEW ROUTE: Record Battle Result
+app.post('/api/battles/record', async (req, res) => {
+  const { winnerId, loserId } = req.body;
+
+  if (!winnerId || !loserId) {
+    return res.status(400).json({ error: 'Missing winnerId or loserId' });
+  }
+
+  if (winnerId === loserId) {
+    return res.status(400).json({ error: 'Winner and loser cannot be the same' });
+  }
+
+  try {
+    // Use Promises for concurrency
+    const [winnerProfile, loserProfile] = await Promise.all([
+      Profile.findById(winnerId),
+      Profile.findById(loserId)
+    ]);
+
+    if (!winnerProfile || !loserProfile) {
+      return res.status(404).json({ error: 'One or both profiles not found' });
+    }
+
+    // Calculate new Elo scores
+    const { newWinnerElo, newLoserElo } = calculateEloChange(winnerProfile.elo, loserProfile.elo);
+
+    // Atomically update both profiles (if possible, otherwise sequential)
+    // Using Promise.all for better performance
+    const [updatedWinner, updatedLoser] = await Promise.all([
+      Profile.findByIdAndUpdate(winnerId, { $set: { elo: newWinnerElo } }, { new: true }),
+      Profile.findByIdAndUpdate(loserId, { $set: { elo: newLoserElo } }, { new: true })
+    ]);
+
+    if (!updatedWinner || !updatedLoser) {
+      // Handle potential update failure (though less likely after finding them)
+      console.error(`Failed to update ELO after battle: winner ${winnerId}, loser ${loserId}`);
+      return res.status(500).json({ error: 'Failed to update profiles after battle' });
+    }
+
+    // Return the updated profiles
+    res.json({ winner: updatedWinner, loser: updatedLoser });
+
+  } catch (error) {
+    console.error('Error recording battle result:', error);
+    if (error.kind === 'ObjectId') {
+      return res.status(400).json({ error: 'Invalid profile ID format' });
+    }
+    res.status(500).json({ error: 'Internal server error recording battle result' });
   }
 });
 
