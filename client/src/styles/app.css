@@ -2566,3 +2566,92 @@ body {
 /* Fix the meta viewport tag */
 /* Note: This is a comment reminder to also check the HTML head */
   
+/* Opt-in/Opt-out Button */
+.opt-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--primary);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.opt-button:hover {
+  transform: translateY(-3px);
+  background-color: var(--secondary);
+}
+
+/* Dark mode styles for opt button */
+.dark-mode .opt-button {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* Opt-in/Opt-out Message Overlay */
+.opt-message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(3px);
+}
+
+.opt-message {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 90%;
+  width: 400px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  color: var(--text);
+  text-align: center;
+}
+
+.opt-message p {
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.opt-message button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.opt-message button:hover {
+  background-color: var(--secondary);
+}
+
+/* Mobile styles for opt button and message */
+@media (max-width: 768px) {
+  .opt-button {
+    bottom: 15px;
+    right: 15px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .opt-message {
+    width: 300px;
+    padding: 15px;
+  }
+}
+  

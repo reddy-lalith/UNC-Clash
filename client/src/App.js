@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { Analytics } from '@vercel/analytics/react';
@@ -12,6 +12,8 @@ import './styles/profiles.css';
 import './styles/leaderboard.css';
 
 function App() {
+  const [showOptMessage, setShowOptMessage] = useState(false);
+
   return (
     <ThemeProvider>
       <Router>
@@ -25,6 +27,21 @@ function App() {
         {/* Custom basePath to bypass AdBlock */}
         <Analytics basePath="/monitor" />
         <SpeedInsights basePath="/monitor" />
+        
+        {/* Opt-in/Opt-out Button */}
+        <div className="opt-button" onClick={() => setShowOptMessage(!showOptMessage)}>
+          Opt In/Out
+        </div>
+        
+        {/* Opt-in/Opt-out Message Overlay */}
+        {showOptMessage && (
+          <div className="opt-message-overlay" onClick={() => setShowOptMessage(false)}>
+            <div className="opt-message" onClick={(e) => e.stopPropagation()}>
+              <p>Email me at lalith@unc.edu with your unc.edu email and I will remove or add you without any questions.</p>
+              <button onClick={() => setShowOptMessage(false)}>Close</button>
+            </div>
+          </div>
+        )}
       </Router>
     </ThemeProvider>
   );
