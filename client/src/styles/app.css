@@ -2595,18 +2595,39 @@ body {
   bottom: 20px;
   right: 20px;
   padding: 8px 15px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
+  /* Explicit styles - adjust colors if needed, or use variables if defined */
+  background-color: #6366f1; /* Example: Indigo */
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   z-index: 1010; 
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   font-size: 0.9rem;
+  text-align: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.opt-button:hover {
+  background-color: #4f46e5; /* Darker Indigo on hover */
+  transform: translateY(-2px);
+}
+
+/* Ensure variables used by other buttons are defined */
+:root {
+  /* ... other root variables ... */
+  --button-bg: #0ea5e9; /* Default button bg for others like LinkedIn */
+  --button-text: #ffffff;
+}
+
+.dark-mode {
+  /* ... other dark mode variables ... */
+  --button-bg: #0ea5e9; /* Default button bg for others like LinkedIn */
+  --button-text: #ffffff;
 }
 
 .opt-message-overlay {
-  /* ... existing styles ... */
+  /* ... existing code ... */
 }
 
 .opt-message {
