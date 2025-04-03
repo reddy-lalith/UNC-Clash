@@ -11,7 +11,7 @@ const ConstructionBanner = () => {
     const calculateTimeLeft = () => {
       const now = new Date();
       const targetTime = new Date();
-      targetTime.setHours(22, 0, 0, 0); // Set target to 10:00:00 PM today
+      targetTime.setHours(23, 0, 0, 0); // Set target to 10:00:00 PM today
 
       const difference = targetTime - now;
 
