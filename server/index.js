@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 4000;
 // NOTE: This will not persist across server restarts.
 // For production, consider Redis or a database.
 const pendingBattles = {}; 
-const BATTLE_TOKEN_EXPIRY_MS = 4000; // 4 seconds validity (reduced from 5 min)
+const BATTLE_TOKEN_EXPIRY_MS = 15000; // 15 seconds validity (increased from 4)
 
 // Function to generate secure tokens
 const generateBattleToken = () => crypto.randomBytes(16).toString('hex');
