@@ -112,11 +112,12 @@ const ConnectionCard = ({
               <div className="experience-details">
                 <h3>{exp.title}</h3>
                 <p>{exp.company}</p>
-                {showIdentity && exp.startDate && (
+                {/* REMOVED Date Display Logic */}
+                {/* {showIdentity && exp.startDate && (
                   <p className="experience-date">
                     {exp.startDate} - {exp.current ? "Present" : exp.endDate || ""}
                   </p>
-                )}
+                )} */}
               </div>
             </div>
           ))
@@ -130,7 +131,8 @@ const ConnectionCard = ({
           {profile.education && profile.education.majors && profile.education.majors.map((major, index) => (
             <h3 key={index} className="major">
               {major}
-              {showIdentity && index === 0 && formattedGradYear && ` ${formattedGradYear}`}
+              {/* REMOVED Grad Year Display Logic */}
+              {/* {showIdentity && index === 0 && formattedGradYear && ` ${formattedGradYear}`} */}
             </h3>
           ))}
         </div>
