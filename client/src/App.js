@@ -8,6 +8,7 @@ import ConstructionBanner from './components/ConstructionBanner';
 import Profiles from './pages/Profiles';
 import Leaderboard from './pages/Leaderboard';
 import BattleHistory from './components/BattleHistory';
+import { FaLinkedin } from 'react-icons/fa';
 import './styles/app.css';
 import './styles/profiles.css';
 import './styles/leaderboard.css';
@@ -44,6 +45,17 @@ function App() {
             </div>
           </div>
         )}
+
+        {/* LinkedIn Credit Button */}
+        <a 
+          href="https://www.linkedin.com/in/lalithreddy/" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="linkedin-credit-button"
+        >
+          <FaLinkedin size={18} /> 
+          <span>Made by Lalith Reddy</span>
+        </a>
       </Router>
     </ThemeProvider>
   );
