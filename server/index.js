@@ -329,7 +329,8 @@ const calculateEloChange = (winnerElo, loserElo, kFactor = 32) => {
   };
 };
 
-app.post('/api/battles/record', authenticateJWT, async (req, res) => {
+// Make this route PUBLIC by removing the authenticateJWT middleware
+app.post('/api/battles/record', async (req, res) => {
   try {
     const { winnerId, loserId } = req.body;
 
