@@ -315,6 +315,54 @@ app.post('/api/profiles/reset-all-elo', authenticateJWT, async (req, res) => {
   }
 });
 
+// NEW ROUTE: Record Battle Result and Update ELO
+const calculateEloChange = (winnerElo, loserElo, kFactor = 32) => {
+  const expectedWinnerScore = 1 / (1 + Math.pow(10, (loserElo - winnerElo) / 400));
+  const expectedLoserScore = 1 / (1 + Math.pow(10, (winnerElo - loserElo) / 400));
+
+  const winnerNewElo = winnerElo + kFactor * (1 - expectedWinnerScore);
+  const loserNewElo = loserElo + kFactor * (0 - expectedLoserScore);
+
+  return {
+    winnerNewElo: Math.round(winnerNewElo),
+    loserNewElo: Math.round(loserNewElo)
+  };
+};
+
+app.post('/api/battles/record', authenticateJWT, async (req, res) => {
+  try {
+    const { winnerId, loserId } = req.body;
+
+    if (!winnerId || !loserId) {
+      return res.status(400).json({ error: 'Missing winnerId or loserId' });
+    }
+
+    const winner = await Profile.findById(winnerId);
+    const loser = await Profile.findById(loserId);
+
+    if (!winner || !loser) {
+      return res.status(404).json({ error: 'Winner or loser profile not found' });
+    }
+
+    const { winnerNewElo, loserNewElo } = calculateEloChange(winner.elo, loser.elo);
+
+    winner.elo = winnerNewElo;
+    loser.elo = loserNewElo;
+
+    await winner.save();
+    await loser.save();
+
+    console.log(`Battle recorded: Winner ${winner.name} (${winnerNewElo}), Loser ${loser.name} (${loserNewElo})`);
+
+    // Return updated profiles
+    res.json({ winner, loser });
+
+  } catch (error) {
+    console.error('Error recording battle result:', error);
+    res.status(500).json({ error: 'Failed to record battle result' });
+  }
+});
+
 // --- Fallback for Client-Side Routing ---
 // This should be defined AFTER all API routes
 // It ensures that any GET request not matching an API route or a static file
