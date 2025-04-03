@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 4000;
 // NOTE: This will not persist across server restarts.
 // For production, consider Redis or a database.
 const pendingBattles = {}; 
-const BATTLE_TOKEN_EXPIRY_MS = 15000; // 15 seconds validity (increased from 4)
+const BATTLE_TOKEN_EXPIRY_MS = 10000; // 10 seconds validity
 
 // Function to generate secure tokens
 const generateBattleToken = () => crypto.randomBytes(16).toString('hex');
@@ -413,26 +413,39 @@ app.post('/api/battles/record', async (req, res) => {
 
     // --- Token is valid - consume it immediately ---
     delete pendingBattles[battleToken];
-    console.log(`Consumed valid battle token: ${battleToken}`);
-    // -----------------------------
-
+    // --- Detailed Logging Start ---
+    console.log(`[BATTLE LOG] Token: ${battleToken}`);
+    console.log(`[BATTLE LOG] Request Body: winnerId=${winnerId}, loserId=${loserId}`);
+    
     // --- Proceed with existing Elo update logic ---
     const winner = await Profile.findById(winnerId);
     const loser = await Profile.findById(loserId);
 
     if (!winner || !loser) {
       // This case should be rare if token validation worked, but good to keep
-      console.error(`Profile not found after valid token: Winner ${winnerId}, Loser ${loserId}`);
+      console.error(`[BATTLE LOG ERROR] Profile not found after valid token: Winner ${winnerId}, Loser ${loserId}`);
       return res.status(404).json({ error: 'Winner or loser profile not found (internal error)' });
     }
 
-    const { winnerNewElo, loserNewElo } = calculateEloChange(winner.elo, loser.elo);
+    // Log original Elos
+    const originalWinnerElo = winner.elo;
+    const originalLoserElo = loser.elo;
+    console.log(`[BATTLE LOG] Original Elos: Winner ${winner.name}=${originalWinnerElo}, Loser ${loser.name}=${originalLoserElo}`);
 
+    // Calculate
+    const { winnerNewElo, loserNewElo } = calculateEloChange(originalWinnerElo, originalLoserElo);
+    console.log(`[BATTLE LOG] Calculated New Elos: Winner=${winnerNewElo}, Loser=${loserNewElo}`);
+
+    // Assign
     winner.elo = winnerNewElo;
     loser.elo = loserNewElo;
-
+    console.log(`[BATTLE LOG] Elos Before Save: Winner ${winner.name}=${winner.elo}, Loser ${loser.name}=${loser.elo}`);
+    
+    // Save
     await winner.save();
     await loser.save();
+    console.log(`[BATTLE LOG] Profiles Saved Successfully`);
+    // --- Detailed Logging End ---
 
     console.log(`Battle recorded via token: Winner ${winner.name} (${winnerNewElo}), Loser ${loser.name} (${loserNewElo})`);
 

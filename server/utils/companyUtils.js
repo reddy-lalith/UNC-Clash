@@ -37,6 +37,7 @@ const CUSTOM_LOGOS = {
   'Voicera AI' : 'https://media.licdn.com/dms/image/v2/D4D0BAQGYg4IyLohhcg/company-logo_100_100/company-logo_100_100/0/1736985125633/voiceraai_logo?e=1749081600&v=beta&t=H0kFY_fkewZJktBrwYtbKdngTOT06II7QJjgSe9sI9s',
   'McKinsey & Company' : 'https://avatars.githubusercontent.com/u/4265350?s=280&v=4',
   'MTN Capital Partners LLC' : 'https://media.licdn.com/dms/image/v2/C4E0BAQHTwCfITl9phw/company-logo_100_100/company-logo_100_100/0/1630598736555/mtn_capital_partners_llc_logo?e=1749081600&v=beta&t=uu2e0ODVeoijcNwPNjP-KuBGjoIZw5dgEueSZz3FeQw',
+  'JPMorganChase.' : "https://cdn.brandfetch.io/jpmorgan.com/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed"
 
 
 
@@ -78,7 +79,6 @@ const COMPANY_DOMAINS = {
   'Hale Partnership Capital Management, LLC.' : "halepartnership.com",
   'Dragonfly Capital Partners, LLC' : "dragonflycapital.com",
   'Boston Consulting Group (BCG)' : 'bcg.com',
-  'JPMorganChase.' : "https://cdn.brandfetch.io/jpmorgan.com/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed",
 
   
 
