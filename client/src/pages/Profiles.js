@@ -116,6 +116,7 @@ export default function Profiles() {
           if (nextPairRef.current) {
             setSelectedPair(nextPairRef.current);
             nextPairRef.current = null;
+            setCardsVisible(true); // Make cards visible immediately after setting new data
           } else {
             // Fallback if fetching next pair failed or was slow
             console.warn("Next pair not ready, re-fetching..."); // Add warning
@@ -123,13 +124,13 @@ export default function Profiles() {
             return; // Exit early as fetchAndSetRandomPair manages UI
           }
           
-          // Fade-in the new cards
-          setTimeout(() => {
-            setCardsVisible(true);
-          }, 50); // Short delay for fade-in start (reduced from 100)
+          // REMOVED nested timeout for setting visibility
+          // setTimeout(() => {
+          //   setCardsVisible(true);
+          // }, 50); 
         }, 300); // Wait for fade-out (match CSS transition duration)
         
-      }, 1000); // Fixed 1-second delay after winner is selected (changed from 2000)
+      }, 1000); // Fixed 1-second delay after winner is selected
       
       // Cleanup function for the effect
       return () => {
