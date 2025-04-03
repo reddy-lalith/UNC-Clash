@@ -1,8 +1,8 @@
 /* client/src/styles/constructionBanner.css */
 .construction-banner {
-  /* background-color: rgba(16, 185, 129, 0.9); */ /* Previous semi-transparent green */
-  background-color: rgba(186, 230, 253, 0.2); /* Very transparent light blue (adjust alpha as needed) */
-  color: #0369a1; /* Darker blue text for better contrast on light background */
+  /* background-color: #10b981; */ /* Original Green */
+  background-color: rgba(16, 185, 129, 0.9); /* Green with 90% opacity */
+  color: #ffffff; /* White text */
   text-align: center;
   padding: 10px 0;
   font-weight: bold;
