@@ -38,6 +38,11 @@ app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// --- Serve Static Files from React Build ---
+// This needs to be defined BEFORE your API routes
+// Adjust the path if your build directory is different
+app.use(express.static(path.join(__dirname, '../client/build')));
+
 // --- JWT Authentication Middleware ---
 const authenticateJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -308,6 +313,14 @@ app.post('/api/profiles/reset-all-elo', authenticateJWT, async (req, res) => {
     console.error('Error resetting ELO scores:', error);
     res.status(500).json({ success: false, error: 'Failed to reset ELO scores' });
   }
+});
+
+// --- Fallback for Client-Side Routing ---
+// This should be defined AFTER all API routes
+// It ensures that any GET request not matching an API route or a static file
+// is served the main index.html file, allowing React Router to handle it.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
 // Basic Error Handling Middleware
