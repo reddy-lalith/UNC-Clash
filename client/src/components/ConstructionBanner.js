@@ -6,16 +6,18 @@ const ConstructionBanner = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
+    // Calculate the target time: 30 minutes from when the component mounts
+    const targetTime = new Date(Date.now() + 30 * 60 * 1000);
+    let timer;
+
     const calculateTimeLeft = () => {
       const now = new Date();
-      const targetTime = new Date();
-      targetTime.setHours(22, 0, 0, 0); // Set target to 10:00:00 PM today
 
       const difference = targetTime - now;
 
       if (difference <= 0) {
         setTimeLeft('The wait is over!');
-        setIsVisible(false); // Hide the banner after 10 PM
+        setIsVisible(false); // Hide the banner after 30 minutes
         clearInterval(timer); // Stop the interval
         return; // Exit if target time has passed
       }
@@ -32,7 +34,7 @@ const ConstructionBanner = () => {
     };
 
     calculateTimeLeft(); // Initial calculation
-    const timer = setInterval(calculateTimeLeft, 1000); // Update every second
+    timer = setInterval(calculateTimeLeft, 1000); // Update every second
 
     // Cleanup interval on component unmount
     return () => clearInterval(timer);
