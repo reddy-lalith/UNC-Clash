@@ -9,6 +9,7 @@ export default function Profiles() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [battleResult, setBattleResult] = useState(null);
+  const [currentBattleToken, setCurrentBattleToken] = useState(null);
   const [selectedPair, setSelectedPair] = useState([
     {
       _id: 'placeholder1',
@@ -51,16 +52,15 @@ export default function Profiles() {
       
       const loadInitialData = async () => {
         try {
-          const data = await api.getProfiles();
+          const { profiles, battleToken } = await api.getBattlePair();
           
-          if (!data || data.length < 2) {
-            setError('Not enough profiles for a battle');
+          if (!profiles || profiles.length < 2 || !battleToken) {
+            setError('Failed to load initial battle data');
             return;
           }
           
-          const shuffled = [...data].sort(() => 0.5 - Math.random());
-          
-          setSelectedPair(shuffled.slice(0, 2));
+          setSelectedPair(profiles);
+          setCurrentBattleToken(battleToken);
           setInitialDataLoaded(true);
           
           setTimeout(() => {
@@ -93,17 +93,22 @@ export default function Profiles() {
       transitionTimeoutRef.current = setTimeout(() => {
         console.log("Transition timeout fired. Fetching next pair...");
         
-        // Fetch next pair in background
-        // TODO: Consider moving this fetch inside the state update timeout if flicker persists
-        api.getProfiles().then(data => {
-          if (data && data.length >= 2) {
-            nextPairRef.current = [...data]
-              .sort(() => 0.5 - Math.random())
-              .slice(0, 2);
+        // Fetch next pair and token in background
+        // Reset ref first
+        nextPairRef.current = null; 
+        api.getBattlePair().then(data => {
+          if (data && data.profiles && data.battleToken) {
+            nextPairRef.current = data; // Store { profiles, battleToken }
+          } else {
+            console.error("Failed to fetch next battle pair or token.");
+            // Handle error? Maybe try again?
           }
+        }).catch(err => {
+           console.error("Error fetching next battle pair:", err);
+           // Optionally set an error state
         });
         
-        // Start fade-out animation for current cards
+        // Reset states for the new pair AFTER fade-out
         setCardsVisible(false);
         
         // After fade-out, update state for next pair and fade-in
@@ -114,7 +119,8 @@ export default function Profiles() {
           setReadyToEndClash(false); // Reset the ready flag
           
           if (nextPairRef.current) {
-            setSelectedPair(nextPairRef.current);
+            setSelectedPair(nextPairRef.current.profiles); // Use profiles from ref
+            setCurrentBattleToken(nextPairRef.current.battleToken); // Use token from ref
             nextPairRef.current = null;
           } else {
             // Fallback if fetching next pair failed or was slow
@@ -147,17 +153,16 @@ export default function Profiles() {
       
       setCardsVisible(false);
       
-      const data = await api.getProfiles();
+      const { profiles, battleToken } = await api.getBattlePair();
       
-      if (!data || data.length < 2) {
-        setError('Not enough profiles for a battle');
+      if (!profiles || profiles.length < 2 || !battleToken) {
+        setError('Not enough profiles for a battle or failed to get token');
         return;
       }
 
-      const shuffled = [...data].sort(() => 0.5 - Math.random());
-      
       setTimeout(() => {
-        setSelectedPair(shuffled.slice(0, 2));
+        setSelectedPair(profiles);
+        setCurrentBattleToken(battleToken);
         setBattleResult(null);
         
         setTimeout(() => {
@@ -183,7 +188,7 @@ export default function Profiles() {
       setShowIdentities(true);
 
       // Call the backend endpoint to record the battle and get updated profiles
-      const result = await api.recordBattleResult(winnerId, loserId);
+      const result = await api.recordBattleResult(winnerId, loserId, currentBattleToken);
       const updatedWinner = result.winner;
       const updatedLoser = result.loser;
 

@@ -10,8 +10,18 @@ const Profile = require('./models/Profile');
 const Company = require('./models/Company');
 const { getOrCreateCompany } = require('./utils/companyUtils');
 const path = require('path');
+const crypto = require('crypto'); // Import crypto for token generation
 const app = express();
 const PORT = process.env.PORT || 4000;
+
+// --- In-Memory Store for Pending Battles ---
+// NOTE: This will not persist across server restarts.
+// For production, consider Redis or a database.
+const pendingBattles = {}; 
+const BATTLE_TOKEN_EXPIRY_MS = 5 * 60 * 1000; // 5 minutes validity
+
+// Function to generate secure tokens
+const generateBattleToken = () => crypto.randomBytes(16).toString('hex');
 
 // --- Security Middleware ---
 app.use(helmet());
@@ -329,20 +339,91 @@ const calculateEloChange = (winnerElo, loserElo, kFactor = 32) => {
   };
 };
 
-// Make this route PUBLIC by removing the authenticateJWT middleware
-app.post('/api/battles/record', async (req, res) => {
+// NEW Endpoint: Get a pair of profiles and a battle token
+app.get('/api/battle/pair', async (req, res) => {
   try {
-    const { winnerId, loserId } = req.body;
-
-    if (!winnerId || !loserId) {
-      return res.status(400).json({ error: 'Missing winnerId or loserId' });
+    // Fetch two distinct random profiles
+    const profiles = await Profile.aggregate([{ $sample: { size: 2 } }]);
+    if (!profiles || profiles.length < 2) {
+      return res.status(500).json({ error: 'Could not fetch enough profiles for a battle' });
     }
 
+    const [profile1, profile2] = profiles;
+    const battleToken = generateBattleToken();
+    const expiresAt = Date.now() + BATTLE_TOKEN_EXPIRY_MS;
+
+    // Store the pending battle information
+    pendingBattles[battleToken] = {
+      profile1Id: profile1._id.toString(),
+      profile2Id: profile2._id.toString(),
+      expiresAt
+    };
+
+    // Optional: Clean up expired tokens periodically (simple example)
+    // A more robust cleanup would run on a timer
+    for (const token in pendingBattles) {
+      if (pendingBattles[token].expiresAt < Date.now()) {
+        delete pendingBattles[token];
+      }
+    }
+
+    console.log(`Issued battle token ${battleToken} for ${profile1.name} vs ${profile2.name}`);
+
+    // Return the profiles and the token
+    res.json({ profiles: [profile1, profile2], battleToken });
+
+  } catch (error) {
+    console.error('Error fetching battle pair:', error);
+    res.status(500).json({ error: 'Failed to fetch battle pair' });
+  }
+});
+
+// Modified: Record Battle Result (Now requires Battle Token)
+// Removed authenticateJWT, added token validation
+app.post('/api/battles/record', async (req, res) => {
+  try {
+    // Get token and IDs from request body
+    const { winnerId, loserId, battleToken } = req.body;
+
+    if (!winnerId || !loserId || !battleToken) {
+      return res.status(400).json({ error: 'Missing winnerId, loserId, or battleToken' });
+    }
+
+    // --- Battle Token Validation ---
+    const battleInfo = pendingBattles[battleToken];
+    if (!battleInfo) {
+      console.warn(`Invalid or unknown battle token received: ${battleToken}`);
+      return res.status(403).json({ error: 'Invalid or expired battle token' });
+    }
+
+    // Check expiry
+    if (battleInfo.expiresAt < Date.now()) {
+      console.warn(`Expired battle token received: ${battleToken}`);
+      delete pendingBattles[battleToken]; // Clean up expired token
+      return res.status(403).json({ error: 'Invalid or expired battle token' });
+    }
+
+    // Check if IDs match the ones associated with the token
+    const expectedIds = [battleInfo.profile1Id, battleInfo.profile2Id];
+    if (!expectedIds.includes(winnerId) || !expectedIds.includes(loserId) || winnerId === loserId ) {
+      console.warn(`Battle token ${battleToken} used with mismatched IDs: ${winnerId}, ${loserId}. Expected: ${expectedIds}`);
+      // Keep token valid for now in case of client error, but reject request
+      return res.status(400).json({ error: 'Submitted profile IDs do not match the battle token' });
+    }
+
+    // --- Token is valid - consume it immediately ---
+    delete pendingBattles[battleToken];
+    console.log(`Consumed valid battle token: ${battleToken}`);
+    // -----------------------------
+
+    // --- Proceed with existing Elo update logic ---
     const winner = await Profile.findById(winnerId);
     const loser = await Profile.findById(loserId);
 
     if (!winner || !loser) {
-      return res.status(404).json({ error: 'Winner or loser profile not found' });
+      // This case should be rare if token validation worked, but good to keep
+      console.error(`Profile not found after valid token: Winner ${winnerId}, Loser ${loserId}`);
+      return res.status(404).json({ error: 'Winner or loser profile not found (internal error)' });
     }
 
     const { winnerNewElo, loserNewElo } = calculateEloChange(winner.elo, loser.elo);
@@ -353,7 +434,7 @@ app.post('/api/battles/record', async (req, res) => {
     await winner.save();
     await loser.save();
 
-    console.log(`Battle recorded: Winner ${winner.name} (${winnerNewElo}), Loser ${loser.name} (${loserNewElo})`);
+    console.log(`Battle recorded via token: Winner ${winner.name} (${winnerNewElo}), Loser ${loser.name} (${loserNewElo})`);
 
     // Return updated profiles
     res.json({ winner, loser });
