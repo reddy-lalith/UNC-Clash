@@ -1,7 +1,7 @@
 /* client/src/styles/constructionBanner.css */
 .construction-banner {
-  background-color: #ffcc00; /* Yellow background */
-  color: #333; /* Dark text */
+  background-color: #10b981; /* Green background (using --success color variable) */
+  color: #ffffff; /* White text */
   text-align: center;
   padding: 10px 0;
   font-weight: bold;
