@@ -1,6 +1,7 @@
 /* client/src/styles/constructionBanner.css */
 .construction-banner {
-  background-color: #10b981; /* Green background (using --success color variable) */
+  /* background-color: #10b981; */ /* Original Green */
+  background-color: rgba(16, 185, 129, 0.9); /* Green with 90% opacity */
   color: #ffffff; /* White text */
   text-align: center;
   padding: 10px 0;
