@@ -6,8 +6,6 @@ const ConstructionBanner = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    let timer; // Declare timer variable here using let
-
     const calculateTimeLeft = () => {
       const now = new Date();
       const targetTime = new Date();
@@ -18,10 +16,7 @@ const ConstructionBanner = () => {
       if (difference <= 0) {
         setTimeLeft('The wait is over!');
         setIsVisible(false); // Hide the banner after 10 PM
-        // Check if timer has been assigned before clearing
-        if (timer) {
-          clearInterval(timer);
-        }
+        clearInterval(timer); // Stop the interval
         return; // Exit if target time has passed
       }
 
@@ -37,15 +32,10 @@ const ConstructionBanner = () => {
     };
 
     calculateTimeLeft(); // Initial calculation
-    timer = setInterval(calculateTimeLeft, 1000); // Assign the interval ID to the pre-declared variable
+    const timer = setInterval(calculateTimeLeft, 1000); // Update every second
 
     // Cleanup interval on component unmount
-    return () => {
-      // Check if timer has been assigned before clearing
-      if (timer) {
-        clearInterval(timer);
-      }
-    };
+    return () => clearInterval(timer);
   }, []); // Empty dependency array ensures this runs only once on mount
 
   if (!isVisible) {
