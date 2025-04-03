@@ -94,6 +94,7 @@ export default function Profiles() {
         console.log("Transition timeout fired. Fetching next pair...");
         
         // Fetch next pair in background
+        // TODO: Consider moving this fetch inside the state update timeout if flicker persists
         api.getProfiles().then(data => {
           if (data && data.length >= 2) {
             nextPairRef.current = [...data]
@@ -101,6 +102,11 @@ export default function Profiles() {
               .slice(0, 2);
           }
         });
+        
+        // Reset states for the new pair FIRST
+        setBattleResult(null);
+        setShowIdentities(false);
+        setReadyToEndClash(false); // Reset the ready flag
         
         // Start fade-out animation for current cards
         setCardsVisible(false);
@@ -112,19 +118,15 @@ export default function Profiles() {
             nextPairRef.current = null;
           } else {
             // Fallback if fetching next pair failed or was slow
-            fetchAndSetRandomPair(); 
-            return;
+            console.warn("Next pair not ready, re-fetching..."); // Add warning
+            fetchAndSetRandomPair(); // This function handles its own loading/visibility
+            return; // Exit early as fetchAndSetRandomPair manages UI
           }
-          
-          // Reset states for the new pair
-          setBattleResult(null);
-          setShowIdentities(false);
-          setReadyToEndClash(false); // Reset the ready flag
           
           // Fade-in the new cards
           setTimeout(() => {
             setCardsVisible(true);
-          }, 100); // Short delay for fade-in start
+          }, 50); // Short delay for fade-in start (reduced from 100)
         }, 300); // Wait for fade-out (match CSS transition duration)
         
       }, 1000); // Fixed 1-second delay after winner is selected (changed from 2000)
@@ -187,14 +189,18 @@ export default function Profiles() {
 
       // Calculate the change locally just for display (backend is source of truth)
       const originalWinner = selectedPair.find(p => p._id === winnerId);
-      // Calculate elo change based on updated data from backend
-      const eloChange = updatedWinner.elo - (originalWinner?.elo || 1000); 
+      const originalLoser = selectedPair.find(p => p._id === loserId); // Need original loser too
+      
+      // Calculate elo changes based on updated data from backend
+      const winnerEloChange = updatedWinner.elo - (originalWinner?.elo || 1000); 
+      const loserEloChange = updatedLoser.elo - (originalLoser?.elo || 1000); // Correctly calculate loser change
 
       // Set the battle result for UI updates using updated data
       setBattleResult({
         winner: updatedWinner,
         loser: updatedLoser,
-        eloChange: eloChange // Display the calculated change
+        winnerEloChange: winnerEloChange, // Store winner change
+        loserEloChange: loserEloChange   // Store loser change
       });
 
       // Save battle to local storage using updated data
@@ -206,10 +212,6 @@ export default function Profiles() {
         return 'Unknown Company';
       };
 
-      // Calculate loser change based on updated data for local storage
-      const originalLoser = selectedPair.find(p => p._id === loserId);
-      const loserEloChange = updatedLoser.elo - (originalLoser?.elo || 1000);
-
       const battleRecord = {
         id: Date.now(),
         date: new Date().toISOString(),
@@ -217,7 +219,7 @@ export default function Profiles() {
           id: updatedWinner._id,
           name: updatedWinner.name,
           company: getCompany(updatedWinner),
-          eloChange: eloChange, // Use calculated change
+          eloChange: winnerEloChange, // Use calculated winner change
           profilePictureUrl: updatedWinner.profilePictureUrl || null,
           linkedinUrl: updatedWinner.linkedinUrl || null
         },
@@ -322,8 +324,8 @@ export default function Profiles() {
                 profile={profile}
                 showIdentity={showIdentities} 
                 eloChange={
-                  battleResult?.winner?._id === profile._id ? 0 :
-                  battleResult?.loser?._id === profile._id ? 0 :
+                  battleResult?.winner?._id === profile._id ? battleResult.winnerEloChange :
+                  battleResult?.loser?._id === profile._id ? battleResult.loserEloChange :
                   null
                 }
                 isWinner={battleResult?.winner?._id === profile._id}
