@@ -116,7 +116,6 @@ export default function Profiles() {
           if (nextPairRef.current) {
             setSelectedPair(nextPairRef.current);
             nextPairRef.current = null;
-            setCardsVisible(true); // Make cards visible immediately after setting new data
           } else {
             // Fallback if fetching next pair failed or was slow
             console.warn("Next pair not ready, re-fetching..."); // Add warning
@@ -124,13 +123,13 @@ export default function Profiles() {
             return; // Exit early as fetchAndSetRandomPair manages UI
           }
           
-          // REMOVED nested timeout for setting visibility
-          // setTimeout(() => {
-          //   setCardsVisible(true);
-          // }, 50); 
+          // Fade-in the new cards
+          setTimeout(() => {
+            setCardsVisible(true);
+          }, 50); // Short delay for fade-in start (reduced from 100)
         }, 300); // Wait for fade-out (match CSS transition duration)
         
-      }, 1000); // Fixed 1-second delay after winner is selected
+      }, 1000); // Fixed 1-second delay after winner is selected (changed from 2000)
       
       // Cleanup function for the effect
       return () => {
@@ -188,15 +187,23 @@ export default function Profiles() {
       const updatedWinner = result.winner;
       const updatedLoser = result.loser;
 
-      // Set the battle result for UI updates (without Elo change data)
+      // Calculate the change locally just for display (backend is source of truth)
+      const originalWinner = selectedPair.find(p => p._id === winnerId);
+      const originalLoser = selectedPair.find(p => p._id === loserId); // Need original loser too
+      
+      // Calculate elo changes based on updated data from backend
+      const winnerEloChange = updatedWinner.elo - (originalWinner?.elo || 1000); 
+      const loserEloChange = updatedLoser.elo - (originalLoser?.elo || 1000); // Correctly calculate loser change
+
+      // Set the battle result for UI updates using updated data
       setBattleResult({
         winner: updatedWinner,
         loser: updatedLoser,
-        // winnerEloChange: null, // Remove Elo change properties
-        // loserEloChange: null
+        winnerEloChange: winnerEloChange, // Store winner change
+        loserEloChange: loserEloChange   // Store loser change
       });
 
-      // Save battle to local storage (without Elo change data)
+      // Save battle to local storage using updated data
       const getCompany = (profile) => {
         if (profile.experiences && profile.experiences.length > 0) {
           return profile.experiences[0].company || 'Unknown Company';
@@ -212,7 +219,7 @@ export default function Profiles() {
           id: updatedWinner._id,
           name: updatedWinner.name,
           company: getCompany(updatedWinner),
-          // eloChange: null, // Remove Elo change
+          eloChange: winnerEloChange, // Use calculated winner change
           profilePictureUrl: updatedWinner.profilePictureUrl || null,
           linkedinUrl: updatedWinner.linkedinUrl || null
         },
@@ -220,7 +227,7 @@ export default function Profiles() {
           id: updatedLoser._id,
           name: updatedLoser.name,
           company: getCompany(updatedLoser),
-          // eloChange: null, // Remove Elo change
+          eloChange: loserEloChange, // Use calculated loser change
           profilePictureUrl: updatedLoser.profilePictureUrl || null,
           linkedinUrl: updatedLoser.linkedinUrl || null
         }
@@ -316,7 +323,11 @@ export default function Profiles() {
               <ConnectionCard 
                 profile={profile}
                 showIdentity={showIdentities} 
-                eloChange={null} // Always pass null for eloChange
+                eloChange={
+                  battleResult?.winner?._id === profile._id ? battleResult.winnerEloChange :
+                  battleResult?.loser?._id === profile._id ? battleResult.loserEloChange :
+                  null
+                }
                 isWinner={battleResult?.winner?._id === profile._id}
                 isLoading={loading || initialLoading}
               />
