@@ -40,7 +40,7 @@ function App() {
         {showOptMessage && (
           <div className="opt-message-overlay" onClick={() => setShowOptMessage(false)}>
             <div className="opt-message" onClick={(e) => e.stopPropagation()}>
-              <p>Email me at lalith@unc.edu with your unc.edu email and I will remove or add you without any questions.</p>
+              <p>if you want to opt out or opt in send me an email at lalith@unc.edu</p>
               <button onClick={() => setShowOptMessage(false)}>Close</button>
             </div>
           </div>
