@@ -187,23 +187,15 @@ export default function Profiles() {
       const updatedWinner = result.winner;
       const updatedLoser = result.loser;
 
-      // Calculate the change locally just for display (backend is source of truth)
-      const originalWinner = selectedPair.find(p => p._id === winnerId);
-      const originalLoser = selectedPair.find(p => p._id === loserId); // Need original loser too
-      
-      // Calculate elo changes based on updated data from backend
-      const winnerEloChange = updatedWinner.elo - (originalWinner?.elo || 1000); 
-      const loserEloChange = updatedLoser.elo - (originalLoser?.elo || 1000); // Correctly calculate loser change
-
-      // Set the battle result for UI updates using updated data
+      // Set the battle result for UI updates (without Elo change data)
       setBattleResult({
         winner: updatedWinner,
         loser: updatedLoser,
-        winnerEloChange: winnerEloChange, // Store winner change
-        loserEloChange: loserEloChange   // Store loser change
+        // winnerEloChange: null, // Remove Elo change properties
+        // loserEloChange: null
       });
 
-      // Save battle to local storage using updated data
+      // Save battle to local storage (without Elo change data)
       const getCompany = (profile) => {
         if (profile.experiences && profile.experiences.length > 0) {
           return profile.experiences[0].company || 'Unknown Company';
@@ -219,7 +211,7 @@ export default function Profiles() {
           id: updatedWinner._id,
           name: updatedWinner.name,
           company: getCompany(updatedWinner),
-          eloChange: winnerEloChange, // Use calculated winner change
+          // eloChange: null, // Remove Elo change
           profilePictureUrl: updatedWinner.profilePictureUrl || null,
           linkedinUrl: updatedWinner.linkedinUrl || null
         },
@@ -227,7 +219,7 @@ export default function Profiles() {
           id: updatedLoser._id,
           name: updatedLoser.name,
           company: getCompany(updatedLoser),
-          eloChange: loserEloChange, // Use calculated loser change
+          // eloChange: null, // Remove Elo change
           profilePictureUrl: updatedLoser.profilePictureUrl || null,
           linkedinUrl: updatedLoser.linkedinUrl || null
         }
@@ -323,11 +315,7 @@ export default function Profiles() {
               <ConnectionCard 
                 profile={profile}
                 showIdentity={showIdentities} 
-                eloChange={
-                  battleResult?.winner?._id === profile._id ? battleResult.winnerEloChange :
-                  battleResult?.loser?._id === profile._id ? battleResult.loserEloChange :
-                  null
-                }
+                eloChange={null} // Always pass null for eloChange
                 isWinner={battleResult?.winner?._id === profile._id}
                 isLoading={loading || initialLoading}
               />

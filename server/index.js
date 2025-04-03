@@ -345,17 +345,16 @@ app.post('/api/battles/record', async (req, res) => {
       return res.status(404).json({ error: 'Winner or loser profile not found' });
     }
 
-    const { winnerNewElo, loserNewElo } = calculateEloChange(winner.elo, loser.elo);
+    // --- REMOVED ELO CALCULATION AND SAVING ---
+    // const { winnerNewElo, loserNewElo } = calculateEloChange(winner.elo, loser.elo);
+    // winner.elo = winnerNewElo;
+    // loser.elo = loserNewElo;
+    // await winner.save();
+    // await loser.save();
+    
+    console.log(`Battle vote received: Winner ${winner.name}, Loser ${loser.name} (Elo NOT updated)`);
 
-    winner.elo = winnerNewElo;
-    loser.elo = loserNewElo;
-
-    await winner.save();
-    await loser.save();
-
-    console.log(`Battle recorded: Winner ${winner.name} (${winnerNewElo}), Loser ${loser.name} (${loserNewElo})`);
-
-    // Return updated profiles
+    // Return original profiles (without Elo update)
     res.json({ winner, loser });
 
   } catch (error) {
