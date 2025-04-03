@@ -85,7 +85,7 @@ export default function Profiles() {
       transitionTimeoutRef.current = null;
     }
     
-    // Only condition now is if the clash is ready to end
+    // Only trigger the transition effect if readyToEndClash is true
     if (readyToEndClash) {
       console.log("Starting transition with 1-second timer...");
       
@@ -103,16 +103,16 @@ export default function Profiles() {
           }
         });
         
-        // Reset states for the new pair FIRST
-        setBattleResult(null);
-        setShowIdentities(false);
-        setReadyToEndClash(false); // Reset the ready flag
-        
         // Start fade-out animation for current cards
         setCardsVisible(false);
         
         // After fade-out, update state for next pair and fade-in
         setTimeout(() => {
+          // Reset states for the new pair AFTER fade-out
+          setBattleResult(null);
+          setShowIdentities(false);
+          setReadyToEndClash(false); // Reset the ready flag
+          
           if (nextPairRef.current) {
             setSelectedPair(nextPairRef.current);
             nextPairRef.current = null;
