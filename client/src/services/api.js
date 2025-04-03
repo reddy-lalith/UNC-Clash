@@ -55,22 +55,5 @@ export const api = {
       console.error('Error fetching leaderboard:', error);
       return [];
     }
-  },
-
-  // New function to record battle results
-  async recordBattleResult(winnerId, loserId) {
-    const response = await fetch(`${API_URL}/battles/record`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ winnerId, loserId })
-    });
-    if (!response.ok) {
-      // Handle API errors (e.g., 400, 404, 500)
-      const errorData = await response.json();
-      throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
-    }
-    return response.json(); // Returns { winner: updatedWinnerProfile, loser: updatedLoserProfile }
   }
 }; 

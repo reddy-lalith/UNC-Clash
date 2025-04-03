@@ -170,78 +170,73 @@ export default function Profiles() {
     }
   };
 
-  const handleBattle = async (winnerId, loserId) => {
+  const handleBattle = (winnerId, loserId) => {
     // Avoid double-clicks or processing during transition
     if (readyToEndClash || loading) return;
 
     setLoading(true);
-
-    try {
-      // Immediately show identities
-      setShowIdentities(true);
-
-      // Call the new backend endpoint to record the battle and get updated profiles
-      const result = await api.recordBattleResult(winnerId, loserId);
-      const updatedWinner = result.winner;
-      const updatedLoser = result.loser;
-
-      // Calculate the change locally just for display (backend is source of truth)
-      const originalWinner = selectedPair.find(p => p._id === winnerId);
-      const eloChange = updatedWinner.elo - (originalWinner.elo || 1000);
-
-      // Set the battle result for UI updates
-      setBattleResult({
-        winner: updatedWinner,
-        loser: updatedLoser,
-        eloChange: eloChange // Display the calculated change
-      });
-
-      // Save battle to local storage
-      const getCompany = (profile) => {
-        if (profile.experiences && profile.experiences.length > 0) {
-          return profile.experiences[0].company || 'Unknown Company';
-        }
-        if (profile.company) return profile.company;
-        return 'Unknown Company';
-      };
-
-      const battleRecord = {
-        id: Date.now(),
-        date: new Date().toISOString(),
-        winner: {
-          id: updatedWinner._id,
-          name: updatedWinner.name,
-          company: getCompany(updatedWinner),
-          eloChange: eloChange, // Use locally calculated display change
-          profilePictureUrl: updatedWinner.profilePictureUrl || null,
-          linkedinUrl: updatedWinner.linkedinUrl || null
-        },
-        loser: {
-          id: updatedLoser._id,
-          name: updatedLoser.name,
-          company: getCompany(updatedLoser),
-          eloChange: updatedLoser.elo - (selectedPair.find(p => p._id === loserId)?.elo || 1000), // Calculate loser change for display
-          profilePictureUrl: updatedLoser.profilePictureUrl || null,
-          linkedinUrl: updatedLoser.linkedinUrl || null
-        }
-      };
-
-      const existingBattles = JSON.parse(localStorage.getItem('battleHistory') || '[]');
-      const updatedBattles = [battleRecord, ...existingBattles].slice(0, 10);
-      localStorage.setItem('battleHistory', JSON.stringify(updatedBattles));
-      console.log('Battle saved to history:', battleRecord);
-
-      // Set ready flag to trigger the timer to next clash
-      setReadyToEndClash(true);
-
-    } catch (err) {
-      console.error('Error handling battle:', err);
-      setError(err.message || 'Failed to record battle result');
-      // Optionally reset UI or show error message
-      setShowIdentities(false); // Re-hide if API call failed
-    } finally {
-      setLoading(false); // Ensure loading state is reset
+    
+    // Find the winner and loser from the current pair
+    const winner = selectedPair.find(p => p._id === winnerId);
+    const loser = selectedPair.find(p => p._id === loserId);
+    
+    if (!winner || !loser) {
+      console.error("Could not find winner or loser in selected pair");
+      setError("An error occurred determining the winner/loser.");
+      setLoading(false);
+      return;
     }
+    
+    // Immediately show identities
+    setShowIdentities(true);
+
+    // Display a simplified battle result (no real Elo change shown)
+    setBattleResult({
+      winner: winner,
+      loser: loser,
+      // eloChange: 0 // Can optionally show 0 or remove this display
+    });
+
+    // Save battle to local storage (using current data, as no backend update)
+    const getCompany = (profile) => {
+      if (profile.experiences && profile.experiences.length > 0) {
+        return profile.experiences[0].company || 'Unknown Company';
+      }
+      if (profile.company) return profile.company;
+      return 'Unknown Company';
+    };
+
+    const battleRecord = {
+      id: Date.now(),
+      date: new Date().toISOString(),
+      winner: {
+        id: winner._id,
+        name: winner.name,
+        company: getCompany(winner),
+        // eloChange: 0, // No real change to show
+        profilePictureUrl: winner.profilePictureUrl || null,
+        linkedinUrl: winner.linkedinUrl || null
+      },
+      loser: {
+        id: loser._id,
+        name: loser.name,
+        company: getCompany(loser),
+        // eloChange: 0, // No real change to show
+        profilePictureUrl: loser.profilePictureUrl || null,
+        linkedinUrl: loser.linkedinUrl || null
+      }
+    };
+
+    const existingBattles = JSON.parse(localStorage.getItem('battleHistory') || '[]');
+    const updatedBattles = [battleRecord, ...existingBattles].slice(0, 10);
+    localStorage.setItem('battleHistory', JSON.stringify(updatedBattles));
+    console.log('Battle saved to local history (no backend update):', battleRecord);
+
+    // Set ready flag to trigger the timer to next clash
+    setReadyToEndClash(true);
+
+    // No error handling needed for API call anymore
+    setLoading(false); // Ensure loading state is reset
   };
 
   const handleTie = () => {
@@ -317,8 +312,8 @@ export default function Profiles() {
                 profile={profile}
                 showIdentity={showIdentities} 
                 eloChange={
-                  battleResult?.winner?._id === profile._id ? battleResult.eloChange :
-                  battleResult?.loser?._id === profile._id ? -battleResult.eloChange :
+                  battleResult?.winner?._id === profile._id ? 0 :
+                  battleResult?.loser?._id === profile._id ? 0 :
                   null
                 }
                 isWinner={battleResult?.winner?._id === profile._id}
