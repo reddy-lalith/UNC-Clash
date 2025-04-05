@@ -37,7 +37,10 @@ const CUSTOM_LOGOS = {
   'Voicera AI' : 'https://media.licdn.com/dms/image/v2/D4D0BAQGYg4IyLohhcg/company-logo_100_100/company-logo_100_100/0/1736985125633/voiceraai_logo?e=1749081600&v=beta&t=H0kFY_fkewZJktBrwYtbKdngTOT06II7QJjgSe9sI9s',
   'McKinsey & Company' : 'https://avatars.githubusercontent.com/u/4265350?s=280&v=4',
   'MTN Capital Partners LLC' : 'https://media.licdn.com/dms/image/v2/C4E0BAQHTwCfITl9phw/company-logo_100_100/company-logo_100_100/0/1630598736555/mtn_capital_partners_llc_logo?e=1749081600&v=beta&t=uu2e0ODVeoijcNwPNjP-KuBGjoIZw5dgEueSZz3FeQw',
-  'JPMorganChase.' : "https://cdn.brandfetch.io/jpmorgan.com/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed"
+  'JPMorganChase.' : "https://cdn.brandfetch.io/jpmorgan.com/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed",
+  'Boston Consulting Group (BCG)' : 'https://media.licdn.com/dms/image/v2/D4E0BAQE_RmtwzBSpAg/company-logo_100_100/company-logo_100_100/0/1702568604682/boston_consulting_group_logo?e=1749081600&v=beta&t=9JlgkQV7t7ORMLUPJDhaf0q2hHDRLe44ZhDqUBVwxqg',
+  'Morgan Creek Capital Management, LLC' : 'https://media.licdn.com/dms/image/v2/C560BAQHN55vz7tjrfA/company-logo_200_200/company-logo_200_200/0/1631350068324?e=1749081600&v=beta&t=XU3tTyBlHrkRUlkzQoLOL8KOqfCW_-LtQ2z1soD4_kI'
+
 
 
 
@@ -78,15 +81,14 @@ const COMPANY_DOMAINS = {
   'Amazon Web Services (AWS)' : 'aws.amazon.com', 
   'Hale Partnership Capital Management, LLC.' : "halepartnership.com",
   'Dragonfly Capital Partners, LLC' : "dragonflycapital.com",
-  'Boston Consulting Group (BCG)' : 'bcg.com',
-
+  'MTN Capital Partners LLC' : 'https://media.licdn.com/dms/image/v2/C4E0BAQHTwCfITl9phw/company-logo_200_200/company-logo_200_200/0/1630598736555/mtn_capital_partners_llc_logo?e=1749081600&v=beta&t=nEJVx-Mq3GR2ckZfVZxWaSy2jzd8moupa7_i0qZ7PbQ'
   
 
 
 
 
  
-  // Add more only when the default approach doesn't work
+  // Add more only when the default approach doesn't works
 };
 
 async function getOrCreateCompany(companyName, forceRefresh = false) {

@@ -16,7 +16,7 @@ const Leaderboard = ({ profiles, onBack }) => {
     }
   };
   
-  // Generate avatar URL based on name as fallback
+  /// Generate avatar URL based on name as fallbacks
   const getAvatarUrl = (name) => {
     return `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&size=64`;
   };
