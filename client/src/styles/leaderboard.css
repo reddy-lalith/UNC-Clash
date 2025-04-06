@@ -841,3 +841,20 @@
 /* Remove original full-page .leaderboard styles if they exist and conflict */
 
 /* Final Check: Ensure theme variables are defined in index.css or similar */
+
+/* Ensure profile avatar and info are side-by-side */
+.leaderboard-section .profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Adjust gap as needed */
+  text-align: left; /* Ensure text aligns left */
+  padding-left: 0.5rem !important; /* Add some padding if needed */
+}
+
+/* Container for name, potentially other details */
+.leaderboard-section .profile-info {
+  display: flex;
+  flex-direction: column; /* Stack name/details vertically */
+  align-items: flex-start;
+  gap: 0.1rem;
+}
