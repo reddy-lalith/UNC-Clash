@@ -122,11 +122,28 @@ app.get('/api/profiles', async (req, res) => {
 app.get('/api/profiles/leaderboard', async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 10;
-    const profiles = await Profile.find().sort({ elo: -1 }).limit(limit);
-    console.log('Leaderboard profiles:', Array.isArray(profiles) ? `Found ${profiles.length} profiles` : `Not an array: ${typeof profiles}`);
+    const category = req.query.category; // 'business', 'cs_math', or undefined for overall
+
+    // Define major categories (case-insensitive matching)
+    const businessMajors = [/business/i, /finance/i, /marketing/i, /economics/i, /management/i, /accounting/i];
+    const csMathMajors = [/computer science/i, /mathematics/i, /statistics/i, /data science/i];
+
+    let filterQuery = {};
+    if (category === 'business') {
+      filterQuery = { 'education.majors': { $in: businessMajors } };
+    } else if (category === 'cs_math') {
+      filterQuery = { 'education.majors': { $in: csMathMajors } };
+    }
+    // If no category or unknown category, filterQuery remains {} (fetches all)
+
+    const profiles = await Profile.find(filterQuery)
+                                  .sort({ elo: -1 })
+                                  .limit(limit);
+                                  
+    console.log(`Leaderboard (${category || 'overall'}): Found ${profiles.length} profiles`);
     res.json(profiles || []);
   } catch (error) {
-    console.error('Leaderboard error:', error);
+    console.error(`Leaderboard error (${category || 'overall'}):`, error);
     res.status(500).json({ error: error.message });
   }
 });
