@@ -1,8 +1,9 @@
 /* client/src/styles/constructionBanner.css */
 .construction-banner {
   /* background-color: #10b981; */ /* Original Green */
-  background-color: rgba(16, 185, 129, 0.9); /* Green with 90% opacity */
-  color: #ffffff; /* White text */
+  /* background-color: rgba(16, 185, 129, 0.9); */ /* Green with 90% opacity */
+  background-color: #FFD700; /* Gold */
+  color: #333333; /* Darker text for better contrast on gold */
   text-align: center;
   padding: 10px 0;
   font-weight: bold;

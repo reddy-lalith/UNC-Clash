@@ -13,7 +13,7 @@ const ConstructionBanner = () => {
 
   return (
     <div className="construction-banner">
-       we are back. adding more people asap.
+       new update coming soon
     </div>
   );
 };
