@@ -14,51 +14,10 @@ import './styles/profiles.css';
 import './styles/leaderboard.css';
 
 function App() {
-  const [showOptMessage, setShowOptMessage] = useState(false);
+  // const [showOptMessage, setShowOptMessage] = useState(false); // No longer needed
 
-  return (
-    <ThemeProvider>
-      <Router>
-        <ConstructionBanner />
-        <DarkModeToggle />
-        <Routes>
-          <Route path="/" element={<Profiles />} />
-          <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route path="/battle-history" element={<BattleHistory />} />
-        </Routes>
-        
-        {/* Custom basePath to bypass AdBlock */}
-        <Analytics basePath="/monitor" />
-        <SpeedInsights basePath="/monitor" />
-        
-        {/* Opt-in/Opt-out Button */}
-        <div className="opt-button" onClick={() => setShowOptMessage(!showOptMessage)}>
-          Opt In/Out
-        </div>
-        
-        {/* Opt-in/Opt-out Message Overlay */}
-        {showOptMessage && (
-          <div className="opt-message-overlay" onClick={() => setShowOptMessage(false)}>
-            <div className="opt-message" onClick={(e) => e.stopPropagation()}>
-              <p>if you want to opt out or opt in send me an email at lalith@unc.edu</p>
-              <button onClick={() => setShowOptMessage(false)}>Close</button>
-            </div>
-          </div>
-        )}
-
-        {/* LinkedIn Credit Button */}
-        <a 
-          href="https://www.linkedin.com/in/lalithreddy/" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="linkedin-credit-button"
-        >
-          <FaLinkedin size={18} /> 
-          <span>Made by Lalith Reddy</span>
-        </a>
-      </Router>
-    </ThemeProvider>
-  );
+  // Return null or a minimal div to render nothing visible
+  return <div className="black-screen-placeholder"></div>; 
 }
 
 export default App;
