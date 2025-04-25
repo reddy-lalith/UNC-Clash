@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/monitor/:match*",
-      "destination": "https://www.uncclash.com/_vercel/:match*"
-    }
-  ]
-} 
